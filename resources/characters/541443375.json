@@ -1,0 +1,40 @@
+{
+  "4":
+  {
+    "0": 
+    {
+      "Level": 50,
+      "Cotton": [0, 0, 0],
+      "SkillLevel": 1,
+      "DesiredSocket": ["Bind", "Despair", "AutoHeal"],
+      "CorrentSocket":
+      {
+        "Bind": 3,
+        "Despair": 5,
+        "Cooldown": 1
+      }
+    },
+    "1":
+    {
+      "Level": 50,
+      "Cotton": [0, 100, 0],
+      "SkillLevel": 1
+    }
+  },
+  "8":
+  {
+    "0": 
+    {
+      "Level": 50,
+      "Cotton": [0, 0, 0],
+      "SkillLevel": 1,
+      "DesiredSocket": ["Bind", "Despair", "AutoHeal"],
+      "CorrentSocket":
+      {
+        "Bind": 3,
+        "Despair": 5,
+        "Cooldown": 1
+      }
+    }
+  }
+}
