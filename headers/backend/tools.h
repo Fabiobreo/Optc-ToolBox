@@ -6,6 +6,9 @@
 #include <QtWidgets>
 #include <iomanip>
 #include <sstream>
+#include <fstream>
+#include <mycharacter.h>
+#include <json.h>
 
 namespace Tools
 {
@@ -92,6 +95,11 @@ namespace Tools
     std::string parseBalanced(std::string& _stringToParse, char _charToBalance);
 
     std::string removeString(std::string _stringToParse, std::string _toRemove);
+
+
+    std::map<int, std::vector<MyCharacter*>> loadOwnedCharacters(std::vector<Character*> _characters, unsigned long _id);
+
+    void saveOwnedCharacters(std::vector<Character*> _characters, std::map<int, std::vector<MyCharacter*>> _myCharacters, unsigned long _id);
 }
 
 #endif // TOOLS_H

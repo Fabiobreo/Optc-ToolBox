@@ -22,13 +22,21 @@ public:
 signals:
     void changedOwnedState();
     void changeCharacterDetail(int _newId);
+    void changeEditMode();
 
 private slots:
-    void on_ownedBox_toggled(bool checked);
 
     void on_LeftButton_clicked();
 
     void on_RightButton_clicked();
+
+    void on_addCharacterButton_clicked();
+
+    void on_removeCharacterButton_clicked();
+
+    void editModeChangedDb();
+
+    void on_detailsTabWidget_currentChanged(int index);
 
 private:
 
@@ -46,13 +54,14 @@ private:
     void setSpecialTab(Character* _character);
     void setLimitBreakTab(Character* _character);
     void setEvolutionTab(Character* _character);
+    void setTandemTab(Character* _character);
 
     void removeTab(QString name);
     Ui::Details *ui;
     Utility* utility;
     short characterId;
     std::vector<Character*>* characters;
-    std::map<int, MyCharacter*>* myCharacters;
+    std::map<int, std::vector<MyCharacter*>>* myCharacters;
 };
 
 #endif // DETAILS_H

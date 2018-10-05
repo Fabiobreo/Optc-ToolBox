@@ -14,7 +14,7 @@ short Socket::getValue()
 
 void Socket::setValue(short _value)
 {
-    if (_value < MAXVALUE)
+    if (_value <= MAXVALUE)
     {
         value = _value;
     }

@@ -1,5 +1,5 @@
 #include "database.h"
-#include "ui_Database.h"
+#include "ui_database.h"
 #include <iomanip>
 #include <sstream>
 #include <algorithm>
@@ -7,7 +7,8 @@
 #include <QApplication>
 #include <QScreen>
 #include <QFileInfo>
-
+#include <parser.h>
+#include <characterItem.h>
 
 Database::Database(Utility* _utility, QWidget* _parent) :
     QMainWindow(_parent),
@@ -15,8 +16,10 @@ Database::Database(Utility* _utility, QWidget* _parent) :
     utility(_utility)
 {
     ui->setupUi(this);
+    filter = new Filter(_utility);
+    advancedFilters = new AdvancedFilters(utility, this);
     characters = *_utility->characters;
-    myCharacters = *_utility->myCharacters;
+    myCharacters = _utility->myCharacters;
 
     ui->characterList->setViewMode(QListWidget::IconMode);
     ui->characterList->setIconSize(QSize(60, 60));
@@ -25,23 +28,26 @@ Database::Database(Utility* _utility, QWidget* _parent) :
     /* Load characters to list */
     for (Character* ch : characters)
     {
-        if (ch->getName() == "")
-        {
-            continue;
-        }
-        if (ch->getId() >= 3000)
+        if (ch->getId() >= 3020)
         {
             break;
         }
 
+        if (ch->getName() == "")
+        {
+            continue;
+        }
+
         QIcon coloredIcon(*ch->getColoredIcon());
         QIcon grayIcon(*ch->getGrayIcon());
-        coloredIcons.push_back(coloredIcon);
-        grayIcons.push_back(grayIcon);
 
-        ui->characterList->addItem(new QListWidgetItem(coloredIcon, QString::number(ch->getId())));
+        CharacterItem* characterItem = new CharacterItem(ch);
+        characterItem->setIcon(coloredIcon);
+        characterItem->setText(QString::number(ch->getId()));
+        ui->characterList->addItem(characterItem);
+
+        allIds.insert(ch->getId());
     }
-//    utility->myCharacters = &myCharacters;
 }
 
 Database::~Database()
@@ -49,97 +55,81 @@ Database::~Database()
     delete ui;
 }
 
-void Database::on_filterByName_textChanged(const QString& _text)
+void Database::setIdCondition(QString _text)
 {
-    int characterListSize = ui->characterList->count();
-
-    for (int i = 0; i < characterListSize; ++i)
+    Condition::Operator currentOperator;
+    if (_text != "")
     {
-        if (ui->characterList->item(i)->text().contains(_text))
-        {
-            ui->characterList->item(i)->setHidden(false);
-        }
-        else
-        {
-            ui->characterList->item(i)->setHidden(true);
-        }
-    }
-    std::string toSearch = _text.toUtf8().constData();
-    std::transform(toSearch.begin(), toSearch.end(), toSearch.begin(), ::tolower);
+        Condition condition("filterById", Condition::Target::Id, Condition::Operator::NumOperators, _text.toUtf8().constData());
+        currentOperator = condition.getOperatorFromDescription(ui->idOperator->currentText().toUtf8().constData());
 
-    for (Character* ch : characters)
-    {
-        if (ch->getId() == 201)
+        bool alreadyIn = false;
+        for (Condition& cond : filter->andConditions)
         {
-            break;
+            if (cond.getId() == "filterById")
+            {
+                alreadyIn = true;
+                cond.setOperator(currentOperator);
+                cond.setValue(_text.toUtf8().constData());
+            }
         }
-        std::string name = ch->getName();
-        std::transform(name.begin(), name.end(), name.begin(), ::tolower);
-        if (name.find(toSearch) != std::string::npos)
-        {
-            ui->characterList->item(ch->getId() - 1)->setHidden(false);
-        }
-        else
-        {
-            ui->characterList->item(ch->getId() - 1)->setHidden(true);
-        }
-    }
-}
 
-void Database::on_ownedMode_toggled(bool _checked)
-{
-    if (_checked)
-    {
-        int characterListSize = ui->characterList->count();
-
-        std::cout << myCharacters.size() << std::endl;
-        for (int i = 0; i < characterListSize; ++i)
+        if (!alreadyIn)
         {
-//            if (characters.at(i).owned)
-//            {
-//                ui->characterList->item(i)->setIcon(coloredIcons.at(i));
-//            }
-//            else
-//            {
-//                ui->characterList->item(i)->setIcon(grayIcons.at(i));
-//            }
+            condition.setOperator(currentOperator);
+            filter->addAndCondition(condition);
         }
     }
     else
     {
-        int characterListSize = ui->characterList->count();
-
-        for (int i = 0; i < characterListSize; ++i)
+        for (std::vector<Condition>::iterator it = filter->andConditions.begin(); it != filter->andConditions.end();)
         {
-            ui->characterList->item(i)->setIcon(coloredIcons.at(i));
-        }
-
-    }
-}
-
-void Database::on_showOwned_toggled(bool _checked)
-{
-    int characterListSize = ui->characterList->count();
-
-    for (int i = 0; i < characterListSize; ++i)
-    {
-        if (_checked)
-        {
-            int id = i + 1;
-            if (myCharacters.find(id) != myCharacters.end())
+            if (it->getId() == "filterById")
             {
-                ui->characterList->item(i)->setHidden(false);
+                it = filter->andConditions.erase(it);
             }
             else
             {
-                ui->characterList->item(i)->setHidden(true);
+                it++;
             }
         }
-        else
+    }
+}
+
+void Database::on_filterById_textChanged(const QString& _text)
+{
+    QRegExp re("\\d*");  // a digit (\d), zero or more times (*)
+    if (re.exactMatch(_text))
+    {
+        setIdCondition(_text);
+    }
+    else
+    {
+        ui->filterById->setText("");
+    }
+    redraw();
+}
+
+void Database::on_filterByName_textChanged(const QString& _text)
+{
+    std::string toSearch = _text.toUtf8().constData();
+    std::transform(toSearch.begin(), toSearch.end(), toSearch.begin(), ::tolower);
+    bool alreadyIn = false;
+    for (Condition& cond : filter->andConditions)
+    {
+        if (cond.getId() == "filterByName")
         {
-            ui->characterList->item(i)->setHidden(false);
+            alreadyIn = true;
+            cond.setValue(toSearch);
         }
     }
+
+    if (!alreadyIn)
+    {
+        Condition condition("filterByName", Condition::Target::Name, Condition::Operator::Equal, toSearch);
+        filter->addAndCondition(condition);
+    }
+    redraw();
 }
 
 void Database::openCloseDetails(short _id)
@@ -155,6 +145,7 @@ void Database::openCloseDetails(short _id)
 
         /**/
         Details* charMenu = new Details(utility, _id, this);
+        connect(this, SIGNAL(changeEditModeDb()), charMenu, SLOT(editModeChangedDb()));
         QScrollArea *scrollArea = new QScrollArea();
         scrollArea->setWidget(charMenu);
         scrollArea->setFixedWidth(charMenu->width() + 20);
@@ -176,6 +167,7 @@ void Database::openCloseDetails(short _id)
         {
             Tools::removeColumn(ui->gridLayout, 2, true);
             Details* charMenu = new Details(utility, _id, this);
+            connect(this, SIGNAL(changeEditModeDb()), charMenu, SLOT(editModeChangedDb()));
             QScrollArea *scrollArea = new QScrollArea();
             scrollArea->setWidget(charMenu);
             scrollArea->setFixedWidth(charMenu->width() + 20);
@@ -186,44 +178,146 @@ void Database::openCloseDetails(short _id)
         else
         {
             open = false;
-            Tools::removeColumn(ui->gridLayout, 1, true);
-            Tools::removeColumn(ui->gridLayout, 2, true);
 
             QScreen *screen = QGuiApplication::primaryScreen();
             int newWidth = size().width() - detailMenu->width();
             newWidth = this->parentWidget()->windowState() == Qt::WindowMaximized ? screen->geometry().width() : newWidth;
             resize(newWidth, size().height());
+            Tools::removeColumn(ui->gridLayout, 1, true);
+            Tools::removeColumn(ui->gridLayout, 2, true);
         }
     }
 }
 
 void Database::on_characterList_itemClicked(QListWidgetItem* _item)
 {
-    openCloseDetails(_item->text().toShort());
+    CharacterItem* characterItem = static_cast<CharacterItem*>(_item);
+    openCloseDetails(characterItem->character->getId());
 }
 
 void Database::changeDetails(int _characterId)
 {
     ui->characterList->item(_characterId - 1)->setSelected(true);
-    openCloseDetails(_characterId);
+    openCloseDetails(static_cast<short>(_characterId));
 }
 
 void Database::redraw()
 {
-    if (ui->showOwned->isChecked())
-    {
-        int characterListSize = ui->characterList->count();
+    int characterListSize = ui->characterList->count();
 
-        for (int i = 0; i < characterListSize; ++i)
+    std::set<int> filteredCharacters = filter->filter(allIds);
+    for (int i = 0; i < characterListSize; ++i)
+    {
+        CharacterItem* characterItem = static_cast<CharacterItem*>(ui->characterList->item(i));
+        short id = characterItem->character->getId();
+
+        if (filteredCharacters.find(id) != filteredCharacters.end())
         {
-//            if (characters.at(i).owned)
-//            {
-//                ui->characterList->item(i)->setIcon(coloredIcons.at(i));
-//            }
-//            else
-//            {
-//                ui->characterList->item(i)->setIcon(grayIcons.at(i));
-//            }
+            if (ui->showOwned->isChecked())
+            {
+                // Hide not owned
+                if (myCharacters->find(id) != myCharacters->end())
+                {
+                    ui->characterList->item(i)->setHidden(false);
+                }
+                else
+                {
+                    ui->characterList->item(i)->setHidden(true);
+                }
+            }
+            else
+            {
+                ui->characterList->item(i)->setHidden(false);
+            }
+
+            if (ui->ownedMode->isChecked())
+            {
+                // Gray out not owned
+                if (myCharacters->find(id) != myCharacters->end())
+                {
+                    QIcon coloredIcon(*characterItem->character->getColoredIcon());
+                    characterItem->setIcon(coloredIcon);
+                }
+                else
+                {
+                    QIcon grayIcon(*characterItem->character->getGrayIcon());
+                    characterItem->setIcon(grayIcon);
+                }
+            }
+            else
+            {
+                QIcon coloredIcon(*characterItem->character->getColoredIcon());
+                characterItem->setIcon(coloredIcon);
+            }
+        }
+        else
+        {
+            ui->characterList->item(i)->setHidden(true);
         }
     }
+}
+
+void Database::on_saveButton_clicked()
+{
+    Tools::saveOwnedCharacters(characters, *myCharacters, utility->id);
+}
+
+void Database::on_ownedMode_clicked()
+{
+    redraw();
+}
+
+void Database::on_showOwned_clicked()
+{
+    redraw();
+}
+
+void Database::on_editMode_stateChanged(int _state)
+{
+    if (_state > 0)
+    {
+        utility->editMode = true;
+    }
+    else
+    {
+        utility->editMode = false;
+    }
+    emit changeEditModeDb();
+}
+
+void Database::on_idOperator_currentIndexChanged(int index)
+{
+    assert(index > -1);     // Only to remove the unused warning
+    setIdCondition(ui->filterById->text());
+    redraw();
+}
+
+void Database::on_advancedFilters_clicked()
+{
+    advancedFilters->show();
+}
+
+void Database::change_advancedFilters_color(bool _active)
+{
+    if (_active)
+    {
+        ui->advancedFilters->setStyleSheet("background-color: rgb(255, 204, 0);");
+    }
+    else
+    {
+        ui->advancedFilters->setStyleSheet("");
+    }
+}
+
+void Database::advancedFilters_set(Filter _filter)
+{
+    filter->orConditions.clear();
+    filter->addOrCondition(_filter);
+    redraw();
+}
+
+void Database::advancedFilters_reset()
+{
+    filter->orConditions.clear();
+    redraw();
 }

@@ -1,15 +1,20 @@
 #ifndef CHARACTER_HPP
 #define CHARACTER_HPP
 
+#include <vector>
+#include <set>
 #include <stats.h>
 #include <enums.h>
 #include <iostream>
-#include <vector>
 #include <limitbreak.h>
 #include <special.h>
 #include <captain.h>
 #include <sailor.h>
+#include <tandem.h>
+#include <material.h>
 #include <QPixmap>
+
+class Tandem;
 
 class Character
 {
@@ -56,9 +61,10 @@ public:
     Special* getSpecial();
 
     //Evolution
-    void setEvolution(Character* &_character, std::vector<Character*> &_evolvers);
+    void setEvolution(Character* &_character, std::vector<Character*> &_evolvers, std::vector<Material*> _materials = std::vector<Material*>());
     std::vector<Character*> getEvolution();
-    std::vector<Character*> getEvolutionMaterials(Character* _character);
+    std::vector<Character*> getEvolvers(Character* _character);
+    std::vector<Material*> getEvolutionMaterials(Character* _character);
 
     //Limit Break
     void setLimitBreak(LimitBreak* _limitBreak);
@@ -68,7 +74,7 @@ public:
     //Icons
     void setColoredIcon(QPixmap* _icon);
     QPixmap* getColoredIcon();
-    void setGrayIcon(QPixmap* _icon);
+    void setGrayIcon(QPixmap _icon);
     QPixmap* getGrayIcon();
 
     //Dual units
@@ -77,6 +83,17 @@ public:
     std::vector<Character*> getDualUnits();
     std::string getSwapDescription();
     void setSwapDescription(std::string _description);
+
+    void setFamily(std::vector<std::string>& _family);
+    std::vector<std::string> getFamily();
+
+    void setAvailabilities(std::set<Availability> _availabilities);
+    void addAvailability(Availability _availability);
+    std::set<Availability> getAvailabilities();
+
+    void addTandem(Tandem* _tandem);
+    std::vector<Tandem*> getTandems();
+    bool hasTandem();
 
 private:
 
@@ -88,15 +105,19 @@ private:
     Stats stats;
     std::vector<Character*> evolution;
     std::vector<std::vector<Character*>> evolvers;
+    std::vector<std::vector<Material*>> evolverMaterials;
     LimitBreak limitBreak;
     Captain captain;
     Captain captainAction;
     std::vector<Sailor> sailors;
     Special special;
     QPixmap* coloredIcon;
-    QPixmap* grayIcon;
+    QPixmap grayIcon;
     std::vector<Character*> dual_units;
     std::string swap_description;
+    std::vector<std::string> family;
+    std::set<Availability> availabilities;
+    std::vector<Tandem*> tandems;
 };
 
 #endif //CHARACTER_HPP

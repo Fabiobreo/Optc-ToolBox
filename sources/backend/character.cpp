@@ -186,52 +186,53 @@ std::ostream &operator<<(std::ostream &_os, Character &_character)
         {
             if (potential->getType() == Potential::Type::Enrage)
             {
-                _os << "- Enrage" << std::endl;
+                _os << "- Enrage: ";
             }
             else if (potential->getType() == Potential::Type::NoHealing)
             {
-                _os << "- No Healing" << std::endl;
+                _os << "- No Healing: ";
             }
             else if (potential->getType() == Potential::Type::CriticalHit)
             {
-                _os << "- Critical Hit" << std::endl;
+                _os << "- Critical Hit: ";
             }
             else if (potential->getType() == Potential::Type::SlotBind)
             {
-                _os << "- Slot Bind" << std::endl;
+                _os << "- Slot Bind: ";
             }
             else if (potential->getType() == Potential::Type::BarrierPenetration)
             {
-                _os << "- Barrier Penetration" << std::endl;
+                _os << "- Barrier Penetration: ";
             }
             else if (potential->getType() == Potential::Type::PinchHealing)
             {
-                _os << "- Pinch Healing" << std::endl;
+                _os << "- Pinch Healing: ";
             }
             else if (potential->getType() == Potential::Type::DMRSTR)
             {
-                _os << "- STR Damage Reduction" << std::endl;
+                _os << "- STR Damage Reduction: ";
             }
             else if (potential->getType() == Potential::Type::DMRQCK)
             {
-                _os << "- QCK Damage Reduction" << std::endl;
+                _os << "- QCK Damage Reduction: ";
             }
             else if (potential->getType() == Potential::Type::DMRDEX)
             {
-                _os << "- DEX Damage Reduction" << std::endl;
+                _os << "- DEX Damage Reduction: ";
             }
             else if (potential->getType() == Potential::Type::DMRPSY)
             {
-                _os << "- PSY Damage Reduction" << std::endl;
+                _os << "- PSY Damage Reduction: ";
             }
             else if (potential->getType() == Potential::Type::DMRINT)
             {
-                _os << "- INT Damage Reduction" << std::endl;
+                _os << "- INT Damage Reduction: ";
             }
             else if (potential->getType() == Potential::Type::CDR)
             {
-                _os << "- Cooldown Reduction" << std::endl;
+                _os << "- Cooldown Reduction: ";
             }
+            _os << potential->getDescriptions().at(4) << std::endl;
         }
     }
 
@@ -348,10 +349,11 @@ Special* Character::getSpecial()
     return &special;
 }
 
-void Character::setEvolution(Character *&_character, std::vector<Character *> &_evolvers)
+void Character::setEvolution(Character *&_character, std::vector<Character *> &_evolvers, std::vector<Material*> _materials)
 {
     evolution.push_back(_character);
     evolvers.push_back(_evolvers);
+    evolverMaterials.push_back(_materials);
 }
 
 std::vector<Character *> Character::getEvolution()
@@ -359,7 +361,7 @@ std::vector<Character *> Character::getEvolution()
     return evolution;
 }
 
-std::vector<Character *> Character::getEvolutionMaterials(Character *_character)
+std::vector<Character*> Character::getEvolvers(Character *_character)
 {
     for (unsigned long i = 0; i < evolution.size(); ++i)
     {
@@ -369,7 +371,20 @@ std::vector<Character *> Character::getEvolutionMaterials(Character *_character)
             return evolvers.at(i);
         }
     }
-    return std::vector<Character *>();
+    return std::vector<Character*>();
+}
+
+std::vector<Material*> Character::getEvolutionMaterials(Character *_character)
+{
+    for (unsigned long i = 0; i < evolution.size(); ++i)
+    {
+        Character *_char = evolution.at(i);
+        if (_char == _character)
+        {
+            return evolverMaterials.at(i);
+        }
+    }
+    return std::vector<Material*>();
 }
 
 void Character::setLimitBreak(LimitBreak* _limitBreak)
@@ -417,14 +432,14 @@ QPixmap* Character::getColoredIcon()
     return coloredIcon;
 }
 
-void Character::setGrayIcon(QPixmap* _icon)
+void Character::setGrayIcon(QPixmap _icon)
 {
     grayIcon = _icon;
 }
 
 QPixmap* Character::getGrayIcon()
 {
-    return grayIcon;
+    return &grayIcon;
 }
 
 bool Character::hasDual()
@@ -450,4 +465,44 @@ std::string Character::getSwapDescription()
 void Character::setSwapDescription(std::string _description)
 {
     swap_description = _description;
+}
+
+void Character::setFamily(std::vector<std::string>& _family)
+{
+    family = _family;
+}
+
+std::vector<std::string> Character::getFamily()
+{
+    return family;
+}
+
+void Character::setAvailabilities(std::set<Availability> _availabilities)
+{
+    availabilities = _availabilities;
+}
+
+void Character::addAvailability(Availability _availability)
+{
+    availabilities.insert(_availability);
+}
+
+std::set<Availability> Character::getAvailabilities()
+{
+    return availabilities;
+}
+
+void Character::addTandem(Tandem* _tandem)
+{
+    tandems.push_back(_tandem);
+}
+
+std::vector<Tandem*> Character::getTandems()
+{
+    return tandems;
+}
+
+bool Character::hasTandem()
+{
+    return !tandems.empty();
 }

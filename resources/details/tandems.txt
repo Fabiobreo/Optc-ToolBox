@@ -1,0 +1,576 @@
+{
+  "Gum-Gum Mouton Triple-Sword Meteor": {
+    "description": "Deals 1,000 fixed damage to all enemies",
+    "units": [
+      17,
+      2,
+      5,
+      13
+    ]
+  },
+  "Gum-Gum Dragon Epaule Whip Twister Shot": {
+    "description": "Deals 3 times the ATK of the last character in the tandem to the enemies in the front column",
+    "units": [
+      3,
+      6,
+      18
+    ]
+  },
+  "Three-Sword Style Gum-Gum Diable Jambe Mouton Jet 600 Pound Cannon": {
+    "description": "Deals 3 times the ATK of the last character in the tandem to all enemies",
+    "units": [
+      8,
+      20,
+      4
+    ]
+  },
+  "Trinity Slash": {
+    "description": "Deals 3 times the ATK of the last character in the tandem to the enemies in the front column",
+    "units": [
+      47,
+      48,
+      5
+    ]
+  },
+  "Tornado Tabasco Pound Phoenix": {
+    "description": "Deals 3 times the ATK of the last character in the tandem to the enemies in the back column",
+    "units": [
+      10,
+      14,
+      7
+    ]
+  },
+  "Weak Trio/Guts Attack": {
+    "description": "Deals 2 times the ATK of the last character in the tandem to the enemies in the front column",
+    "units": [
+      9,
+      13,
+      21
+    ]
+  },
+  "Golden Mirage Shot": {
+    "description": "Deals 2 times the ATK of the last character in the tandem to all enemies",
+    "units": [
+      15,
+      11,
+      19
+    ]
+  },
+  "Thunder Horn Fire Bird Star": {
+    "description": "Deals 3 times the ATK of the last character in the tandem to the enemies in the back column",
+    "units": [
+      12,
+      25,
+      16
+    ]
+  },
+  "600,000,000 Beli Jackpot": {
+    "description": "Cuts the current HP of each enemy by 5%",
+    "units": [
+      709,
+      739,
+      20,
+      8,
+      4
+    ]
+  },
+  "Penguin Reindeer Triangle": {
+    "description": "Deals 2 times the ATK of the last character in the tandem to the enemies in the back column",
+    "units": [
+      81,
+      82,
+      23
+    ]
+  },
+  "Rare Animal Miracle Attack": {
+    "description": "Deals 3 times the ATK of the last character in the tandem to the enemies in the front column",
+    "units": [
+      40,
+      26,
+      83,
+      118
+    ]
+  },
+  "Bandit Triple Attack": {
+    "description": "Deals 2 times the ATK of the last character in the tandem to the enemies in the front column",
+    "units": [
+      119,
+      120,
+      27
+    ]
+  },
+  "Slip-Slip Circus Carnival": {
+    "description": "Deals 2 times the ATK of the last character in the tandem to all enemies",
+    "units": [
+      37,
+      36,
+      38,
+      30
+    ]
+  },
+  "Slip-Slip Circus Festival": {
+    "description": "Deals 3 times the ATK of the last character in the tandem to all enemies",
+    "units": [
+      37,
+      36,
+      39,
+      30
+    ]
+  },
+  "Navy Admiral Union Buster": {
+    "description": "Deals 5 times the ATK of the last character in the tandem to the enemies in the front column",
+    "units": [
+      59,
+      49,
+      35
+    ]
+  },
+  "Buggy Circus Carnival": {
+    "description": "Deals 2 times the ATK of the last character in the tandem to all enemies",
+    "units": [
+      36,
+      37,
+      38
+    ]
+  },
+  "Buggy Circus Festival": {
+    "description": "Deals 2 times the ATK of the last character in the tandem to all enemies",
+    "units": [
+      36,
+      37,
+      39
+    ]
+  },
+  "Black Cat Formation X": {
+    "description": "Deals 2 times the ATK of the last character in the tandem to all enemies",
+    "units": [
+      41,
+      42,
+      43,
+      45
+    ]
+  },
+  "Black Cat Formation Z": {
+    "description": "Deals 3 times the ATK of the last character in the tandem to all enemies",
+    "units": [
+      41,
+      42,
+      43,
+      46
+    ]
+  },
+  "Baratie's Famous Surf 'n Turf": {
+    "description": "Deals 3 times the ATK of the last character in the tandem to all enemies",
+    "units": [
+      50,
+      51,
+      52
+    ]
+  },
+  "Krieg Fleet Delta Attack": {
+    "description": "Deals 2 times the ATK of the last character in the tandem to all enemies",
+    "units": [
+      55,
+      54,
+      57
+    ]
+  },
+  "Krieg Fleet Delta Hurricane": {
+    "description": "Deals 2 times the ATK of the last character in the tandem to all enemies",
+    "units": [
+      55,
+      54,
+      58
+    ]
+  },
+  "Krieg Fleet Delta Burst": {
+    "description": "Deals 2 times the ATK of the last character in the tandem to all enemies",
+    "units": [
+      56,
+      54,
+      57
+    ]
+  },
+  "Krieg Fleet Delta Explosion": {
+    "description": "Deals 3 times the ATK of the last character in the tandem to all enemies",
+    "units": [
+      56,
+      54,
+      58
+    ]
+  },
+  "Fishman Smash Storm": {
+    "description": "Deals 2 times the ATK of the last character in the tandem to all enemies",
+    "units": [
+      61,
+      63,
+      62,
+      65
+    ]
+  },
+  "Fishman Crash Storm": {
+    "description": "Deals 2 times the ATK of the last character in the tandem to all enemies",
+    "units": [
+      61,
+      63,
+      62,
+      66
+    ]
+  },
+  "Fishman Burst Cannon": {
+    "description": "Deals 2 times the ATK of the last character in the tandem to all enemies",
+    "units": [
+      61,
+      64,
+      62,
+      65
+    ]
+  },
+  "Fishman Ultra Burst Cannon": {
+    "description": "Deals 3 times the ATK of the last character in the tandem to all enemies",
+    "units": [
+      61,
+      64,
+      62,
+      66
+    ]
+  },
+  "Penguin Triangle": {
+    "description": "Deals 2 times the ATK of the last character in the tandem to the enemies in the front column",
+    "units": [
+      78,
+      80,
+      79
+    ]
+  },
+  "Penguin Pentagon": {
+    "description": "Deals 5 times the ATK of the last character in the tandem to all enemies",
+    "units": [
+      84,
+      86,
+      85,
+      87,
+      88
+    ]
+  },
+  "Red Combination": {
+    "description": "Deals 1,000 fixed damage to the enemies in the front column",
+    "units": [
+      121,
+      126,
+      131,
+      136
+    ]
+  },
+  "Blue Combination": {
+    "description": "Deals 1,000 fixed damage to the enemies in the front column",
+    "units": [
+      122,
+      127,
+      132,
+      137
+    ]
+  },
+  "Green Combination": {
+    "description": "Deals 1,000 fixed damage to the enemies in the front column",
+    "units": [
+      123,
+      128,
+      133,
+      138
+    ]
+  },
+  "Yellow Combination": {
+    "description": "Deals 1,000 fixed damage to the enemies in the front column",
+    "units": [
+      124,
+      129,
+      134,
+      139
+    ]
+  },
+  "Black Combination": {
+    "description": "Deals 1,000 fixed damage to the enemies in the front column",
+    "units": [
+      125,
+      130,
+      135,
+      140
+    ]
+  },
+  "Red Formation": {
+    "description": "Deals 1,000 fixed damage to all enemies",
+    "units": [
+      142,
+      147,
+      152,
+      157
+    ]
+  },
+  "Blue Formation": {
+    "description": "Deals 1,000 fixed damage to all enemies",
+    "units": [
+      143,
+      148,
+      153,
+      158
+    ]
+  },
+  "Green Formation": {
+    "description": "Deals 1,000 fixed damage to all enemies",
+    "units": [
+      144,
+      149,
+      154,
+      159
+    ]
+  },
+  "Yellow Formation": {
+    "description": "Deals 1,000 fixed damage to all enemies",
+    "units": [
+      145,
+      150,
+      155,
+      160
+    ]
+  },
+  "Black Formation": {
+    "description": "Deals 1,000 fixed damage to all enemies",
+    "units": [
+      146,
+      151,
+      156,
+      161
+    ]
+  },
+  "Black Cat Formation C": {
+    "description": "Deals 1,000 fixed damage to all enemies",
+    "units": [
+      165,
+      166,
+      167,
+      168,
+      169
+    ]
+  },
+  "Absolute Justice Formation": {
+    "description": "Deals 1,000 fixed damage to the enemies in the front column",
+    "units": [
+      179,
+      180,
+      181,
+      182,
+      183
+    ]
+  },
+  "Absolute Justice Hammer": {
+    "description": "Deals 2,000 fixed damage to all enemies",
+    "units": [
+      184,
+      185,
+      186,
+      187,
+      188
+    ]
+  },
+  "Absolute Justice Judgment": {
+    "description": "Deals 2,000 fixed damage to all enemies",
+    "units": [
+      194,
+      195,
+      196,
+      197,
+      198
+    ]
+  },
+  "Billion Tricks": {
+    "description": "Deals 2,000 fixed damage to all enemies",
+    "units": [
+      245,
+      246,
+      242,
+      244,
+      243
+    ]
+  },
+  "Vow of Red": {
+    "description": "Deals 1,000 fixed damage to all enemies, recovers 500 HP",
+    "units": [
+      269,
+      274,
+      279,
+      284
+    ]
+  },
+  "Vow of Blue": {
+    "description": "Deals 1,000 fixed damage to all enemies, recovers 500 HP",
+    "units": [
+      270,
+      275,
+      280,
+      285
+    ]
+  },
+  "Vow of Green": {
+    "description": "Deals 1,000 fixed damage to all enemies, recovers 500 HP",
+    "units": [
+      271,
+      276,
+      281,
+      286
+    ]
+  },
+  "Vow of Yellow": {
+    "description": "Deals 1,000 fixed damage to all enemies, recovers 500 HP",
+    "units": [
+      272,
+      277,
+      282,
+      287
+    ]
+  },
+  "Vow of Black": {
+    "description": "Deals 1,000 fixed damage to all enemies, recovers 500 HP",
+    "units": [
+      273,
+      278,
+      283,
+      288
+    ]
+  },
+  "Foreman Triple Attack": {
+    "description": "Deals 2,000 fixed damage to all enemies, amplifies the effect of orbs by 1.25x for 1 turn",
+    "units": [
+      325,
+      628,
+      320
+    ]
+  },
+  "Trinity Attack": {
+    "description": "Deals 2 times the cumulative ATK of all the characters in the tandem to all enemies, boosts ATK of PSY characters by 1.2x until the end of the current turn",
+    "units": [
+      338,
+      339,
+      336
+    ]
+  },
+  "Super Trinity Attack": {
+    "description": "Deals 2 times the cumulative ATK of all the characters in the tandem to all enemies, boosts ATK of PSY characters by 1.4x until the end of the current turn",
+    "units": [
+      338,
+      339,
+      337
+    ]
+  },
+  "Super Quartet Attack": {
+    "description": "Deals 2 times the cumulative ATK of all the characters in the tandem to all enemies, boosts ATK of PSY characters by 1.5x until the end of the current turn",
+    "units": [
+      339,
+      338,
+      614,
+      337
+    ]
+  },
+  "Maiden's Awakening: Do you like floral prints?": {
+    "description": "Deals the cumulative ATK of all the characters in the tandem to all enemies, recovers 1,180 HP, boosts ATK of all characters by 1.2x until the end of the current turn",
+    "units": [
+      436,
+      433,
+      434,
+      390
+    ]
+  },
+  "Light Shandia's Fire!": {
+    "description": "Deals 1,000 fixed damage to all enemies, boosts ATK of all characters by 1.3x until the end of the current turn",
+    "units": [
+      466,
+      581,
+      582,
+      544
+    ]
+  },
+  "Blessings of Vearth": {
+    "description": "Recovers 2,000 HP",
+    "units": [
+      544,
+      583,
+      584
+    ]
+  },
+  "Monster Burger": {
+    "description": "Deals 3,000 fixed damage to all enemies, amplifies the effect of orbs by 1.25x for 1 turn",
+    "units": [
+      565,
+      566,
+      567
+    ]
+  },
+  "Everything Cannon": {
+    "description": "Deals 3 times the ATK of the last character in the tandem to the enemies in the front column, reduces damage received by 20% for 1 turn",
+    "units": [
+      615,
+      616,
+      617,
+      614
+    ]
+  },
+  "Super Everything Cannon": {
+    "description": "Deals 7 times the ATK of the last character in the tandem to all enemies",
+    "units": [
+      614,
+      615,
+      616,
+      617,
+      629
+    ]
+  },
+  "Fishman Fearsome Triple Combo": {
+    "description": "Deals 2 times the cumulative ATK of all the characters in the tandem to all enemies, boosts the ATK of STR characters by 1.3x for 1 turn",
+    "units": [
+      657,
+      658,
+      656
+    ]
+  },
+  "Absolute Justice Divine Punishment": {
+    "description": "Deals 3,000 fixed damage to all enemies",
+    "units": [
+      696,
+      697,
+      698,
+      699,
+      700
+    ]
+  },
+  "Lightning Bone Sword: Gavotte Bond en Avant": {
+    "description": "Cuts the current HP of each enemy by 4%",
+    "units": [
+      12,
+      15,
+      709,
+      896
+    ]
+  },
+  "Giant Pirates' Charge": {
+    "description": "Deals 3 times the cumulative ATK of all the characters in the tandem to all enemies, boosts ATK of Powerhouse characters by 1.4x until the end of the current turn",
+    "units": [
+      884,
+      903
+    ]
+  },
+  "Kidnapping Trio Rampage": {
+    "description": "Deals 3,000 fixed damage to all enemies",
+    "units": [
+      954,
+      955,
+      956
+    ]
+  },
+  "Snake Pit Dance": {
+    "description": "Deals 3 times the cumulative ATK of all the characters in the tandem to all enemies, boosts ATK of Powerhouse characters by 1.3x until the end of the current turn",
+    "units": [
+      1056,
+      1058
+    ]
+  }
+}

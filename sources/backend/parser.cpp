@@ -1,7 +1,6 @@
 #include <parser.h>
 #include <algorithm>
 #include <cctype>
-#include <json.h>
 
 Parser::Parser(const std::string& _dataPath) :
 dataPath(_dataPath)
@@ -12,9 +11,13 @@ dataPath(_dataPath)
 bool Parser::load()
 {
     bool success = loadCharacters();
+    success = success && loadMaterials();
     success = success && loadCooldowns();
     success = success && loadEvolutions();
     success = success && loadDetails();
+    success = success && loadFamilies();
+    success = success && loadAvailabilities();
+    success = success && loadTandems();
     return success;
 }
 
@@ -164,8 +167,11 @@ bool Parser::loadCooldowns()
                 special.setBase(base_cd);
                 if (elements.size() > 1)
                 {
-                    auto max_cd = static_cast<short>(std::stoi(elements.at(1)));
-                    special.setMaxedCd(max_cd);
+                    if (elements.at(1) != "null")
+                    {
+                        auto max_cd = static_cast<short>(std::stoi(elements.at(1)));
+                        special.setMaxedCd(max_cd);
+                    }
                 }
                 characters.at(id)->setSpecial(&special);
             }
@@ -181,7 +187,7 @@ bool Parser::loadEvolutions()
 {
     bool success = false;
     std::ifstream evoFile(dataPath + evolutionFile);
-    std::vector<char> charToRemove = {' ', '[', ']', '\\', '\"'};
+    std::vector<char> charToRemove = {' ', '[', ']', '\\', '\"', '\''};
     if (evoFile.is_open())
     {
         std::string line;
@@ -191,7 +197,6 @@ bool Parser::loadEvolutions()
             line = line.substr(0, line.find(':'));
             line.erase(std::remove(line.begin(), line.end(), ' '), line.end());
             auto id = static_cast<unsigned long>(std::atoi(line.c_str()));
-
             // Evolution line
             std::getline(evoFile, line);
             line = line.substr(line.find(':') + 1);
@@ -209,6 +214,7 @@ bool Parser::loadEvolutions()
             unsigned long startIndex = 0L;
             unsigned long endIndex = 1000L;
             std::vector<std::vector<unsigned long>> evolvers;
+            std::vector<std::vector<Material*>> evolution_materials;
             for (unsigned long i = 0; i < line.length(); ++i)
             {
                 char c = line.at(i);
@@ -225,14 +231,20 @@ bool Parser::loadEvolutions()
                     std::vector<std::string> evos_vector;
                     Tools::split(evos_string, ',', evos_vector, &charToRemove);
                     std::vector<unsigned long> this_evolvers;
+                    std::vector<Material*> this_materials;
                     for (const auto & evos_vec : evos_vector)
                     {
                         if (evos_vec.find('s') == std::string::npos && !evos_vec.empty())
                         {
                             this_evolvers.push_back(static_cast<unsigned long>(std::atoi(evos_vec.c_str())));
                         }
+                        else
+                        {
+                            this_materials.push_back(materials[evos_vec.c_str()]);
+                        }
                     }
                     evolvers.push_back(this_evolvers);
+                    evolution_materials.push_back(this_materials);
                     startIndex = i;
                 }
             }
@@ -246,7 +258,7 @@ bool Parser::loadEvolutions()
                     Character* evolver_pointer = characters.at(evolver - 1);
                     character_evolvers.push_back(evolver_pointer);
                 }
-                characters.at(id - 1)->setEvolution(character_evolution, character_evolvers);
+                characters.at(id - 1)->setEvolution(character_evolution, character_evolvers, evolution_materials.at(k));
             }
 
             //Closing line
@@ -257,9 +269,78 @@ bool Parser::loadEvolutions()
     return success;
 }
 
+bool Parser::loadTandems()
+{
+    bool success = false;
+    std::ifstream tandemStream(dataPath + tandemsFile);
+    if (tandemStream.is_open())
+    {
+        json file;
+        tandemStream >> file;
+
+        for (json::iterator fileIterator = file.begin(); fileIterator != file.end(); ++fileIterator)
+        {
+            std::string tandemName = fileIterator.key();
+            Tandem* tandem = new Tandem(tandemName);
+            std::string tandemDescription = file.at(fileIterator.key()).at("description");
+            std::vector<int> tandemUnits = file.at(fileIterator.key()).at("units");
+
+            tandem->setDescription(tandemDescription);
+            for (int charId : tandemUnits)
+            {
+                Character* character = characters.at(static_cast<unsigned int>(charId) - 1);
+                tandem->addUnit(character);
+                character->addTandem(tandem);
+            }
+        }
+        success = true;
+    }
+    return success;
+}
+
 std::vector<Character*> Parser::getCharacters()
 {
     return characters;
+}
+
+std::map<std::string, Material*> Parser::getMaterials()
+{
+    return materials;
+}
+
+std::map<std::string, int> Parser::getFamiliesMap()
+{
+    return familiesMap;
+}
+
+bool Parser::loadMaterials()
+{
+    bool success = false;
+    materials["skullSTR"]   = new Material("skullSTR", Material::Type::Skull, Material::Skull::STR);
+    materials["skullDEX"]   = new Material("skullDEX", Material::Type::Skull, Material::Skull::DEX);
+    materials["skullQCK"]   = new Material("skullQCK", Material::Type::Skull, Material::Skull::QCK);
+    materials["skullPSY"]   = new Material("skullPSY", Material::Type::Skull, Material::Skull::PSY);
+    materials["skullINT"]   = new Material("skullINT", Material::Type::Skull, Material::Skull::INT);
+
+    materials["skullLuffy"] = new Material("skullLuffy", Material::Type::Skull, Material::Skull::Luffy);
+    materials["skullZoro"]  = new Material("skullZoro", Material::Type::Skull, Material::Skull::Zoro);
+    materials["skullNami"]  = new Material("skullNami", Material::Type::Skull, Material::Skull::Nami);
+    materials["skullUsopp"] = new Material("skullUsopp", Material::Type::Skull, Material::Skull::Usopp);
+    materials["skullSanji"] = new Material("skullSanji", Material::Type::Skull, Material::Skull::Sanji);
+    materials["skullChopper"] = new Material("skullChopper", Material::Type::Skull, Material::Skull::Chopper);
+    materials["skullRobin"] = new Material("skullRobin", Material::Type::Skull, Material::Skull::Robin);
+    materials["skullFranky"] = new Material("skullFranky", Material::Type::Skull, Material::Skull::Franky);
+    materials["skullBrook"] = new Material("skullBrook", Material::Type::Skull, Material::Skull::Brook);
+
+    materials["skullDoffy"] = new Material("skullDoffy", Material::Type::Skull, Material::Skull::Doffy);
+    materials["skullJudge"] = new Material("skullJudge", Material::Type::Skull, Material::Skull::Judge);
+    materials["skullReiju"] = new Material("skullReiju", Material::Type::Skull, Material::Skull::Reiju);
+    materials["skullIchiji"] = new Material("skullIchiji", Material::Type::Skull, Material::Skull::Ichiji);
+    materials["skullNiji"] = new Material("skullNiji", Material::Type::Skull, Material::Skull::Niji);
+    materials["skullYonji"] = new Material("skullYonji", Material::Type::Skull, Material::Skull::Yonji);
+
+    success = true;
+    return success;
 }
 
 bool Parser::loadDetails()
@@ -453,6 +534,122 @@ bool Parser::loadDetails()
     return success;
 }
 
+bool Parser::loadFamilies()
+{
+    bool success = false;
+    std::ifstream familiesStream(dataPath + familiesFile);
+    std::vector<char> charToRemove = {'[', ']', '\\', '\"'};
+    if (familiesStream.is_open())
+    {
+        std::string line;
+        unsigned long id = 0;
+        while (std::getline(familiesStream, line))
+        {
+            if (id >= characters.size())
+            {
+                break;
+            }
+            std::vector<std::string> elements;
+            Tools::split(line, ',', elements, &charToRemove);
+            characters.at(id)->setFamily(elements);
+            if (elements.at(0) != "null")
+            {
+                for (std::string family : elements)
+                {
+                    if (familiesMap.find(family) == familiesMap.end())
+                    {
+                        familiesMap[family] = static_cast<int>(familiesMap.size());
+                    }
+                }
+            }
+            id++;
+        }
+        success = true;
+    }
+    familiesStream.close();
+    return success;
+}
+
+bool Parser::loadAvailabilities()
+{
+    bool success = false;
+    std::ifstream availabilitiesStream(dataPath + availabilitiesFile);
+    std::vector<char> charToRemove = {'[', ']', '\\', '\"', '{', '}', ' '};
+    if (availabilitiesStream.is_open())
+    {
+        std::string line;
+        while (std::getline(availabilitiesStream, line))
+        {
+            std::vector<std::string> elements;
+            Tools::split(line, ':', elements, &charToRemove);
+            Availability currentAvailability;
+            if (elements.at(0) == "Raid")
+            {
+                currentAvailability = Availability::Raid;
+            }
+            else if (elements.at(0) == "RaidNeo")
+            {
+                currentAvailability = Availability::RaidNeo;
+            }
+            else if (elements.at(0) == "Colosseum")
+            {
+                currentAvailability = Availability::Coliseums;
+            }
+            else if (elements.at(0) == "ColosseumNeo")
+            {
+                currentAvailability = Availability::ColiseumsNeo;
+            }
+            else if (elements.at(0) == "Ambush")
+            {
+                currentAvailability = Availability::Ambush;
+            }
+            else if (elements.at(0) == "Special")
+            {
+                currentAvailability = Availability::Special;
+            }
+            else if (elements.at(0) == "FNOnly")
+            {
+                currentAvailability = Availability::FNOnly;
+            }
+            else if (elements.at(0) == "GenericF2P")
+            {
+                currentAvailability = Availability::GenericF2P;
+            }
+            else if (elements.at(0) == "StoryOnly")
+            {
+                currentAvailability = Availability::StoryOnly;
+            }
+            else if (elements.at(0) == "lrr")
+            {
+                currentAvailability = Availability::LRR;
+            }
+            else if (elements.at(0) == "limitedTM")
+            {
+                currentAvailability = Availability::LimitedTM;
+            }
+            else if (elements.at(0) == "limited")
+            {
+                currentAvailability = Availability::Limited;
+            }
+            else if (elements.at(0) == "TM")
+            {
+                currentAvailability = Availability::TM;
+            }
+
+            std::vector<std::string> ids;
+            Tools::split(elements.at(1), ',', ids, &charToRemove);
+            for (std::string idString : ids)
+            {
+                unsigned long id = std::stoul(idString);
+                characters.at(id - 1)->addAvailability(currentAvailability);
+            }
+        }
+        success = true;
+    }
+    availabilitiesStream.close();
+    return success;
+}
+
 bool Parser::loadLimitBreak(unsigned long _characterId, std::string _limitBreak)
 {
     if (!_limitBreak.empty() && _limitBreak.find("\"This character has a Limit Break Tree\"") == std::string::npos && _limitBreak.find("Not Translated") == std::string::npos)
@@ -547,7 +744,6 @@ bool Parser::loadLimitBreak(unsigned long _characterId, std::string _limitBreak)
                 }
                 else if (line.find("Potential") != std::string::npos)
                 {
-                    //TODO mancano da fare i dati
                     line = line.substr(line.find(':') + 2);
                     if (line.find("Enrage") != std::string::npos)
                     {
@@ -575,7 +771,6 @@ bool Parser::loadLimitBreak(unsigned long _characterId, std::string _limitBreak)
                     }
                     else if (line.find("Damage Reduction") != std::string::npos)
                     {
-                        //TODO manca da fare i tipi
                         if (line.find("STR") != std::string::npos)
                         {
                             limitBreak.addNode(LimitBreak::NodeType::POTENTIAL, Potential::Type::DMRSTR, 1);
@@ -600,6 +795,10 @@ bool Parser::loadLimitBreak(unsigned long _characterId, std::string _limitBreak)
                     else if (line.find("Cooldown Reduction") != std::string::npos)
                     {
                         limitBreak.addNode(LimitBreak::NodeType::POTENTIAL, Potential::Type::CDR, 1);
+                    }
+                    else if (line.find("Double Special Activation") != std::string::npos)
+                    {
+                        limitBreak.addNode(LimitBreak::NodeType::POTENTIAL, Potential::Type::DoubleSpecial, 1);
                     }
                 }
             }
@@ -756,7 +955,10 @@ bool Parser::loadSpecial(unsigned long _characterId, std::vector<std::string> _s
                 std::vector<std::string> cds;
                 std::vector<char> charToRemove = {'[', ']', ' '};
                 Tools::split(element.at(1), ',', cds, &charToRemove);
-                special_cd.push_back(static_cast<short>(std::stoi(cds.at(0))));
+                if (cds.at(0) != "null")
+                {
+                    special_cd.push_back(static_cast<short>(std::stoi(cds.at(0))));
+                }
             }
         }
     }
@@ -772,37 +974,4 @@ bool Parser::loadSpecial(unsigned long _characterId, std::vector<std::string> _s
         }
     }
     return false;
-}
-
-
-std::map<int, MyCharacter*> Parser::getOwnedCharacters(int id)
-{
-    std::map<int, MyCharacter*> idCharacters;
-    std::string working_path = QDir::currentPath().toUtf8().constData();
-    std::ifstream stream(working_path + "/resources/characters/" + std::to_string(id) + ".json");
-    json file;
-    stream >> file;
-
-    //Get all owned characters id
-    std::vector<std::string> charactersId;
-    for (json::iterator it = file.begin(); it != file.end(); ++it)
-    {
-        auto characterIstance = file.at(it.key()); //Character id
-        for (json::iterator kek = characterIstance.begin(); kek != characterIstance.end(); ++kek)
-        {
-            auto yolo = characterIstance.at(kek.key()); // Istanza del personaggio
-
-            for (json::iterator tre = yolo.begin(); tre != yolo.end(); ++tre)
-            {
-                auto yololol = tre.key();
-                auto ahaha = tre.value();
-                std::cout << yololol << " " << ahaha << std::endl;
-            }
-        }
-
-      charactersId.push_back(it.key());
-
-    }
-
-    return idCharacters;
 }

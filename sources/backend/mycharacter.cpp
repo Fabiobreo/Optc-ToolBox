@@ -1,13 +1,39 @@
 #include <myCharacter.h>
 #include <cmath>
 
-MyCharacter::MyCharacter(Character* _template_character) :
-        template_character(_template_character)
-{}
+MyCharacter::MyCharacter(Character* _template_character, std::string _nickname) :
+        template_character(_template_character),
+        nickname(_nickname),
+        want_to_finish_level(true),
+        want_to_finish_cc(true),
+        want_to_finish_skill(true),
+        want_to_finish_sockets(true),
+        want_to_finish_limit(true),
+        level(template_character->getStats()->max_level),
+        skill_level(1),
+        lb_unlocked_nodes(0),
+        training_points(0),
+        cc_hp(0),
+        cc_atk(0),
+        cc_rcv(0)
+{
+    setNickname(_nickname);
+}
+
+void MyCharacter::setNickname(std::string _nickname)
+{
+    nickname = _nickname;
+}
+
+std::string MyCharacter::getNickname()
+{
+    return nickname;
+}
 
 void MyCharacter::setLevel(short _level)
 {
-    if (_level > 0 && _level < (template_character->getStats()->max_level))
+    short maxLevel = template_character->getStats()->max_level;
+    if (_level > 0 && _level <= maxLevel)
     {
         level = _level;
     }
@@ -40,7 +66,7 @@ std::vector<int> MyCharacter::getStats()
 
 void MyCharacter::addSocket(Socket _socket)
 {
-    if ( (int)current_sockets.size() < (getCurrentSocketsTotalNum() - 1))
+    if (static_cast<int>(current_sockets.size()) < getCurrentSocketsTotalNum())
     {
         bool alreadyIn = false;
         for (Socket socket : current_sockets)
@@ -60,6 +86,11 @@ void MyCharacter::addSocket(Socket _socket)
             current_sockets.push_back(_socket);
         }
     }
+}
+
+std::vector<Socket>& MyCharacter::getSockets()
+{
+    return current_sockets;
 }
 
 void MyCharacter::removeSocket(Socket::Type _type)
@@ -84,7 +115,7 @@ void MyCharacter::removeSocket(Socket::Type _type)
 
 void MyCharacter::modifySocketValue(Socket::Type _type, short _value)
 {
-    for (Socket socket : current_sockets)
+    for (Socket& socket : current_sockets)
     {
         if (socket.getType() == _type)
         {
@@ -122,7 +153,7 @@ short MyCharacter::getSocketsTotalNum()
 
 void MyCharacter::addDesiredSocket(Socket::Type _type)
 {
-    if ( (short)desired_sockets.size() < getSocketsTotalNum())
+    if ( static_cast<short>(desired_sockets.size()) < getSocketsTotalNum())
     {
         bool alreadyIn = false;
         for (Socket::Type type : desired_sockets)
@@ -140,6 +171,11 @@ void MyCharacter::addDesiredSocket(Socket::Type _type)
             desired_sockets.push_back(_type);
         }
     }
+}
+
+std::vector<Socket::Type>& MyCharacter::getDesiredSockets()
+{
+    return desired_sockets;
 }
 
 void MyCharacter::removeDesiredSocket(Socket::Type _type)
@@ -193,9 +229,47 @@ std::vector<Socket> MyCharacter::missingSocketPoints()
     return missingPoints;
 }
 
+void MyCharacter::setPotential(Potential::Type _type, short _value)
+{
+    bool found = false;
+    for (Potential& potential : current_potentials)
+    {
+        if (potential.getType() == _type)
+        {
+            potential.setValue(_value);
+            found = true;
+            break;
+        }
+    }
+
+    if (!found)
+    {
+        Potential potential(_type, _value);
+        current_potentials.push_back(potential);
+    }
+}
+
+std::vector<Potential> MyCharacter::getPotential()
+{
+    return current_potentials;
+}
+
+short MyCharacter::getPotential(Potential::Type _type)
+{
+    for (Potential potential : current_potentials)
+    {
+        if (potential.getType() == _type)
+        {
+            return potential.getValue();
+        }
+    }
+
+    return -1;
+}
+
 void MyCharacter::setSkillLevel(short _level)
 {
-    if (_level <= template_character->getSpecial()->getMaxLevel())
+    if (_level > 0 && _level <= template_character->getSpecial()->getMaxLevel())
     {
         skill_level = _level;
     }
@@ -220,6 +294,23 @@ short MyCharacter::getLbUnlockedNodes()
     return lb_unlocked_nodes;
 }
 
+
+void MyCharacter::setTrainingPoints(int _trainingPoints)
+{
+    LimitBreak* limit = template_character->getLimitBreak();
+
+    if (_trainingPoints >= 0 && _trainingPoints <= limit->getMaxTrainingPoints())
+    {
+        training_points = _trainingPoints;
+    }
+
+}
+
+int MyCharacter::getTrainingPoints()
+{
+    return training_points;
+}
+
 void MyCharacter::setCC(short _hp, short _atk, short _rcv)
 {
     const short MAX_CC = 200;
@@ -231,6 +322,14 @@ void MyCharacter::setCC(short _hp, short _atk, short _rcv)
     }
 }
 
+void MyCharacter::setCC(std::vector<short> _cottons)
+{
+    if (_cottons.size() == 3)
+    {
+        setCC(_cottons.at(0), _cottons.at(1), _cottons.at(2));
+    }
+}
+
 std::vector<short> MyCharacter::getCC()
 {
     std::vector<short> cc;
@@ -238,4 +337,54 @@ std::vector<short> MyCharacter::getCC()
     cc.push_back(cc_atk);
     cc.push_back(cc_rcv);
     return cc;
+}
+
+bool MyCharacter::getWantToFinishLevel()
+{
+    return want_to_finish_level;
+}
+
+void MyCharacter::setWantToFinishLevel(bool _wantToFinish)
+{
+    want_to_finish_level = _wantToFinish;
+}
+
+bool MyCharacter::getWantToFinishCotton()
+{
+    return want_to_finish_cc;
+}
+
+void MyCharacter::setWantToFinishCotton(bool _wantToFinish)
+{
+    want_to_finish_cc = _wantToFinish;
+}
+
+bool MyCharacter::getWantToFinishSockets()
+{
+    return want_to_finish_sockets;
+}
+
+void MyCharacter::setWantToFinishSockets(bool _wantToFinish)
+{
+    want_to_finish_sockets = _wantToFinish;
+}
+
+bool MyCharacter::getWantToFinishSkill()
+{
+    return want_to_finish_skill;
+}
+
+void MyCharacter::setWantToFinishSkill(bool _wantToFinish)
+{
+    want_to_finish_skill = _wantToFinish;
+}
+
+bool MyCharacter::getWantToFinishLimitBreak()
+{
+    return want_to_finish_limit;
+}
+
+void MyCharacter::setWantToFinishLimitBreak(bool _wantToFinish)
+{
+    want_to_finish_limit = _wantToFinish;
 }

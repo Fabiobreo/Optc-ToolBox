@@ -14,16 +14,22 @@ class Optc : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit Optc(QWidget *parent = nullptr);
+    explicit Optc(QWidget* _parent = nullptr);
     ~Optc();
 
-    void loadCharacters();
+    void loadCharacters(long _id);
+    void logout();
+
+private slots:
+    void on_actionLogout_triggered();
 
 private:
     Ui::Optc *ui;
     Parser* character_parser;
     std::vector<Character*> characters;
-    std::map<int, MyCharacter*> myCharacters;
+    std::map<std::string, Material*> materials;
+    std::map<std::string, int> familiesMap;
+    std::map<int, std::vector<MyCharacter*>> myCharacters;
     Utility utility;
 };
 

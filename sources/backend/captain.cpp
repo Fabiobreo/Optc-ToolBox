@@ -1,17 +1,7 @@
 #include "captain.h"
 
-Captain::Captain()
-{
-
-}
-
 Captain::Captain(std::string _description) :
     description(_description)
-{
-
-}
-
-Captain::~Captain()
 {
 
 }

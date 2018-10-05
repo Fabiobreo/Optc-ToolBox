@@ -9,7 +9,12 @@ class Utility
 {
 public:
     std::vector<Character*>* characters = nullptr;
-    std::map<int, MyCharacter*>* myCharacters = nullptr;
+    std::map<std::string, Material*>* materials = nullptr;
+    std::map<std::string, int>* familiesMap = nullptr;
+    std::map<int, std::vector<MyCharacter*>>* myCharacters = nullptr;
+    std::string currentTab = "Stats";
+    unsigned long id = 0;
+    bool editMode = false;
 };
 
 #endif // UTILITY_H

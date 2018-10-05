@@ -2,17 +2,14 @@
 #include <ui_optc.h>
 #include <database.h>
 #include <parser.h>
+#include <json.h>
+#include <filter.h>
 
-Optc::Optc(QWidget *parent) :
-    QMainWindow(parent),
+Optc::Optc(QWidget *_parent) :
+    QMainWindow(_parent),
     ui(new Ui::Optc)
 {
     ui->setupUi(this);
-    loadCharacters();
-//    std::cout << *characters.at(2012) << std::endl;
-//    std::cout << characters.at(1975) << std::endl;
-    Database* data = new Database(&utility, this);
-    ui->tabWidget->addTab(data, "Database");
 }
 
 Optc::~Optc()
@@ -20,16 +17,60 @@ Optc::~Optc()
     delete ui;
 }
 
-void Optc::loadCharacters()
+void Optc::loadCharacters(long _id)
 {
+    utility.id = static_cast<unsigned long>(_id);
     std::string working_path = QDir::currentPath().toUtf8().constData();
     character_parser = new Parser(working_path  + "/resources/details/");
     character_parser->load();
     characters = character_parser->getCharacters();
+    materials = character_parser->getMaterials();
+    familiesMap = character_parser->getFamiliesMap();
     utility.characters = &characters;
-    myCharacters = character_parser->getOwnedCharacters(541443375);
+    utility.materials = &materials;
+    utility.familiesMap = &familiesMap;
+    myCharacters = Tools::loadOwnedCharacters(characters, utility.id);
     utility.myCharacters = &myCharacters;
 
+
+//    std::cout << *characters.at(2049) << std::endl;
+//    std::cout << *characters.at(2131) << std::endl;
+//    std::cout << *characters.at(2133) << std::endl;
+//    std::cout << *characters.at(2134) << std::endl;
+//    std::cout << *characters.at(2136) << std::endl;
+
+    for(std::map<std::string, Material*>::iterator it = materials.begin(); it != materials.end(); ++it)
+    {
+        QString materialIconPath = ":/ui/" + QString::fromStdString(materials[it->first]->getName()) + ".png";
+        QPixmap* iconPixmap;
+
+        // Load icon
+        if(QFileInfo::exists(materialIconPath) && QFileInfo(materialIconPath).isFile())
+        {
+            iconPixmap = new QPixmap(materialIconPath);
+        }
+        else
+        {
+            iconPixmap = new QPixmap(":/ui/skullLuffy.png");
+        }
+
+        int portraitSize = 60;
+        *iconPixmap = iconPixmap->scaled(portraitSize, portraitSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        QIcon coloredIcon(*iconPixmap);
+
+        /* Make gray icon*/
+        int w = coloredIcon.availableSizes().at(0).width();
+        int h = coloredIcon.availableSizes().at(0).height();
+        QImage image = coloredIcon.pixmap(w, h).toImage();
+        image = image.convertToFormat(QImage::Format_Grayscale8);
+        QPixmap grayPix = QPixmap::fromImage(image);
+
+        /* Add images to material*/
+        materials[it->first]->setColoredIcon(iconPixmap);
+        materials[it->first]->setGrayIcon(grayPix);
+    }
+
+    QString workingPath = QDir::currentPath().toUtf8().constData();
     for (Character* ch : characters)
     {
         if (ch->getName() == "")
@@ -40,7 +81,6 @@ void Optc::loadCharacters()
         ss << std::setw(4) << std::setfill('0') << ch->getId();
         QString characterId(ss.str().c_str());
 
-        QString workingPath = QDir::currentPath().toUtf8().constData();
         QString characterIconPath = workingPath + "/resources/icons/f" + characterId + ".png";
         QPixmap* iconPixmap;
 
@@ -69,7 +109,73 @@ void Optc::loadCharacters()
 
         /* Add images to character*/
         ch->setColoredIcon(iconPixmap);
-        ch->setGrayIcon(&grayPix);
+        ch->setGrayIcon(grayPix);
     }
 
+    Database* data = new Database(&utility, this);
+    ui->tabWidget->addTab(data, "Database");
+}
+
+void Optc::logout()
+{
+    qApp->quit();
+    QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
+}
+
+void Optc::on_actionLogout_triggered()
+{
+    bool autoLogin;
+    std::string lastLogin;
+    std::map<std::string, std::string> userPwd;
+    std::string loginPath = std::string(QDir::currentPath().toUtf8().constData()) + "/resources/data/login.json";
+    std::ifstream inputStream(loginPath);
+    if (inputStream.is_open())
+    {
+        json inputFile;
+        inputStream >> inputFile;
+
+        if (inputFile.find("RegisteredUsers") != inputFile.end())
+        {
+            json registeredUsers = inputFile.at("RegisteredUsers");
+            for (json::iterator fileIterator = registeredUsers.begin(); fileIterator != registeredUsers.end(); ++fileIterator)
+            {
+                std::string username = fileIterator.key();
+                std::string pwd = registeredUsers.at(fileIterator.key());
+                userPwd[username] = pwd;
+            }
+        }
+
+        if (inputFile.find("LastLogin") != inputFile.end())
+        {
+            lastLogin = inputFile.at("LastLogin");
+        }
+
+        if (inputFile.find("AutoLogin") != inputFile.end())
+        {
+            autoLogin = inputFile.at("AutoLogin");
+        }
+    }
+    inputStream.close();
+
+    // Remove autologin
+    autoLogin = false;
+
+    std::ofstream outputFile(loginPath);
+    if (outputFile.is_open())
+    {
+        json settingsJson;
+
+        settingsJson["LastLogin"] = lastLogin;
+        settingsJson["AutoLogin"] = autoLogin;
+
+        json registeredJson;
+        for (std::map<std::string, std::string>::iterator it = userPwd.begin(); it != userPwd.end(); ++it)
+        {
+            registeredJson[it->first] = userPwd.at(it->first);
+        }
+        settingsJson["RegisteredUsers"] = registeredJson;
+        outputFile << std::setw(4) << settingsJson << std::endl;
+    }
+    outputFile.close();
+    logout();
 }

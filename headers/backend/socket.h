@@ -19,7 +19,7 @@ public:
      */
     enum class Type
     {
-        Dmr, Cd, Bind, Despair, AH, Rcv, Slot, Poison, Map, Resilience
+        Dmr, Cd, Bind, Despair, AH, Rcv, Slot, Poison, Map, Resilience, None
     };
 
     /**

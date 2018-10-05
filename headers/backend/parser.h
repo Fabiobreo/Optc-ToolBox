@@ -8,6 +8,7 @@
 #include <character.h>
 #include <tools.h>
 #include <mycharacter.h>
+#include <json.h>
 
 #ifndef PARSER_HPP
 #define PARSER_HPP
@@ -27,7 +28,17 @@ public:
      */
     std::vector<Character*> getCharacters();
 
-    std::map<int, MyCharacter*> getOwnedCharacters(int id);
+    /**
+     * @brief getMaterials
+     * @return
+     */
+    std::map<std::string, Material*> getMaterials();
+
+    /**
+     * @brief getFamiliesMap
+     * @return
+     */
+    std::map<std::string, int> getFamiliesMap();
 
     /**
      * @brief load
@@ -42,6 +53,12 @@ private:
      * @return
      */
     bool loadCharacters();
+
+    /**
+     * @brief loadMaterials
+     * @return
+     */
+    bool loadMaterials();
 
     /**
      * @brief loadCooldowns
@@ -60,6 +77,24 @@ private:
      * @return
      */
     bool loadDetails();
+
+    /**
+     * @brief loadFamilies
+     * @return
+     */
+    bool loadFamilies();
+
+    /**
+     * @brief loadAvailabilities
+     * @return
+     */
+    bool loadAvailabilities();
+
+    /**
+     * @brief loadTandems
+     * @return
+     */
+    bool loadTandems();
 
     /**
      * @brief loadLimitBreak
@@ -94,11 +129,16 @@ private:
     bool loadSpecial(unsigned long _characterId, std::vector<std::string> _special);
 
     std::vector<Character*> characters;
+    std::map<std::string, Material*> materials;
+    std::map<std::string, int> familiesMap;
     std::string dataPath;
     std::string charactersFile = "units.txt";
     std::string cooldownFile = "cooldowns.txt";
     std::string evolutionFile = "evolutions.txt";
     std::string detailFile = "details.txt";
+    std::string familiesFile = "families.txt";
+    std::string availabilitiesFile = "availability.txt";
+    std::string tandemsFile = "tandems.txt";
 
 };
 #endif //PARSER_HPP

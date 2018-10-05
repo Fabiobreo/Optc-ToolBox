@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'details.ui'
 **
-** Created by: Qt User Interface Compiler version 5.11.1
+** Created by: Qt User Interface Compiler version 5.11.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -11,7 +11,6 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QFormLayout>
 #include <QtWidgets/QGridLayout>
@@ -99,10 +98,20 @@ public:
     QLabel *limitLabel;
     QWidget *Evolution;
     QHBoxLayout *horizontalLayout_7;
-    QScrollArea *scrollArea;
+    QScrollArea *evolutionScroll;
     QWidget *evolutionWidget;
     QGridLayout *evolutionGrid;
-    QCheckBox *ownedBox;
+    QWidget *Tandem;
+    QHBoxLayout *horizontalLayout_x;
+    QScrollArea *tandemScroll;
+    QWidget *tandemWidget;
+    QGridLayout *tandemGrid;
+    QHBoxLayout *horizontalLayout_9;
+    QPushButton *addCharacterButton;
+    QPushButton *removeCharacterButton;
+    QSpacerItem *horizontalSpacer;
+    QTabWidget *myCharactersTab;
+    QSpacerItem *verticalSpacer_2;
     QWidget *typeWidget;
     QHBoxLayout *TypeLayout;
     QLabel *typeLabel;
@@ -127,27 +136,28 @@ public:
     {
         if (Details->objectName().isEmpty())
             Details->setObjectName(QStringLiteral("Details"));
-        Details->resize(300, 598);
+        Details->resize(320, 1010);
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Ignored);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(Details->sizePolicy().hasHeightForWidth());
         Details->setSizePolicy(sizePolicy);
-        Details->setMinimumSize(QSize(300, 0));
-        Details->setMaximumSize(QSize(300, 16777215));
+        Details->setMinimumSize(QSize(320, 0));
+        Details->setMaximumSize(QSize(320, 16777215));
         layoutWidget = new QWidget(Details);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(0, 300, 301, 241));
+        layoutWidget->setGeometry(QRect(0, 300, 321, 711));
         DetailsLayout = new QVBoxLayout(layoutWidget);
         DetailsLayout->setObjectName(QStringLiteral("DetailsLayout"));
         DetailsLayout->setContentsMargins(10, 0, 10, 0);
         detailsTabWidget = new QTabWidget(layoutWidget);
         detailsTabWidget->setObjectName(QStringLiteral("detailsTabWidget"));
-        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Maximum);
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(0);
         sizePolicy1.setHeightForWidth(detailsTabWidget->sizePolicy().hasHeightForWidth());
         detailsTabWidget->setSizePolicy(sizePolicy1);
+        detailsTabWidget->setMaximumSize(QSize(16777215, 220));
         Stats = new QWidget();
         Stats->setObjectName(QStringLiteral("Stats"));
         verticalLayout_2 = new QVBoxLayout(Stats);
@@ -157,7 +167,7 @@ public:
         scrollStats->setWidgetResizable(true);
         scrollStatsAreaLayout = new QWidget();
         scrollStatsAreaLayout->setObjectName(QStringLiteral("scrollStatsAreaLayout"));
-        scrollStatsAreaLayout->setGeometry(QRect(0, 0, 257, 167));
+        scrollStatsAreaLayout->setGeometry(QRect(0, 0, 277, 162));
         QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Maximum);
         sizePolicy2.setHorizontalStretch(0);
         sizePolicy2.setVerticalStretch(0);
@@ -359,27 +369,30 @@ public:
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         captainScroll = new QScrollArea(Captain);
         captainScroll->setObjectName(QStringLiteral("captainScroll"));
-        sizePolicy1.setHeightForWidth(captainScroll->sizePolicy().hasHeightForWidth());
-        captainScroll->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy7(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy7.setHorizontalStretch(0);
+        sizePolicy7.setVerticalStretch(0);
+        sizePolicy7.setHeightForWidth(captainScroll->sizePolicy().hasHeightForWidth());
+        captainScroll->setSizePolicy(sizePolicy7);
         captainScroll->setFrameShadow(QFrame::Sunken);
         captainScroll->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 257, 167));
-        QSizePolicy sizePolicy7(QSizePolicy::Minimum, QSizePolicy::Ignored);
-        sizePolicy7.setHorizontalStretch(0);
-        sizePolicy7.setVerticalStretch(0);
-        sizePolicy7.setHeightForWidth(scrollAreaWidgetContents->sizePolicy().hasHeightForWidth());
-        scrollAreaWidgetContents->setSizePolicy(sizePolicy7);
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 277, 162));
+        QSizePolicy sizePolicy8(QSizePolicy::Minimum, QSizePolicy::Ignored);
+        sizePolicy8.setHorizontalStretch(0);
+        sizePolicy8.setVerticalStretch(0);
+        sizePolicy8.setHeightForWidth(scrollAreaWidgetContents->sizePolicy().hasHeightForWidth());
+        scrollAreaWidgetContents->setSizePolicy(sizePolicy8);
         verticalLayout = new QVBoxLayout(scrollAreaWidgetContents);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         capAbilityLabel = new QLabel(scrollAreaWidgetContents);
         capAbilityLabel->setObjectName(QStringLiteral("capAbilityLabel"));
-        QSizePolicy sizePolicy8(QSizePolicy::Ignored, QSizePolicy::Expanding);
-        sizePolicy8.setHorizontalStretch(0);
-        sizePolicy8.setVerticalStretch(0);
-        sizePolicy8.setHeightForWidth(capAbilityLabel->sizePolicy().hasHeightForWidth());
-        capAbilityLabel->setSizePolicy(sizePolicy8);
+        QSizePolicy sizePolicy9(QSizePolicy::Ignored, QSizePolicy::Expanding);
+        sizePolicy9.setHorizontalStretch(0);
+        sizePolicy9.setVerticalStretch(0);
+        sizePolicy9.setHeightForWidth(capAbilityLabel->sizePolicy().hasHeightForWidth());
+        capAbilityLabel->setSizePolicy(sizePolicy9);
         capAbilityLabel->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
         capAbilityLabel->setWordWrap(true);
         capAbilityLabel->setMargin(5);
@@ -397,21 +410,21 @@ public:
         horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
         captainActionScroll = new QScrollArea(CaptainAction);
         captainActionScroll->setObjectName(QStringLiteral("captainActionScroll"));
-        sizePolicy1.setHeightForWidth(captainActionScroll->sizePolicy().hasHeightForWidth());
-        captainActionScroll->setSizePolicy(sizePolicy1);
+        sizePolicy7.setHeightForWidth(captainActionScroll->sizePolicy().hasHeightForWidth());
+        captainActionScroll->setSizePolicy(sizePolicy7);
         captainActionScroll->setFrameShadow(QFrame::Sunken);
         captainActionScroll->setWidgetResizable(true);
         scrollAreaWidgetContents_5 = new QWidget();
         scrollAreaWidgetContents_5->setObjectName(QStringLiteral("scrollAreaWidgetContents_5"));
-        scrollAreaWidgetContents_5->setGeometry(QRect(0, 0, 257, 167));
-        sizePolicy7.setHeightForWidth(scrollAreaWidgetContents_5->sizePolicy().hasHeightForWidth());
-        scrollAreaWidgetContents_5->setSizePolicy(sizePolicy7);
+        scrollAreaWidgetContents_5->setGeometry(QRect(0, 0, 277, 162));
+        sizePolicy8.setHeightForWidth(scrollAreaWidgetContents_5->sizePolicy().hasHeightForWidth());
+        scrollAreaWidgetContents_5->setSizePolicy(sizePolicy8);
         verticalLayout_6 = new QVBoxLayout(scrollAreaWidgetContents_5);
         verticalLayout_6->setObjectName(QStringLiteral("verticalLayout_6"));
         capActionLabel = new QLabel(scrollAreaWidgetContents_5);
         capActionLabel->setObjectName(QStringLiteral("capActionLabel"));
-        sizePolicy8.setHeightForWidth(capActionLabel->sizePolicy().hasHeightForWidth());
-        capActionLabel->setSizePolicy(sizePolicy8);
+        sizePolicy9.setHeightForWidth(capActionLabel->sizePolicy().hasHeightForWidth());
+        capActionLabel->setSizePolicy(sizePolicy9);
         capActionLabel->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
         capActionLabel->setWordWrap(true);
         capActionLabel->setMargin(5);
@@ -429,8 +442,8 @@ public:
         horizontalLayout_8->setObjectName(QStringLiteral("horizontalLayout_8"));
         swapScroll = new QScrollArea(Swap);
         swapScroll->setObjectName(QStringLiteral("swapScroll"));
-        sizePolicy1.setHeightForWidth(swapScroll->sizePolicy().hasHeightForWidth());
-        swapScroll->setSizePolicy(sizePolicy1);
+        sizePolicy7.setHeightForWidth(swapScroll->sizePolicy().hasHeightForWidth());
+        swapScroll->setSizePolicy(sizePolicy7);
         swapScroll->setMinimumSize(QSize(1, 0));
         swapScroll->setFrameShadow(QFrame::Sunken);
         swapScroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -438,15 +451,15 @@ public:
         swapScroll->setWidgetResizable(true);
         scrollAreaWidgetContents_6 = new QWidget();
         scrollAreaWidgetContents_6->setObjectName(QStringLiteral("scrollAreaWidgetContents_6"));
-        scrollAreaWidgetContents_6->setGeometry(QRect(0, 0, 257, 167));
-        sizePolicy7.setHeightForWidth(scrollAreaWidgetContents_6->sizePolicy().hasHeightForWidth());
-        scrollAreaWidgetContents_6->setSizePolicy(sizePolicy7);
+        scrollAreaWidgetContents_6->setGeometry(QRect(0, 0, 277, 162));
+        sizePolicy8.setHeightForWidth(scrollAreaWidgetContents_6->sizePolicy().hasHeightForWidth());
+        scrollAreaWidgetContents_6->setSizePolicy(sizePolicy8);
         verticalLayout_8 = new QVBoxLayout(scrollAreaWidgetContents_6);
         verticalLayout_8->setObjectName(QStringLiteral("verticalLayout_8"));
         swapLabel = new QLabel(scrollAreaWidgetContents_6);
         swapLabel->setObjectName(QStringLiteral("swapLabel"));
-        sizePolicy8.setHeightForWidth(swapLabel->sizePolicy().hasHeightForWidth());
-        swapLabel->setSizePolicy(sizePolicy8);
+        sizePolicy9.setHeightForWidth(swapLabel->sizePolicy().hasHeightForWidth());
+        swapLabel->setSizePolicy(sizePolicy9);
         swapLabel->setScaledContents(false);
         swapLabel->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
         swapLabel->setWordWrap(true);
@@ -465,21 +478,21 @@ public:
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
         sailorScroll = new QScrollArea(Sailor);
         sailorScroll->setObjectName(QStringLiteral("sailorScroll"));
-        sizePolicy1.setHeightForWidth(sailorScroll->sizePolicy().hasHeightForWidth());
-        sailorScroll->setSizePolicy(sizePolicy1);
+        sizePolicy7.setHeightForWidth(sailorScroll->sizePolicy().hasHeightForWidth());
+        sailorScroll->setSizePolicy(sizePolicy7);
         sailorScroll->setFrameShadow(QFrame::Sunken);
         sailorScroll->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QStringLiteral("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 257, 167));
-        sizePolicy7.setHeightForWidth(scrollAreaWidgetContents_2->sizePolicy().hasHeightForWidth());
-        scrollAreaWidgetContents_2->setSizePolicy(sizePolicy7);
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 277, 162));
+        sizePolicy8.setHeightForWidth(scrollAreaWidgetContents_2->sizePolicy().hasHeightForWidth());
+        scrollAreaWidgetContents_2->setSizePolicy(sizePolicy8);
         verticalLayout_3 = new QVBoxLayout(scrollAreaWidgetContents_2);
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         sailorAbilityLabel = new QLabel(scrollAreaWidgetContents_2);
         sailorAbilityLabel->setObjectName(QStringLiteral("sailorAbilityLabel"));
-        sizePolicy8.setHeightForWidth(sailorAbilityLabel->sizePolicy().hasHeightForWidth());
-        sailorAbilityLabel->setSizePolicy(sizePolicy8);
+        sizePolicy9.setHeightForWidth(sailorAbilityLabel->sizePolicy().hasHeightForWidth());
+        sailorAbilityLabel->setSizePolicy(sizePolicy9);
         sailorAbilityLabel->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
         sailorAbilityLabel->setWordWrap(true);
         sailorAbilityLabel->setMargin(5);
@@ -497,8 +510,8 @@ public:
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
         specialScroll = new QScrollArea(Special);
         specialScroll->setObjectName(QStringLiteral("specialScroll"));
-        sizePolicy1.setHeightForWidth(specialScroll->sizePolicy().hasHeightForWidth());
-        specialScroll->setSizePolicy(sizePolicy1);
+        sizePolicy7.setHeightForWidth(specialScroll->sizePolicy().hasHeightForWidth());
+        specialScroll->setSizePolicy(sizePolicy7);
         specialScroll->setMinimumSize(QSize(1, 0));
         specialScroll->setFrameShadow(QFrame::Sunken);
         specialScroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -506,15 +519,15 @@ public:
         specialScroll->setWidgetResizable(true);
         scrollAreaWidgetContents_3 = new QWidget();
         scrollAreaWidgetContents_3->setObjectName(QStringLiteral("scrollAreaWidgetContents_3"));
-        scrollAreaWidgetContents_3->setGeometry(QRect(0, 0, 257, 167));
-        sizePolicy7.setHeightForWidth(scrollAreaWidgetContents_3->sizePolicy().hasHeightForWidth());
-        scrollAreaWidgetContents_3->setSizePolicy(sizePolicy7);
+        scrollAreaWidgetContents_3->setGeometry(QRect(0, 0, 277, 162));
+        sizePolicy8.setHeightForWidth(scrollAreaWidgetContents_3->sizePolicy().hasHeightForWidth());
+        scrollAreaWidgetContents_3->setSizePolicy(sizePolicy8);
         verticalLayout_4 = new QVBoxLayout(scrollAreaWidgetContents_3);
         verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
         specialAbilityLabel = new QLabel(scrollAreaWidgetContents_3);
         specialAbilityLabel->setObjectName(QStringLiteral("specialAbilityLabel"));
-        sizePolicy8.setHeightForWidth(specialAbilityLabel->sizePolicy().hasHeightForWidth());
-        specialAbilityLabel->setSizePolicy(sizePolicy8);
+        sizePolicy9.setHeightForWidth(specialAbilityLabel->sizePolicy().hasHeightForWidth());
+        specialAbilityLabel->setSizePolicy(sizePolicy9);
         specialAbilityLabel->setScaledContents(false);
         specialAbilityLabel->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
         specialAbilityLabel->setWordWrap(true);
@@ -533,18 +546,18 @@ public:
         horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
         limitScroll = new QScrollArea(LimitBreak);
         limitScroll->setObjectName(QStringLiteral("limitScroll"));
-        sizePolicy8.setHeightForWidth(limitScroll->sizePolicy().hasHeightForWidth());
-        limitScroll->setSizePolicy(sizePolicy8);
+        sizePolicy9.setHeightForWidth(limitScroll->sizePolicy().hasHeightForWidth());
+        limitScroll->setSizePolicy(sizePolicy9);
         limitScroll->setWidgetResizable(true);
         scrollAreaWidgetContents_4 = new QWidget();
         scrollAreaWidgetContents_4->setObjectName(QStringLiteral("scrollAreaWidgetContents_4"));
-        scrollAreaWidgetContents_4->setGeometry(QRect(0, 0, 257, 167));
+        scrollAreaWidgetContents_4->setGeometry(QRect(0, 0, 277, 162));
         verticalLayout_7 = new QVBoxLayout(scrollAreaWidgetContents_4);
         verticalLayout_7->setObjectName(QStringLiteral("verticalLayout_7"));
         limitLabel = new QLabel(scrollAreaWidgetContents_4);
         limitLabel->setObjectName(QStringLiteral("limitLabel"));
-        sizePolicy8.setHeightForWidth(limitLabel->sizePolicy().hasHeightForWidth());
-        limitLabel->setSizePolicy(sizePolicy8);
+        sizePolicy9.setHeightForWidth(limitLabel->sizePolicy().hasHeightForWidth());
+        limitLabel->setSizePolicy(sizePolicy9);
         limitLabel->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
         limitLabel->setWordWrap(true);
         limitLabel->setMargin(5);
@@ -558,35 +571,151 @@ public:
         detailsTabWidget->addTab(LimitBreak, QString());
         Evolution = new QWidget();
         Evolution->setObjectName(QStringLiteral("Evolution"));
-        QSizePolicy sizePolicy9(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        sizePolicy9.setHorizontalStretch(0);
-        sizePolicy9.setVerticalStretch(0);
-        sizePolicy9.setHeightForWidth(Evolution->sizePolicy().hasHeightForWidth());
-        Evolution->setSizePolicy(sizePolicy9);
+        QSizePolicy sizePolicy10(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy10.setHorizontalStretch(0);
+        sizePolicy10.setVerticalStretch(0);
+        sizePolicy10.setHeightForWidth(Evolution->sizePolicy().hasHeightForWidth());
+        Evolution->setSizePolicy(sizePolicy10);
         Evolution->setMinimumSize(QSize(1, 1));
         horizontalLayout_7 = new QHBoxLayout(Evolution);
         horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
         horizontalLayout_7->setSizeConstraint(QLayout::SetNoConstraint);
-        scrollArea = new QScrollArea(Evolution);
-        scrollArea->setObjectName(QStringLiteral("scrollArea"));
-        scrollArea->setWidgetResizable(true);
+        evolutionScroll = new QScrollArea(Evolution);
+        evolutionScroll->setObjectName(QStringLiteral("evolutionScroll"));
+        evolutionScroll->setWidgetResizable(true);
         evolutionWidget = new QWidget();
         evolutionWidget->setObjectName(QStringLiteral("evolutionWidget"));
-        evolutionWidget->setGeometry(QRect(0, 0, 257, 167));
+        evolutionWidget->setGeometry(QRect(0, 0, 277, 162));
         evolutionGrid = new QGridLayout(evolutionWidget);
         evolutionGrid->setObjectName(QStringLiteral("evolutionGrid"));
-        scrollArea->setWidget(evolutionWidget);
+        evolutionScroll->setWidget(evolutionWidget);
 
-        horizontalLayout_7->addWidget(scrollArea);
+        horizontalLayout_7->addWidget(evolutionScroll);
 
         detailsTabWidget->addTab(Evolution, QString());
+        Tandem = new QWidget();
+        Tandem->setObjectName(QStringLiteral("Tandem"));
+        sizePolicy10.setHeightForWidth(Tandem->sizePolicy().hasHeightForWidth());
+        Tandem->setSizePolicy(sizePolicy10);
+        Tandem->setMinimumSize(QSize(1, 1));
+        horizontalLayout_x = new QHBoxLayout(Tandem);
+        horizontalLayout_x->setObjectName(QStringLiteral("horizontalLayout_x"));
+        horizontalLayout_x->setSizeConstraint(QLayout::SetNoConstraint);
+        tandemScroll = new QScrollArea(Tandem);
+        tandemScroll->setObjectName(QStringLiteral("tandemScroll"));
+        tandemScroll->setWidgetResizable(true);
+        tandemWidget = new QWidget();
+        tandemWidget->setObjectName(QStringLiteral("tandemWidget"));
+        tandemWidget->setGeometry(QRect(0, 0, 277, 162));
+        tandemGrid = new QGridLayout(tandemWidget);
+        tandemGrid->setObjectName(QStringLiteral("tandemGrid"));
+        tandemScroll->setWidget(tandemWidget);
+
+        horizontalLayout_x->addWidget(tandemScroll);
+
+        detailsTabWidget->addTab(Tandem, QString());
 
         DetailsLayout->addWidget(detailsTabWidget);
 
-        ownedBox = new QCheckBox(layoutWidget);
-        ownedBox->setObjectName(QStringLiteral("ownedBox"));
+        horizontalLayout_9 = new QHBoxLayout();
+        horizontalLayout_9->setObjectName(QStringLiteral("horizontalLayout_9"));
+        addCharacterButton = new QPushButton(layoutWidget);
+        addCharacterButton->setObjectName(QStringLiteral("addCharacterButton"));
+        QSizePolicy sizePolicy11(QSizePolicy::Maximum, QSizePolicy::Maximum);
+        sizePolicy11.setHorizontalStretch(0);
+        sizePolicy11.setVerticalStretch(0);
+        sizePolicy11.setHeightForWidth(addCharacterButton->sizePolicy().hasHeightForWidth());
+        addCharacterButton->setSizePolicy(sizePolicy11);
+        addCharacterButton->setMinimumSize(QSize(20, 20));
+        addCharacterButton->setMaximumSize(QSize(20, 20));
+        addCharacterButton->setStyleSheet(QLatin1String("QPushButton {\n"
+"    color: #333;\n"
+"    border: 2px solid #555;\n"
+"    border-radius: 10px;\n"
+"    border-style: outset;\n"
+"    background: qradialgradient(\n"
+"        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,\n"
+"        radius: 1.35, stop: 0 #ffffff, stop: 1 #bbb\n"
+"        );\n"
+"	font: 12pt;\n"
+"	Text-align: bottom;\n"
+"    }\n"
+"\n"
+"QPushButton:hover {\n"
+"    background: qradialgradient(\n"
+"        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,\n"
+"        radius: 1.35, stop: 0 #fff, stop: 1 #fff\n"
+"        );\n"
+"    }\n"
+"\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background: qradialgradient(\n"
+"        cx: 0.4, cy: -0.1, fx: 0.4, fy: -0.1,\n"
+"        radius: 1.35, stop: 0 #fff, stop: 1 #ddd\n"
+"        );\n"
+"    }"));
 
-        DetailsLayout->addWidget(ownedBox);
+        horizontalLayout_9->addWidget(addCharacterButton);
+
+        removeCharacterButton = new QPushButton(layoutWidget);
+        removeCharacterButton->setObjectName(QStringLiteral("removeCharacterButton"));
+        sizePolicy11.setHeightForWidth(removeCharacterButton->sizePolicy().hasHeightForWidth());
+        removeCharacterButton->setSizePolicy(sizePolicy11);
+        removeCharacterButton->setMinimumSize(QSize(20, 20));
+        removeCharacterButton->setMaximumSize(QSize(20, 20));
+        removeCharacterButton->setStyleSheet(QLatin1String("QPushButton {\n"
+"    color: #333;\n"
+"    border: 2px solid #555;\n"
+"    border-radius: 10px;\n"
+"    border-style: outset;\n"
+"    background: qradialgradient(\n"
+"        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,\n"
+"        radius: 1.35, stop: 0 #ffffff, stop: 1 #bbb\n"
+"        );\n"
+"	font: 12pt;\n"
+"	Text-align: bottom;\n"
+"    }\n"
+"\n"
+"QPushButton:hover {\n"
+"    background: qradialgradient(\n"
+"        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,\n"
+"        radius: 1.35, stop: 0 #fff, stop: 1 #fff\n"
+"        );\n"
+"    }\n"
+"\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background: qradialgradient(\n"
+"        cx: 0.4, cy: -0.1, fx: 0.4, fy: -0.1,\n"
+"        radius: 1.35, stop: 0 #fff, stop: 1 #ddd\n"
+"        );\n"
+"    }"));
+
+        horizontalLayout_9->addWidget(removeCharacterButton);
+
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_9->addItem(horizontalSpacer);
+
+
+        DetailsLayout->addLayout(horizontalLayout_9);
+
+        myCharactersTab = new QTabWidget(layoutWidget);
+        myCharactersTab->setObjectName(QStringLiteral("myCharactersTab"));
+        QSizePolicy sizePolicy12(QSizePolicy::Expanding, QSizePolicy::Minimum);
+        sizePolicy12.setHorizontalStretch(0);
+        sizePolicy12.setVerticalStretch(0);
+        sizePolicy12.setHeightForWidth(myCharactersTab->sizePolicy().hasHeightForWidth());
+        myCharactersTab->setSizePolicy(sizePolicy12);
+        myCharactersTab->setMinimumSize(QSize(0, 460));
+        myCharactersTab->setLayoutDirection(Qt::LeftToRight);
+
+        DetailsLayout->addWidget(myCharactersTab);
+
+        verticalSpacer_2 = new QSpacerItem(10, 0, QSizePolicy::Minimum, QSizePolicy::MinimumExpanding);
+
+        DetailsLayout->addItem(verticalSpacer_2);
 
         typeWidget = new QWidget(Details);
         typeWidget->setObjectName(QStringLiteral("typeWidget"));
@@ -607,11 +736,11 @@ public:
         classWidget = new QWidget(Details);
         classWidget->setObjectName(QStringLiteral("classWidget"));
         classWidget->setGeometry(QRect(110, 265, 181, 30));
-        QSizePolicy sizePolicy10(QSizePolicy::Preferred, QSizePolicy::Fixed);
-        sizePolicy10.setHorizontalStretch(0);
-        sizePolicy10.setVerticalStretch(0);
-        sizePolicy10.setHeightForWidth(classWidget->sizePolicy().hasHeightForWidth());
-        classWidget->setSizePolicy(sizePolicy10);
+        QSizePolicy sizePolicy13(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy13.setHorizontalStretch(0);
+        sizePolicy13.setVerticalStretch(0);
+        sizePolicy13.setHeightForWidth(classWidget->sizePolicy().hasHeightForWidth());
+        classWidget->setSizePolicy(sizePolicy13);
         horizontalLayout = new QHBoxLayout(classWidget);
         horizontalLayout->setSpacing(2);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
@@ -619,11 +748,11 @@ public:
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
         classeP = new QLabel(classWidget);
         classeP->setObjectName(QStringLiteral("classeP"));
-        QSizePolicy sizePolicy11(QSizePolicy::Minimum, QSizePolicy::Preferred);
-        sizePolicy11.setHorizontalStretch(0);
-        sizePolicy11.setVerticalStretch(0);
-        sizePolicy11.setHeightForWidth(classeP->sizePolicy().hasHeightForWidth());
-        classeP->setSizePolicy(sizePolicy11);
+        QSizePolicy sizePolicy14(QSizePolicy::Minimum, QSizePolicy::Preferred);
+        sizePolicy14.setHorizontalStretch(0);
+        sizePolicy14.setVerticalStretch(0);
+        sizePolicy14.setHeightForWidth(classeP->sizePolicy().hasHeightForWidth());
+        classeP->setSizePolicy(sizePolicy14);
 
         horizontalLayout->addWidget(classeP);
 
@@ -634,8 +763,8 @@ public:
 
         classeS = new QLabel(classWidget);
         classeS->setObjectName(QStringLiteral("classeS"));
-        sizePolicy11.setHeightForWidth(classeS->sizePolicy().hasHeightForWidth());
-        classeS->setSizePolicy(sizePolicy11);
+        sizePolicy14.setHeightForWidth(classeS->sizePolicy().hasHeightForWidth());
+        classeS->setSizePolicy(sizePolicy14);
 
         horizontalLayout->addWidget(classeS);
 
@@ -646,24 +775,24 @@ public:
 
         formLayoutWidget = new QWidget(Details);
         formLayoutWidget->setObjectName(QStringLiteral("formLayoutWidget"));
-        formLayoutWidget->setGeometry(QRect(0, 230, 301, 31));
+        formLayoutWidget->setGeometry(QRect(0, 230, 321, 31));
         starLayout = new QFormLayout(formLayoutWidget);
         starLayout->setObjectName(QStringLiteral("starLayout"));
         starLayout->setContentsMargins(0, 0, 0, 0);
         verticalLayoutWidget = new QWidget(Details);
         verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(0, 0, 301, 231));
+        verticalLayoutWidget->setGeometry(QRect(0, 0, 321, 231));
         ImageNameLayout = new QVBoxLayout(verticalLayoutWidget);
         ImageNameLayout->setObjectName(QStringLiteral("ImageNameLayout"));
         ImageNameLayout->setSizeConstraint(QLayout::SetNoConstraint);
         ImageNameLayout->setContentsMargins(0, 0, 0, 0);
         nameLabel = new QLabel(verticalLayoutWidget);
         nameLabel->setObjectName(QStringLiteral("nameLabel"));
-        QSizePolicy sizePolicy12(QSizePolicy::Ignored, QSizePolicy::Minimum);
-        sizePolicy12.setHorizontalStretch(0);
-        sizePolicy12.setVerticalStretch(0);
-        sizePolicy12.setHeightForWidth(nameLabel->sizePolicy().hasHeightForWidth());
-        nameLabel->setSizePolicy(sizePolicy12);
+        QSizePolicy sizePolicy15(QSizePolicy::Ignored, QSizePolicy::Minimum);
+        sizePolicy15.setHorizontalStretch(0);
+        sizePolicy15.setVerticalStretch(0);
+        sizePolicy15.setHeightForWidth(nameLabel->sizePolicy().hasHeightForWidth());
+        nameLabel->setSizePolicy(sizePolicy15);
         nameLabel->setMinimumSize(QSize(1, 1));
         nameLabel->setMaximumSize(QSize(16777215, 30));
         QFont font;
@@ -680,8 +809,8 @@ public:
         ImageLayout->setObjectName(QStringLiteral("ImageLayout"));
         LeftButton = new QPushButton(verticalLayoutWidget);
         LeftButton->setObjectName(QStringLiteral("LeftButton"));
-        sizePolicy9.setHeightForWidth(LeftButton->sizePolicy().hasHeightForWidth());
-        LeftButton->setSizePolicy(sizePolicy9);
+        sizePolicy10.setHeightForWidth(LeftButton->sizePolicy().hasHeightForWidth());
+        LeftButton->setSizePolicy(sizePolicy10);
         LeftButton->setMinimumSize(QSize(1, 1));
         LeftButton->setMaximumSize(QSize(20, 20));
         LeftButton->setStyleSheet(QLatin1String("Text-align:center\n"
@@ -703,8 +832,8 @@ public:
 
         RightButton = new QPushButton(verticalLayoutWidget);
         RightButton->setObjectName(QStringLiteral("RightButton"));
-        sizePolicy9.setHeightForWidth(RightButton->sizePolicy().hasHeightForWidth());
-        RightButton->setSizePolicy(sizePolicy9);
+        sizePolicy10.setHeightForWidth(RightButton->sizePolicy().hasHeightForWidth());
+        RightButton->setSizePolicy(sizePolicy10);
         RightButton->setMinimumSize(QSize(1, 1));
         RightButton->setMaximumSize(QSize(20, 20));
         RightButton->setFlat(false);
@@ -723,6 +852,7 @@ public:
         retranslateUi(Details);
 
         detailsTabWidget->setCurrentIndex(0);
+        myCharactersTab->setCurrentIndex(-1);
 
 
         QMetaObject::connectSlotsByName(Details);
@@ -765,7 +895,9 @@ public:
         limitLabel->setText(QApplication::translate("Details", "TextLabel", nullptr));
         detailsTabWidget->setTabText(detailsTabWidget->indexOf(LimitBreak), QApplication::translate("Details", "Limit", nullptr));
         detailsTabWidget->setTabText(detailsTabWidget->indexOf(Evolution), QApplication::translate("Details", "Evolution", nullptr));
-        ownedBox->setText(QApplication::translate("Details", "Owned", nullptr));
+        detailsTabWidget->setTabText(detailsTabWidget->indexOf(Tandem), QApplication::translate("Details", "Tandem", nullptr));
+        addCharacterButton->setText(QApplication::translate("Details", "+", nullptr));
+        removeCharacterButton->setText(QApplication::translate("Details", "-", nullptr));
         typeLabel->setText(QApplication::translate("Details", "TipoVero", nullptr));
         type2Label->setText(QApplication::translate("Details", "TipoVero", nullptr));
         classeP->setText(QApplication::translate("Details", "P", nullptr));

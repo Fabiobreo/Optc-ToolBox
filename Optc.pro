@@ -22,6 +22,12 @@ SOURCES += \
     sources/frontend/details.cpp \
     sources/frontend/database.cpp \
     sources/frontend/optc.cpp \
+    sources/frontend/mycharacterform.cpp \
+    sources/frontend/socketselection.cpp \
+    sources/frontend/characterItem.cpp \
+    sources/frontend/loginform.cpp \
+    sources/frontend/conditionWidget.cpp \
+    sources/frontend/filterWidget.cpp \
     sources/backend/stats.cpp \
     sources/backend/enums.cpp \
     sources/backend/limitbreak.cpp \
@@ -33,12 +39,23 @@ SOURCES += \
     sources/backend/captain.cpp \
     sources/backend/mycharacter.cpp \
     sources/backend/parser.cpp \
-    sources/backend/tools.cpp
+    sources/backend/tools.cpp \
+    sources/backend/material.cpp \
+    sources/backend/tandem.cpp \
+    sources/backend/filter.cpp \
+    sources/frontend/advancedFilters.cpp
 
 HEADERS += \
     headers/frontend/details.h \
     headers/frontend/database.h \
+    headers/frontend/utility.h \
     headers/frontend/optc.h \
+    headers/frontend/mycharacterform.h \
+    headers/frontend/socketselection.h \
+    headers/frontend/characterItem.h \
+    headers/frontend/loginform.h \
+    headers/frontend/conditionWidget.h \
+    headers/frontend/filterWidget.h \
     headers/backend/stats.h \
     headers/backend/enums.h \
     headers/backend/limitbreak.h \
@@ -49,12 +66,23 @@ HEADERS += \
     headers/backend/character.h \
     headers/backend/captain.h \
     headers/backend/mycharacter.h \
-    headers/backend/parser.h \
-    headers/frontend/utility.h \
+    headers/backend/parser.h\
     headers/backend/tools.h \
-    headers/backend/json.h
+    headers/backend/material.h \
+    headers/backend/tandem.h \
+    headers/backend/filter.h \
+    headers/frontend/advancedFilters.h
 
 FORMS += \
     ui/details.ui \
     ui/database.ui \
-    ui/optc.ui
+    ui/optc.ui \
+    ui/mycharacterform.ui \
+    ui/socketselection.ui \
+    ui/loginform.ui \
+    ui/conditionWidget.ui \
+    ui/filterWidget.ui \
+    ui/advancedFilters.ui
+
+RESOURCES += \
+    resources/ui/resources.qrc

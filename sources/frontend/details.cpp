@@ -3,6 +3,7 @@
 #include <iomanip>
 #include <sstream>
 #include <QFileInfo>
+#include <mycharacterform.h>
 
 QString getClassIcon(Class& _class);
 
@@ -14,55 +15,74 @@ Details::Details(Utility* _utility, short _characterId, QWidget *_parent) :
 {
     ui->setupUi(this);
     connect(this, SIGNAL(changeCharacterDetail(int)), this->parent(), SLOT(changeDetails(int)));
+    connect(this, SIGNAL(changedOwnedState()), this->parent(), SLOT(redraw()));
 
     characters = utility->characters;
     myCharacters = utility->myCharacters;
 
     loadCharacter(characterId);
 
-    if (!utility->characters->at(characterId - 1)->hasDual())
+    if (!utility->characters->at(static_cast<unsigned int>(characterId - 1))->hasDual())
     {
         ui->LeftButton->hide();
         ui->RightButton->hide();
     }
-    // Set owned box
-    if (myCharacters->find(characterId) != myCharacters->end())
+
+    ui->addCharacterButton->hide();
+    ui->removeCharacterButton->hide();
+
+    if (myCharacters->find(characterId) == myCharacters->end())
     {
-        ui->ownedBox->setChecked(true);
+        ui->myCharactersTab->hide();
     }
     else
     {
-        ui->ownedBox->setChecked(false);
+        int characterTabNum = 0;
+        for (MyCharacter* myChar : myCharacters->at(characterId))
+        {
+            bool editMode = utility->editMode;
+            MyCharacterForm* form = new MyCharacterForm(characters->at(static_cast<unsigned int>(characterId - 1)), myChar, editMode, this);
+            ui->myCharactersTab->addTab(form, QString::number(characterTabNum));
+            connect(this, SIGNAL(changeEditMode()), form, SLOT(editModeChanged()));
+            characterTabNum++;
+        }
     }
 
+    if (utility->editMode)
+    {
+        ui->addCharacterButton->show();
+        if (myCharacters->find(characterId) != myCharacters->end())
+        {
+            ui->removeCharacterButton->show();
+        }
+    }
+    else
+    {
+        ui->addCharacterButton->hide();
+        ui->removeCharacterButton->hide();
+    }
 
+    // Set the right tab
+    int tabIndex = -1;
+    for (int i = 0; i < ui->detailsTabWidget->count(); ++i)
+    {
+        if (ui->detailsTabWidget->tabText(i).toUtf8().constData() == utility->currentTab)
+        {
+            tabIndex = i;
+            break;
+        }
+    }
+
+    if (tabIndex > -1)
+    {
+        ui->detailsTabWidget->setCurrentIndex(tabIndex);
+    }
 }
 
 Details::~Details()
 {
     delete ui;
 }
-
-void Details::on_ownedBox_toggled(bool checked)
-{
-
-    if (checked)
-    {
-        MyCharacter myChar(characters->at(characterId - 1));
-        (*myCharacters)[characterId] = &myChar;
-    }
-    else
-    {
-        //TODO check multiple
-        int success = myCharacters->erase(characterId);
-        if (success)
-        {
-            std::cout << "Erased character n." << characterId << std::endl;
-        }
-    }
-    emit changedOwnedState();
-}
-
 
 void Details::removeTab(QString name)
 {
@@ -74,7 +94,7 @@ void Details::removeTab(QString name)
 
 void Details::loadCharacter(short _characterId)
 {
-    Character* character = utility->characters->at(_characterId - 1);
+    Character* character = utility->characters->at(static_cast<unsigned int>(_characterId - 1));
 
     setName(character);
     setArt(character);
@@ -89,6 +109,7 @@ void Details::loadCharacter(short _characterId)
     setSpecialTab(character);
     setLimitBreakTab(character);
     setEvolutionTab(character);
+    setTandemTab(character);
 }
 
 void Details::setArt(Character* _character)
@@ -276,7 +297,7 @@ void Details::setCaptainTab(Character* _character)
             std::vector<Captain> new_captain_abilities = lb->getNewCaptainAbilities();
             for (unsigned long i = 0; i < new_captain_abilities.size(); ++i)
             {
-                int lbLevel = i - new_captain_abilities.size() + 1;
+                int lbLevel = static_cast<int>(i - new_captain_abilities.size() + 1);
                 capString += "<p><b> Captain Ability Limit Break ";
                 if (lbLevel == 0)
                 {
@@ -482,6 +503,10 @@ void Details::setLimitBreakTab(Character* _character)
             {
                 potentialType = "Cooldown Self Reduction";
             }
+            else if (type == Potential::Type::DoubleSpecial)
+            {
+                potentialType = "Double Special Activation";
+            }
 
             limitBreakString += "<p><b>" + potentialType + "</b></p>";
             limitBreakString += "<p>";
@@ -523,25 +548,50 @@ void Details::setEvolutionTab(Character* _character)
             ui->evolutionGrid->addWidget(evoCharacter, j, 0);
 
             /* Add equals symbol */
-            std::vector<Character*> materials = _character->getEvolutionMaterials(evolutions_character.at(j));
+            std::vector<Character*> evolvers = _character->getEvolvers(evolutions_character.at(j));
             QLabel* lab = new QLabel(this);
             lab->setText("=");
             ui->evolutionGrid->addWidget(lab, j, 1, Qt::AlignCenter);
+            std::vector<Material*> materials = _character->getEvolutionMaterials(evolutions_character.at(j));
 
-            /* Add evolution materials */
+            /* Add evolvers */
+            for (unsigned long i = 0; i < 2 * evolvers.size(); ++i)
+            {
+                int id = evolvers.at(i / 2)->getId();
+
+                QPushButton* mat = new QPushButton(this);
+                mat->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+                mat->setMinimumSize(QSize(60, 60));
+                mat->setMaximumSize(QSize(60, 60));
+                mat->setIcon(QIcon(*evolvers.at(i / 2)->getColoredIcon()));
+                mat->setIconSize(QSize(60, 60));
+                ui->evolutionGrid->addWidget(mat, j, (i + 2));
+
+                connect(mat, &QPushButton::clicked, this->parent(), [this, id]{ changeCharacterDetail(id); });
+
+                /* Add plus symbol */
+                i++;
+                if (i == 2 * evolvers.size() - 1 && materials.size() == 0)
+                {
+                    break;
+                }
+                QLabel* lab = new QLabel(this);
+                lab->setText("+");
+                ui->evolutionGrid->addWidget(lab, j, (i + 2), Qt::AlignCenter);
+            }
+
             for (unsigned long i = 0; i < 2 * materials.size(); ++i)
             {
-                int id = materials.at(i / 2)->getId();
-
                 QPushButton* mat = new QPushButton(this);
                 mat->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
                 mat->setMinimumSize(QSize(60, 60));
                 mat->setMaximumSize(QSize(60, 60));
                 mat->setIcon(QIcon(*materials.at(i / 2)->getColoredIcon()));
                 mat->setIconSize(QSize(60, 60));
-                ui->evolutionGrid->addWidget(mat, j, (i + 2));
+                ui->evolutionGrid->addWidget(mat, j, 2 * evolvers.size() + 1 + (i + 2));
 
-                connect(mat, &QPushButton::clicked, this->parent(), [this, id]{ changeCharacterDetail(id); });
+                // TODO Creare nuovo detail?
+                //connect(mat, &QPushButton::clicked, this->parent(), [this, id]{ changeCharacterDetail(id); });
 
                 /* Add plus symbol */
                 i++;
@@ -551,13 +601,79 @@ void Details::setEvolutionTab(Character* _character)
                 }
                 QLabel* lab = new QLabel(this);
                 lab->setText("+");
-                ui->evolutionGrid->addWidget(lab, j, (i + 2), Qt::AlignCenter);
+                ui->evolutionGrid->addWidget(lab, j, 2 * evolvers.size() + 1 + (i + 2), Qt::AlignCenter);
             }
         }
     }
     else
     {
         removeTab("Evolution");
+    }
+}
+
+void Details::setTandemTab(Character* _character)
+{
+    /* Tandem tab */
+
+    if (_character->hasTandem())
+    {
+        std::vector<Tandem*> tandems = _character->getTandems();
+
+        // Get colspan
+        unsigned int colspan = 0;
+        for (Tandem* tandem : tandems)
+        {
+            colspan = std::max(colspan, tandem->getUnits().size());
+        }
+        // Add plus symbol to the count
+        colspan = colspan * 2 - 1;
+
+        // Populate tab
+        for (unsigned long i = 0; i < tandems.size(); ++i)
+        {
+            Tandem* tandem = tandems.at(i);
+            std::vector<Character*> tandemUnits = tandem->getUnits();
+
+            /* Add tandem name */
+            QLabel* tandemName = new QLabel("<b>" + QString::fromStdString(tandem->getName()) + "</b>", this);
+            tandemName->setWordWrap(true);
+            ui->tandemGrid->addWidget(tandemName, 4 * static_cast<int>(i), 0, 1, static_cast<int>(colspan));
+
+            /* Add description */
+            QLabel* description = new QLabel(QString::fromStdString(tandem->getDescription()), this);
+            description->setWordWrap(true);
+            ui->tandemGrid->addWidget(description, 4 * static_cast<int>(i) + 1, 0, 1, static_cast<int>(colspan));
+
+            for (unsigned long j = 0; j < tandemUnits.size(); ++j)
+            {
+                QPushButton* tandemCharacter = new QPushButton(this);
+                tandemCharacter->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+                tandemCharacter->setMinimumSize(QSize(60, 60));
+                tandemCharacter->setMaximumSize(QSize(60, 60));
+                tandemCharacter->setIcon(QIcon(*tandemUnits.at(j)->getColoredIcon()));
+                tandemCharacter->setIconSize(QSize(60, 60));
+
+                /* Connect signals and slots and add to grid */
+                int evoId = tandemUnits.at(j)->getId();
+                connect(tandemCharacter, &QPushButton::clicked, this->parent(), [this, evoId]{ changeCharacterDetail(evoId); });
+                ui->tandemGrid->addWidget(tandemCharacter, 4 * static_cast<int>(i) + 2, 2 * static_cast<int>(j));
+
+                /* Add plus symbol */
+                QLabel* lab = new QLabel();
+                lab->setText("+");
+                if (j < tandemUnits.size() - 1)
+                {
+                    ui->tandemGrid->addWidget(lab, 4 * static_cast<int>(i) + 2, 2 * static_cast<int>(j) + 1, Qt::AlignCenter);
+                }
+            }
+
+            QLabel* filler = new QLabel("", this);
+            ui->tandemGrid->addWidget(filler, 4 * static_cast<int>(i) + 3, 0, 1, static_cast<int>(colspan));
+        }
+    }
+    else
+    {
+        removeTab("Tandem");
     }
 }
 
@@ -648,4 +764,111 @@ void Details::on_RightButton_clicked()
     setStatsTab(characterToLoad);
     setCaptainTab(characterToLoad);
     setSailorTab(characterToLoad);
+}
+
+void Details::on_addCharacterButton_clicked()
+{
+    bool ok;
+    std::string nickname = QInputDialog::getText(this, "Add new character", "Insert a nickname for this character.", QLineEdit::Normal,
+                                                 QString::number(((*myCharacters)[characterId].size())), &ok).toUtf8().constData();
+    // Check if it's a new nickname
+    while (true)
+    {
+        if (ok)
+        {
+            bool newNickname = true;
+            for (MyCharacter* ch : (*myCharacters)[characterId])
+            {
+                if (ch->getNickname() == nickname)
+                {
+                    newNickname = false;
+                }
+            }
+
+            if (newNickname)
+            {
+                break;
+            }
+
+            nickname = QInputDialog::getText(this, "Add new character", "Nickname already used.\nInsert a nickname for this character.", QLineEdit::Normal,
+                                             QString::number(((*myCharacters)[characterId].size())), &ok).toUtf8().constData();
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    if (ok)
+    {
+        if (nickname == "")
+        {
+            nickname = std::to_string(((*myCharacters)[characterId].size()));
+        }
+        MyCharacter* myChar = new MyCharacter(characters->at(static_cast<unsigned int>(characterId - 1)), nickname);
+        (*myCharacters)[characterId].push_back(myChar);
+        ui->removeCharacterButton->show();
+        ui->myCharactersTab->show();
+
+        bool editMode = utility->editMode;
+        MyCharacterForm* form = new MyCharacterForm(characters->at(static_cast<unsigned int>(characterId - 1)), myChar, editMode, this);
+        ui->myCharactersTab->addTab(form, QString::fromStdString(myChar->getNickname()));
+        ui->myCharactersTab->setCurrentWidget(form);
+
+        connect(this, SIGNAL(changeEditMode()), form, SLOT(editModeChanged()));
+    }
+    emit changedOwnedState();
+}
+
+void Details::on_removeCharacterButton_clicked()
+{
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Remove character", "Do you want to remove \"" + ui->myCharactersTab->tabText(ui->myCharactersTab->currentIndex()) + "\"?",
+                                  QMessageBox::Yes|QMessageBox::No);
+    if (reply == QMessageBox::Yes)
+    {
+        int index = 0;
+        for (MyCharacter* ch : (*myCharacters)[characterId])
+        {
+            // Remove character
+            if (QString::fromStdString(ch->getNickname()) == ui->myCharactersTab->tabText(ui->myCharactersTab->currentIndex()))
+            {
+                (*myCharacters)[characterId].erase((*myCharacters)[characterId].begin() + index);
+                break;
+            }
+            index++;
+        }
+        ui->myCharactersTab->removeTab(ui->myCharactersTab->currentIndex());
+
+        if ((*myCharacters)[characterId].empty())
+        {
+            ui->removeCharacterButton->hide();
+            ui->myCharactersTab->hide();
+            myCharacters->erase(characterId);
+        }
+    }
+    emit changedOwnedState();
+}
+
+void Details::editModeChangedDb()
+{
+    if (utility->editMode)
+    {
+        ui->addCharacterButton->show();
+        if (myCharacters->find(characterId) != myCharacters->end())
+        {
+            ui->removeCharacterButton->show();
+        }
+    }
+    else
+    {
+        ui->addCharacterButton->hide();
+        ui->removeCharacterButton->hide();
+    }
+    emit changeEditMode();
+}
+
+void Details::on_detailsTabWidget_currentChanged(int index)
+{
+    utility->currentTab = ui->detailsTabWidget->tabText(index).toUtf8().constData();
 }

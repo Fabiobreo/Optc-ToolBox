@@ -2,7 +2,7 @@
 
 void LimitBreak::addNode(LimitBreak::NodeType _type, Stats::Type _stats, short _value)
 {
-    Node node{};
+    Node node;
     node.type = _type;
     if (_type == LimitBreak::NodeType::STATS)
     {
@@ -14,7 +14,7 @@ void LimitBreak::addNode(LimitBreak::NodeType _type, Stats::Type _stats, short _
 
 void LimitBreak::addNode(LimitBreak::NodeType _type, Potential::Type _potential, short _value)
 {
-    Node node{};
+    Node node;
     node.type = _type;
     if (_type == LimitBreak::NodeType::POTENTIAL)
     {
@@ -28,14 +28,14 @@ void LimitBreak::addNode(LimitBreak::NodeType _type, Potential::Type _potential,
 
 void LimitBreak::addNode(LimitBreak::NodeType _type)
 {
-    Node node{};
+    Node node;
     node.type = _type;
     nodes.push_back(node);
 }
 
 void LimitBreak::addNode(NodeType _type, Sailor _sailor)
 {
-    Node node{};
+    Node node;
     node.type = _type;
     if (_type == LimitBreak::NodeType::SAILOR)
     {
@@ -47,7 +47,7 @@ void LimitBreak::addNode(NodeType _type, Sailor _sailor)
 
 void LimitBreak::addNode(NodeType _type, Captain _captain)
 {
-    Node node{};
+    Node node;
     node.type = _type;
     if (_type == LimitBreak::NodeType::CAPTAIN)
     {
@@ -59,7 +59,7 @@ void LimitBreak::addNode(NodeType _type, Captain _captain)
 
 void LimitBreak::addNode(LimitBreak::NodeType _type, short _value)
 {
-    Node node{};
+    Node node;
     node.type = _type;
     if (_type == LimitBreak::NodeType::CD || _type == LimitBreak::NodeType::SOCKET)
     {
@@ -188,7 +188,6 @@ std::vector<Captain> LimitBreak::getNewCaptainAbilities()
     return captainAbilities;
 }
 
-
 bool LimitBreak::hasNewCaptainAbilities()
 {
     return captainAbilities.size() > 0;
@@ -203,4 +202,21 @@ std::vector<Sailor> LimitBreak::getNewSailorAbilities()
 bool LimitBreak::hasNewSailorAbilities()
 {
     return sailorAbilities.size() > 0;
+}
+
+int LimitBreak::getMaxTrainingPoints()
+{
+    if (getTotalNodes() == 15) // Generic
+    {
+        return 2000000;
+    }
+    else if (getTotalNodes() == 40) // TM
+    {
+        return 3000000;
+    }
+    else if(getTotalNodes() == 30)   //Legend
+    {
+        return 5000000;
+    }
+    return 0;
 }
