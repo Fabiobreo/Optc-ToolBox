@@ -15,6 +15,15 @@ public:
     std::string currentTab = "Stats";
     unsigned long id = 0;
     bool editMode = false;
+
+    // Sorting variables
+    std::string primarySortCondition = "Id";
+    bool primarySortAscendingOrder = true;
+    bool primarySortIncludeLimit = false;
+
+    std::string secondarySortCondition = "";
+    bool secondarySortAscendingOrder = true;
+    bool secondarySortIncludeLimit = false;
 };
 
 #endif // UTILITY_H

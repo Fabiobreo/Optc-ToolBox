@@ -18,7 +18,7 @@ enum class Class
  */
 enum class Type
 {
-    StartType, STR, QCK, DEX, PSY, INT, None, EndTypes
+    StartType, STR, DEX, QCK, PSY, INT, None, EndTypes
 };
 
 /**

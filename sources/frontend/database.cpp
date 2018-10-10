@@ -18,6 +18,8 @@ Database::Database(Utility* _utility, QWidget* _parent) :
     ui->setupUi(this);
     filter = new Filter(_utility);
     advancedFilters = new AdvancedFilters(utility, this);
+    sortWidget = new SortWidget(utility, this);
+    connect(sortWidget, SIGNAL(sort()), this, SLOT(sort()));
     characters = *_utility->characters;
     myCharacters = _utility->myCharacters;
 
@@ -39,9 +41,8 @@ Database::Database(Utility* _utility, QWidget* _parent) :
         }
 
         QIcon coloredIcon(*ch->getColoredIcon());
-        QIcon grayIcon(*ch->getGrayIcon());
 
-        CharacterItem* characterItem = new CharacterItem(ch);
+        CharacterItem* characterItem = new CharacterItem(ch, utility);
         characterItem->setIcon(coloredIcon);
         characterItem->setText(QString::number(ch->getId()));
         ui->characterList->addItem(characterItem);
@@ -257,7 +258,7 @@ void Database::redraw()
     }
 }
 
-void Database::on_saveButton_clicked()
+void Database::saveCharacters()
 {
     Tools::saveOwnedCharacters(characters, *myCharacters, utility->id);
 }
@@ -320,4 +321,14 @@ void Database::advancedFilters_reset()
 {
     filter->orConditions.clear();
     redraw();
+}
+
+void Database::on_sortButton_clicked()
+{
+    sortWidget->show();
+}
+
+void Database::sort()
+{
+    ui->characterList->sortItems(Qt::AscendingOrder);
 }

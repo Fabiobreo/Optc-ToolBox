@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'filterWidget.ui'
 **
-** Created by: Qt User Interface Compiler version 5.11.0
+** Created by: Qt User Interface Compiler version 5.11.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -61,6 +61,7 @@ public:
 
         verticalLayout->addWidget(addFilterButton, 0, Qt::AlignRight);
 
+        QWidget::setTabOrder(addConditionButton, addFilterButton);
 
         retranslateUi(FilterWidget);
 

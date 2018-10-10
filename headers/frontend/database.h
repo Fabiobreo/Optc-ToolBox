@@ -4,13 +4,14 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <QListWidgetItem>
-#include <details.h>
-#include <tools.h>
+#include <set>
 #include <map>
 #include <utility.h>
 #include <filter.h>
 #include <advancedFilters.h>
-#include <set>
+#include <sortwidget.h>
+#include <details.h>
+#include <tools.h>
 
 class Details;
 
@@ -31,13 +32,17 @@ signals:
 
 private slots:
     void on_filterByName_textChanged(const QString& _text);
+
     void on_filterById_textChanged(const QString& _text);
-    void on_saveButton_clicked();
+
     void on_characterList_itemClicked(QListWidgetItem* _item);
+
     void changeDetails(int _characterId);
+
     void redraw();
 
     void on_ownedMode_clicked();
+
     void on_showOwned_clicked();
 
     void on_editMode_stateChanged(int _state);
@@ -47,13 +52,21 @@ private slots:
     void on_advancedFilters_clicked();
 
     void advancedFilters_set(Filter _filter);
+
     void advancedFilters_reset();
 
     void change_advancedFilters_color(bool _active);
 
+    void saveCharacters();
+
+    void on_sortButton_clicked();
+
+    void sort();
+
 private:
 
     void openCloseDetails(short _id);
+
     void setIdCondition(QString _text);
 
     Ui::Database *ui;
@@ -67,6 +80,7 @@ private:
     Filter* filter;
     Details* detailMenu = nullptr;
     AdvancedFilters* advancedFilters = nullptr;
+    SortWidget* sortWidget = nullptr;
     bool open = false;
     int openId = 0;
 };

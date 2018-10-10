@@ -1,0 +1,12 @@
+
+debug/
+
+\.qmake\.stash
+
+Makefile\.Debug
+
+Makefile\.Release
+
+object_script\.Optc\.Debug
+
+object_script\.Optc\.Release

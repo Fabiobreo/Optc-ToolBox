@@ -1852,6 +1852,56 @@ font: bold 8pt;</string>
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>wantToFinishLevel</tabstop>
+  <tabstop>wantToFinishCotton</tabstop>
+  <tabstop>wantToFinishSkill</tabstop>
+  <tabstop>wantToFinishSocket</tabstop>
+  <tabstop>wantToFinishLimit</tabstop>
+  <tabstop>levelEdit</tabstop>
+  <tabstop>skillLevelEdit</tabstop>
+  <tabstop>firstDesiredSocket</tabstop>
+  <tabstop>secondDesiredSocket</tabstop>
+  <tabstop>thirdDesiredSocket</tabstop>
+  <tabstop>fourthDesiredSocket</tabstop>
+  <tabstop>fifthDesiredSocket</tabstop>
+  <tabstop>firstCurrentSocket</tabstop>
+  <tabstop>secondCurrentSocket</tabstop>
+  <tabstop>thirdCurrentSocket</tabstop>
+  <tabstop>fourthCurrentSocket</tabstop>
+  <tabstop>fifthCurrentSocket</tabstop>
+  <tabstop>firstSocketEdit</tabstop>
+  <tabstop>secondSocketEdit</tabstop>
+  <tabstop>thirdSocketEdit</tabstop>
+  <tabstop>fourthSocketEdit</tabstop>
+  <tabstop>fifthSocketEdit</tabstop>
+  <tabstop>firstMissingSocket</tabstop>
+  <tabstop>secondMissingSocket</tabstop>
+  <tabstop>thirdMissingSocket</tabstop>
+  <tabstop>fourthMissingSocket</tabstop>
+  <tabstop>fifthMissingSocket</tabstop>
+  <tabstop>firstMissingEdit</tabstop>
+  <tabstop>secondMissingEdit</tabstop>
+  <tabstop>thirdMissingEdit</tabstop>
+  <tabstop>fourthMissingEdit</tabstop>
+  <tabstop>fifthMissingEdit</tabstop>
+  <tabstop>statsHpEdit</tabstop>
+  <tabstop>statsAtkEdit</tabstop>
+  <tabstop>statsRcvEdit</tabstop>
+  <tabstop>cottonHpEdit</tabstop>
+  <tabstop>cottonAtkEdit</tabstop>
+  <tabstop>cottonRcvEdit</tabstop>
+  <tabstop>cottonTotalEdit</tabstop>
+  <tabstop>trainingPointsEdit</tabstop>
+  <tabstop>lbUnlockedEdit</tabstop>
+  <tabstop>firstPotential</tabstop>
+  <tabstop>secondPotential</tabstop>
+  <tabstop>thirdPotential</tabstop>
+  <tabstop>firstPotentialValueEdit</tabstop>
+  <tabstop>secondPotentialValueEdit</tabstop>
+  <tabstop>thirdPotentialValueEdit</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

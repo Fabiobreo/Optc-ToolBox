@@ -73,7 +73,7 @@ LimitBreak::Improvements LimitBreak::getNodeImprovements(short _value)
     LimitBreak::Improvements improvements = Improvements();
     if (_value > 0 && _value <= (short) nodes.size())
     {
-        Node node = nodes.at(static_cast<unsigned long>(_value - 1));
+        Node node = nodes[static_cast<unsigned long>(_value - 1)];
         if (node.type == LimitBreak::NodeType::STATS)
         {
             if (node.stats == Stats::Type::HP)
@@ -126,7 +126,7 @@ LimitBreak::Improvements LimitBreak::getUnlockedImprovements(unsigned long _valu
     {
         for (unsigned long i = 0; i < _value; ++i)
         {
-            Node node = nodes.at(i);
+            Node node = nodes[i];
             if (node.type == LimitBreak::NodeType::STATS)
             {
                 if (node.stats == Stats::Type::HP)

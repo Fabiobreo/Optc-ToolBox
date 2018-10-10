@@ -98,7 +98,7 @@ void MyCharacter::removeSocket(Socket::Type _type)
     int index = -1;
     for (unsigned long i = 0; i < current_sockets.size(); ++i)
     {
-        Socket socket = current_sockets.at(i);
+        Socket socket = current_sockets[i];
         if (socket.getType() == _type)
         {
             index = static_cast<int>(i);
@@ -183,7 +183,7 @@ void MyCharacter::removeDesiredSocket(Socket::Type _type)
     int index = -1;
     for (unsigned long i = 0; i < desired_sockets.size(); ++i)
     {
-        Socket::Type type = desired_sockets.at(i);
+        Socket::Type type = desired_sockets[i];
         if (type == _type)
         {
             index = static_cast<int>(i);
@@ -326,7 +326,7 @@ void MyCharacter::setCC(std::vector<short> _cottons)
 {
     if (_cottons.size() == 3)
     {
-        setCC(_cottons.at(0), _cottons.at(1), _cottons.at(2));
+        setCC(_cottons[0], _cottons[1], _cottons[2]);
     }
 }
 

@@ -61,6 +61,10 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>addConditionButton</tabstop>
+  <tabstop>addFilterButton</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

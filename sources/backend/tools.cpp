@@ -102,7 +102,7 @@ std::vector<std::string> parseBalancedBrackets(std::string _stringToParse, unsig
 
     for (unsigned long i = _startIndex; i < _stringToParse.length(); ++i)
     {
-        char letter = _stringToParse.at(i);
+        char letter = _stringToParse[i];
         currentLength++;
         if (letter == ',' && numBrackets <= 0)
         {
@@ -140,7 +140,7 @@ std::string parseBalanced(std::string& _stringToParse, char _startingChar, char 
 
     for (unsigned long i = 0; i < _stringToParse.length(); ++i)
     {
-        char letter = _stringToParse.at(i);
+        char letter = _stringToParse[i];
         if (letter == _startingChar)
         {
             if (!(_startingChar == _endingChar && numUnbalancedChar > 0))
@@ -233,82 +233,82 @@ std::map<int, std::vector<MyCharacter*>> loadOwnedCharacters(std::vector<Charact
             // Parse json
             for (json::iterator fileIterator = file.begin(); fileIterator != file.end(); ++fileIterator)
             {
-                auto characterIterated = file.at(fileIterator.key()); // (Possibly) List of characters with the same id
+                auto characterIterated = file[fileIterator.key()]; // (Possibly) List of characters with the same id
                 unsigned long id = std::stoul(fileIterator.key());    // Character id
                 std::vector<MyCharacter*> charactersWithThisId;
                 for (json::iterator characterIdIstance = characterIterated.begin(); characterIdIstance != characterIterated.end(); ++characterIdIstance)
                 {
-                    auto myCharacterJson = characterIterated.at(characterIdIstance.key());  // Character to parse
-                    MyCharacter* character = new MyCharacter(_characters.at(id - 1), characterIdIstance.key());
+                    auto myCharacterJson = characterIterated[characterIdIstance.key()];  // Character to parse
+                    MyCharacter* character = new MyCharacter(_characters[id - 1], characterIdIstance.key());
 
                     // Set Character Level
                     if (myCharacterJson.find("Level") != myCharacterJson.end())
                     {
-                        short level = myCharacterJson.at("Level");
+                        short level = myCharacterJson["Level"];
                         character->setLevel(level);
                     }
 
                     // Set want to finish variables
                     if (myCharacterJson.find("WantToFinishLevel") != myCharacterJson.end())
                     {
-                        bool wantToFinish = myCharacterJson.at("WantToFinishLevel");
+                        bool wantToFinish = myCharacterJson["WantToFinishLevel"];
                         character->setWantToFinishLevel(wantToFinish);
                     }
 
                     if (myCharacterJson.find("WantToFinishCotton") != myCharacterJson.end())
                     {
-                        bool wantToFinish = myCharacterJson.at("WantToFinishCotton");
+                        bool wantToFinish = myCharacterJson["WantToFinishCotton"];
                         character->setWantToFinishCotton(wantToFinish);
                     }
 
                     if (myCharacterJson.find("WantToFinishSkill") != myCharacterJson.end())
                     {
-                        bool wantToFinish = myCharacterJson.at("WantToFinishSkill");
+                        bool wantToFinish = myCharacterJson["WantToFinishSkill"];
                         character->setWantToFinishSkill(wantToFinish);
                     }
 
                     if (myCharacterJson.find("WantToFinishSockets") != myCharacterJson.end())
                     {
-                        bool wantToFinish = myCharacterJson.at("WantToFinishSockets");
+                        bool wantToFinish = myCharacterJson["WantToFinishSockets"];
                         character->setWantToFinishSockets(wantToFinish);
                     }
 
                     if (myCharacterJson.find("WantToFinishLimitBreak") != myCharacterJson.end())
                     {
-                        bool wantToFinish = myCharacterJson.at("WantToFinishLimitBreak");
+                        bool wantToFinish = myCharacterJson["WantToFinishLimitBreak"];
                         character->setWantToFinishLimitBreak(wantToFinish);
                     }
 
                     // Set Character Skill Level
                     if (myCharacterJson.find("SkillLevel") != myCharacterJson.end())
                     {
-                        short skillLevel = myCharacterJson.at("SkillLevel");
+                        short skillLevel = myCharacterJson["SkillLevel"];
                         character->setSkillLevel(skillLevel);
                     }
 
                     // Set Cotton Candies
                     if (myCharacterJson.find("Cotton") != myCharacterJson.end())
                     {
-                        std::vector<short> cottons = myCharacterJson.at("Cotton");
+                        std::vector<short> cottons = myCharacterJson["Cotton"];
                         character->setCC(cottons);
                     }
 
                     if (myCharacterJson.find("TrainingPoints") != myCharacterJson.end())
                     {
-                        int trainingPoints = myCharacterJson.at("TrainingPoints");
+                        int trainingPoints = myCharacterJson["TrainingPoints"];
                         character->setTrainingPoints(trainingPoints);
                     }
 
 
                     if (myCharacterJson.find("LbUnlockedNodes") != myCharacterJson.end())
                     {
-                        short unlockedNodes = myCharacterJson.at("LbUnlockedNodes");
+                        short unlockedNodes = myCharacterJson["LbUnlockedNodes"];
                         character->setLbUnlockedNodes(unlockedNodes);
                     }
 
                     if (myCharacterJson.find("DesiredSockets") != myCharacterJson.end())
                     {
-                        std::vector<std::string> desiredSockets = myCharacterJson.at("DesiredSockets");
+                        std::vector<std::string> desiredSockets = myCharacterJson["DesiredSockets"];
                         for (std::string socket : desiredSockets)
                         {
                             if (socket.find("Dmr") != std::string::npos)
@@ -356,109 +356,109 @@ std::map<int, std::vector<MyCharacter*>> loadOwnedCharacters(std::vector<Charact
 
                     if (myCharacterJson.find("CurrentSockets") != myCharacterJson.end())
                     {
-                        auto currentSockets = myCharacterJson.at("CurrentSockets");
+                        auto currentSockets = myCharacterJson["CurrentSockets"];
                         if (currentSockets.find("Dmr") != currentSockets.end())
                         {
-                            Socket socket(Socket::Type::Dmr, currentSockets.at("Dmr"));
+                            Socket socket(Socket::Type::Dmr, currentSockets["Dmr"]);
                             character->addSocket(socket);
                         }
                         if (currentSockets.find("Cd") != currentSockets.end())
                         {
-                            Socket socket(Socket::Type::Cd, currentSockets.at("Cd"));
+                            Socket socket(Socket::Type::Cd, currentSockets["Cd"]);
                             character->addSocket(socket);
                         }
                         if (currentSockets.find("Bind") != currentSockets.end())
                         {
-                            Socket socket(Socket::Type::Bind, currentSockets.at("Bind"));
+                            Socket socket(Socket::Type::Bind, currentSockets["Bind"]);
                             character->addSocket(socket);
                         }
                         if (currentSockets.find("Despair") != currentSockets.end())
                         {
-                            Socket socket(Socket::Type::Despair, currentSockets.at("Despair"));
+                            Socket socket(Socket::Type::Despair, currentSockets["Despair"]);
                             character->addSocket(socket);
                         }
                         if (currentSockets.find("AH") != currentSockets.end())
                         {
-                            Socket socket(Socket::Type::AH, currentSockets.at("AH"));
+                            Socket socket(Socket::Type::AH, currentSockets["AH"]);
                             character->addSocket(socket);
                         }
                         if (currentSockets.find("Rcv") != currentSockets.end())
                         {
-                            Socket socket(Socket::Type::Rcv, currentSockets.at("Rcv"));
+                            Socket socket(Socket::Type::Rcv, currentSockets["Rcv"]);
                             character->addSocket(socket);
                         }
                         if (currentSockets.find("Slot") != currentSockets.end())
                         {
-                            Socket socket(Socket::Type::Slot, currentSockets.at("Slot"));
+                            Socket socket(Socket::Type::Slot, currentSockets["Slot"]);
                             character->addSocket(socket);
                         }
                         if (currentSockets.find("Poison") != currentSockets.end())
                         {
-                            Socket socket(Socket::Type::Poison, currentSockets.at("Poison"));
+                            Socket socket(Socket::Type::Poison, currentSockets["Poison"]);
                             character->addSocket(socket);
                         }
                         if (currentSockets.find("Map") != currentSockets.end())
                         {
-                            Socket socket(Socket::Type::Map, currentSockets.at("Map"));
+                            Socket socket(Socket::Type::Map, currentSockets["Map"]);
                             character->addSocket(socket);
                         }
                         if (currentSockets.find("Resilience") != currentSockets.end())
                         {
-                            Socket socket(Socket::Type::Resilience, currentSockets.at("Resilience"));
+                            Socket socket(Socket::Type::Resilience, currentSockets["Resilience"]);
                             character->addSocket(socket);
                         }
                     }
 
                     if (myCharacterJson.find("CurrentPotentials") != myCharacterJson.end())
                     {
-                        auto currentPotentials = myCharacterJson.at("CurrentPotentials");
+                        auto currentPotentials = myCharacterJson["CurrentPotentials"];
                         if (currentPotentials.find("Enrage") != currentPotentials.end())
                         {
-                            character->setPotential(Potential::Type::Enrage, currentPotentials.at("Enrage"));
+                            character->setPotential(Potential::Type::Enrage, currentPotentials["Enrage"]);
                         }
                         if (currentPotentials.find("NoHealing") != currentPotentials.end())
                         {
-                            character->setPotential(Potential::Type::NoHealing, currentPotentials.at("NoHealing"));
+                            character->setPotential(Potential::Type::NoHealing, currentPotentials["NoHealing"]);
                         }
                         if (currentPotentials.find("CriticalHit") != currentPotentials.end())
                         {
-                            character->setPotential(Potential::Type::CriticalHit, currentPotentials.at("CriticalHit"));
+                            character->setPotential(Potential::Type::CriticalHit, currentPotentials["CriticalHit"]);
                         }
                         if (currentPotentials.find("SlotBind") != currentPotentials.end())
                         {
-                            character->setPotential(Potential::Type::SlotBind, currentPotentials.at("SlotBind"));
+                            character->setPotential(Potential::Type::SlotBind, currentPotentials["SlotBind"]);
                         }
                         if (currentPotentials.find("BarrierPenetration") != currentPotentials.end())
                         {
-                            character->setPotential(Potential::Type::BarrierPenetration, currentPotentials.at("BarrierPenetration"));
+                            character->setPotential(Potential::Type::BarrierPenetration, currentPotentials["BarrierPenetration"]);
                         }
                         if (currentPotentials.find("PinchHealing") != currentPotentials.end())
                         {
-                            character->setPotential(Potential::Type::PinchHealing, currentPotentials.at("PinchHealing"));
+                            character->setPotential(Potential::Type::PinchHealing, currentPotentials["PinchHealing"]);
                         }
                         if (currentPotentials.find("DMRSTR") != currentPotentials.end())
                         {
-                            character->setPotential(Potential::Type::DMRSTR, currentPotentials.at("DMRSTR"));
+                            character->setPotential(Potential::Type::DMRSTR, currentPotentials["DMRSTR"]);
                         }
                         if (currentPotentials.find("DMRQCK") != currentPotentials.end())
                         {
-                            character->setPotential(Potential::Type::DMRQCK, currentPotentials.at("DMRQCK"));
+                            character->setPotential(Potential::Type::DMRQCK, currentPotentials["DMRQCK"]);
                         }
                         if (currentPotentials.find("DMRDEX") != currentPotentials.end())
                         {
-                            character->setPotential(Potential::Type::DMRDEX, currentPotentials.at("DMRDEX"));
+                            character->setPotential(Potential::Type::DMRDEX, currentPotentials["DMRDEX"]);
                         }
                         if (currentPotentials.find("DMRINT") != currentPotentials.end())
                         {
-                            character->setPotential(Potential::Type::DMRINT, currentPotentials.at("DMRINT"));
+                            character->setPotential(Potential::Type::DMRINT, currentPotentials["DMRINT"]);
                         }
                         if (currentPotentials.find("DMRPSY") != currentPotentials.end())
                         {
-                            character->setPotential(Potential::Type::DMRPSY, currentPotentials.at("DMRPSY"));
+                            character->setPotential(Potential::Type::DMRPSY, currentPotentials["DMRPSY"]);
                         }
                         if (currentPotentials.find("CDR") != currentPotentials.end())
                         {
-                            character->setPotential(Potential::Type::CDR, currentPotentials.at("CDR"));
+                            character->setPotential(Potential::Type::CDR, currentPotentials["CDR"]);
                         }
                     }
 
@@ -490,7 +490,7 @@ void saveOwnedCharacters(std::vector<Character*> _characters, std::map<int, std:
 
             for (std::map<int, std::vector<MyCharacter*>>::iterator it = _myCharacters.begin(); it != _myCharacters.end(); ++it)
             {
-                std::vector<MyCharacter*> charactersWithThisId = _myCharacters.at(it->first);
+                std::vector<MyCharacter*> charactersWithThisId = _myCharacters[it->first];
                 json thisCharacterJson;
                 for (MyCharacter* thisCharacter : charactersWithThisId)
                 {
@@ -503,7 +503,7 @@ void saveOwnedCharacters(std::vector<Character*> _characters, std::map<int, std:
                     thisCharacterJson[thisCharacter->getNickname()]["WantToFinishSockets"] = thisCharacter->getWantToFinishSockets();
                     thisCharacterJson[thisCharacter->getNickname()]["WantToFinishLimitBreak"] = thisCharacter->getWantToFinishLimitBreak();
 
-                    if (_characters.at(it->first - 1)->hasLimitBreak())
+                    if (_characters[it->first - 1]->hasLimitBreak())
                     {
                         thisCharacterJson[thisCharacter->getNickname()]["LbUnlockedNodes"] = thisCharacter->getLbUnlockedNodes();
                         thisCharacterJson[thisCharacter->getNickname()]["TrainingPoints"] = thisCharacter->getTrainingPoints();

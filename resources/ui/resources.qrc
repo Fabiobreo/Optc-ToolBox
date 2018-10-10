@@ -75,5 +75,6 @@
         <file>skullPSY.png</file>
         <file>skullQCK.png</file>
         <file>skullSTR.png</file>
+        <file>save.png</file>
     </qresource>
 </RCC>

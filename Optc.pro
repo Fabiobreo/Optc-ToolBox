@@ -43,7 +43,8 @@ SOURCES += \
     sources/backend/material.cpp \
     sources/backend/tandem.cpp \
     sources/backend/filter.cpp \
-    sources/frontend/advancedFilters.cpp
+    sources/frontend/advancedFilters.cpp \
+    sources/frontend/sortwidget.cpp
 
 HEADERS += \
     headers/frontend/details.h \
@@ -71,7 +72,8 @@ HEADERS += \
     headers/backend/material.h \
     headers/backend/tandem.h \
     headers/backend/filter.h \
-    headers/frontend/advancedFilters.h
+    headers/frontend/advancedFilters.h \
+    headers/frontend/sortwidget.h
 
 FORMS += \
     ui/details.ui \
@@ -82,7 +84,8 @@ FORMS += \
     ui/loginform.ui \
     ui/conditionWidget.ui \
     ui/filterWidget.ui \
-    ui/advancedFilters.ui
+    ui/advancedFilters.ui \
+    ui/sortwidget.ui
 
 RESOURCES += \
     resources/ui/resources.qrc

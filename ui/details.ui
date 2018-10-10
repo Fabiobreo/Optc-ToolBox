@@ -1341,6 +1341,23 @@ QPushButton:pressed {
   <zorder>formLayoutWidget</zorder>
   <zorder>verticalLayoutWidget</zorder>
  </widget>
+ <tabstops>
+  <tabstop>LeftButton</tabstop>
+  <tabstop>RightButton</tabstop>
+  <tabstop>detailsTabWidget</tabstop>
+  <tabstop>scrollStats</tabstop>
+  <tabstop>addCharacterButton</tabstop>
+  <tabstop>removeCharacterButton</tabstop>
+  <tabstop>myCharactersTab</tabstop>
+  <tabstop>specialScroll</tabstop>
+  <tabstop>limitScroll</tabstop>
+  <tabstop>evolutionScroll</tabstop>
+  <tabstop>tandemScroll</tabstop>
+  <tabstop>captainActionScroll</tabstop>
+  <tabstop>swapScroll</tabstop>
+  <tabstop>sailorScroll</tabstop>
+  <tabstop>captainScroll</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

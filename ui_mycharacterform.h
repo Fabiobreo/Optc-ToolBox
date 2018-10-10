@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mycharacterform.ui'
 **
-** Created by: Qt User Interface Compiler version 5.11.0
+** Created by: Qt User Interface Compiler version 5.11.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -899,6 +899,53 @@ public:
 
         verticalLayout->addWidget(scrollArea);
 
+        QWidget::setTabOrder(scrollArea, wantToFinishLevel);
+        QWidget::setTabOrder(wantToFinishLevel, wantToFinishCotton);
+        QWidget::setTabOrder(wantToFinishCotton, wantToFinishSkill);
+        QWidget::setTabOrder(wantToFinishSkill, wantToFinishSocket);
+        QWidget::setTabOrder(wantToFinishSocket, wantToFinishLimit);
+        QWidget::setTabOrder(wantToFinishLimit, levelEdit);
+        QWidget::setTabOrder(levelEdit, skillLevelEdit);
+        QWidget::setTabOrder(skillLevelEdit, firstDesiredSocket);
+        QWidget::setTabOrder(firstDesiredSocket, secondDesiredSocket);
+        QWidget::setTabOrder(secondDesiredSocket, thirdDesiredSocket);
+        QWidget::setTabOrder(thirdDesiredSocket, fourthDesiredSocket);
+        QWidget::setTabOrder(fourthDesiredSocket, fifthDesiredSocket);
+        QWidget::setTabOrder(fifthDesiredSocket, firstCurrentSocket);
+        QWidget::setTabOrder(firstCurrentSocket, secondCurrentSocket);
+        QWidget::setTabOrder(secondCurrentSocket, thirdCurrentSocket);
+        QWidget::setTabOrder(thirdCurrentSocket, fourthCurrentSocket);
+        QWidget::setTabOrder(fourthCurrentSocket, fifthCurrentSocket);
+        QWidget::setTabOrder(fifthCurrentSocket, firstSocketEdit);
+        QWidget::setTabOrder(firstSocketEdit, secondSocketEdit);
+        QWidget::setTabOrder(secondSocketEdit, thirdSocketEdit);
+        QWidget::setTabOrder(thirdSocketEdit, fourthSocketEdit);
+        QWidget::setTabOrder(fourthSocketEdit, fifthSocketEdit);
+        QWidget::setTabOrder(fifthSocketEdit, firstMissingSocket);
+        QWidget::setTabOrder(firstMissingSocket, secondMissingSocket);
+        QWidget::setTabOrder(secondMissingSocket, thirdMissingSocket);
+        QWidget::setTabOrder(thirdMissingSocket, fourthMissingSocket);
+        QWidget::setTabOrder(fourthMissingSocket, fifthMissingSocket);
+        QWidget::setTabOrder(fifthMissingSocket, firstMissingEdit);
+        QWidget::setTabOrder(firstMissingEdit, secondMissingEdit);
+        QWidget::setTabOrder(secondMissingEdit, thirdMissingEdit);
+        QWidget::setTabOrder(thirdMissingEdit, fourthMissingEdit);
+        QWidget::setTabOrder(fourthMissingEdit, fifthMissingEdit);
+        QWidget::setTabOrder(fifthMissingEdit, statsHpEdit);
+        QWidget::setTabOrder(statsHpEdit, statsAtkEdit);
+        QWidget::setTabOrder(statsAtkEdit, statsRcvEdit);
+        QWidget::setTabOrder(statsRcvEdit, cottonHpEdit);
+        QWidget::setTabOrder(cottonHpEdit, cottonAtkEdit);
+        QWidget::setTabOrder(cottonAtkEdit, cottonRcvEdit);
+        QWidget::setTabOrder(cottonRcvEdit, cottonTotalEdit);
+        QWidget::setTabOrder(cottonTotalEdit, trainingPointsEdit);
+        QWidget::setTabOrder(trainingPointsEdit, lbUnlockedEdit);
+        QWidget::setTabOrder(lbUnlockedEdit, firstPotential);
+        QWidget::setTabOrder(firstPotential, secondPotential);
+        QWidget::setTabOrder(secondPotential, thirdPotential);
+        QWidget::setTabOrder(thirdPotential, firstPotentialValueEdit);
+        QWidget::setTabOrder(firstPotentialValueEdit, secondPotentialValueEdit);
+        QWidget::setTabOrder(secondPotentialValueEdit, thirdPotentialValueEdit);
 
         retranslateUi(MyCharacterForm);
 

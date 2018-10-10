@@ -2,7 +2,7 @@
 
 std::ostream &operator<<(std::ostream &_os, Character &_character)
 {
-    _os << _character.name << " " << _character.stats.stars << (_character.stats.plus? "+" : "") << "* " << to_string(_character.type.at(0)) << " "
+    _os << _character.name << " " << _character.stats.stars << (_character.stats.plus? "+" : "") << "* " << to_string(_character.type[0]) << " "
         << to_string(_character.first_class);
     std::string second_class = to_string(_character.second_class);
     if (!second_class.empty())
@@ -73,7 +73,7 @@ std::ostream &operator<<(std::ostream &_os, Character &_character)
                 {
                     _os << std::to_string(i + 1);
                 }
-                _os << ": " << new_captain_abilities.at(i).getDescription() << std::endl;
+                _os << ": " << new_captain_abilities[i].getDescription() << std::endl;
             }
         }
         else
@@ -114,7 +114,7 @@ std::ostream &operator<<(std::ostream &_os, Character &_character)
             std::vector<Sailor> new_sailor_abilities = lb->getNewSailorAbilities();
             for (unsigned long i = 0; i < new_sailor_abilities.size(); ++i)
             {
-                _os << "- LB " << std::to_string(i + 1) << ": " << new_sailor_abilities.at(i).getDescription() << std::endl;
+                _os << "- LB " << std::to_string(i + 1) << ": " << new_sailor_abilities[i].getDescription() << std::endl;
             }
         }
         else
@@ -165,7 +165,7 @@ std::ostream &operator<<(std::ostream &_os, Character &_character)
                         _os << "->" << (stage_base_cd - cdSkill - cdReduction);
                     }
                 }
-                _os <<  "): " << special->getDescription().at(i) << std::endl;
+                _os <<  "): " << special->getDescription()[i] << std::endl;
             }
         }
         else
@@ -232,7 +232,7 @@ std::ostream &operator<<(std::ostream &_os, Character &_character)
             {
                 _os << "- Cooldown Reduction: ";
             }
-            _os << potential->getDescriptions().at(4) << std::endl;
+            _os << potential->getDescriptions()[4] << std::endl;
         }
     }
 
@@ -365,10 +365,10 @@ std::vector<Character*> Character::getEvolvers(Character *_character)
 {
     for (unsigned long i = 0; i < evolution.size(); ++i)
     {
-        Character *_char = evolution.at(i);
+        Character *_char = evolution[i];
         if (_char == _character)
         {
-            return evolvers.at(i);
+            return evolvers[i];
         }
     }
     return std::vector<Character*>();
@@ -378,10 +378,10 @@ std::vector<Material*> Character::getEvolutionMaterials(Character *_character)
 {
     for (unsigned long i = 0; i < evolution.size(); ++i)
     {
-        Character *_char = evolution.at(i);
+        Character *_char = evolution[i];
         if (_char == _character)
         {
-            return evolverMaterials.at(i);
+            return evolverMaterials[i];
         }
     }
     return std::vector<Material*>();

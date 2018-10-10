@@ -20,8 +20,15 @@ public:
     void loadCharacters(long _id);
     void logout();
 
+signals:
+    void save();
+
 private slots:
     void on_actionLogout_triggered();
+
+    void on_actionAbout_Optc_Toolbox_triggered();
+
+    void on_actionSave_triggered();
 
 private:
     Ui::Optc *ui;

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'details.ui'
 **
-** Created by: Qt User Interface Compiler version 5.11.0
+** Created by: Qt User Interface Compiler version 5.11.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -848,6 +848,20 @@ public:
         layoutWidget->raise();
         formLayoutWidget->raise();
         verticalLayoutWidget->raise();
+        QWidget::setTabOrder(LeftButton, RightButton);
+        QWidget::setTabOrder(RightButton, detailsTabWidget);
+        QWidget::setTabOrder(detailsTabWidget, scrollStats);
+        QWidget::setTabOrder(scrollStats, addCharacterButton);
+        QWidget::setTabOrder(addCharacterButton, removeCharacterButton);
+        QWidget::setTabOrder(removeCharacterButton, myCharactersTab);
+        QWidget::setTabOrder(myCharactersTab, specialScroll);
+        QWidget::setTabOrder(specialScroll, limitScroll);
+        QWidget::setTabOrder(limitScroll, evolutionScroll);
+        QWidget::setTabOrder(evolutionScroll, tandemScroll);
+        QWidget::setTabOrder(tandemScroll, captainActionScroll);
+        QWidget::setTabOrder(captainActionScroll, swapScroll);
+        QWidget::setTabOrder(swapScroll, sailorScroll);
+        QWidget::setTabOrder(sailorScroll, captainScroll);
 
         retranslateUi(Details);
 

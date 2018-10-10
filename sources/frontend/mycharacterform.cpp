@@ -16,10 +16,10 @@ MyCharacterForm::MyCharacterForm(Character* _character, MyCharacter* _myCharacte
     ui->lbUnlockedEdit->setText(QString::number(myCharacter->getLbUnlockedNodes()));
     ui->trainingPointsEdit->setText(QString::number(myCharacter->getTrainingPoints()));
     std::vector<short> cottons = myCharacter->getCC();
-    ui->cottonHpEdit->setText(QString::number(cottons.at(0)));
-    ui->cottonAtkEdit->setText(QString::number(cottons.at(1)));
-    ui->cottonRcvEdit->setText(QString::number(cottons.at(2)));
-    ui->cottonTotalEdit->setText(QString("+") + QString::number(cottons.at(0) + cottons.at(1) + cottons.at(2)));
+    ui->cottonHpEdit->setText(QString::number(cottons[0]));
+    ui->cottonAtkEdit->setText(QString::number(cottons[1]));
+    ui->cottonRcvEdit->setText(QString::number(cottons[2]));
+    ui->cottonTotalEdit->setText(QString("+") + QString::number(cottons[0] + cottons[1] + cottons[2]));
 
     if (!templateCharacter->hasSpecial())
     {
@@ -190,7 +190,7 @@ void MyCharacterForm::refresh()
             socketButton->setIcon(socketIcon);
             socketButton->setIconSize(socketPixmap->rect().size());
             QLineEdit* socketValue = static_cast<QLineEdit*>(ui->socketLayout->itemAtPosition(2, k)->widget());
-            if (myCharacter->getSockets().at(k - 1).getType() != Socket::Type::None)
+            if (myCharacter->getSockets()[k - 1].getType() != Socket::Type::None)
             {
                 if (socketValue->text() != "")
                 {
@@ -273,7 +273,7 @@ void MyCharacterForm::refresh()
         }
         else
         {
-            if (myCharacter->getSockets().at(i - 1).getType() != Socket::Type::None)
+            if (myCharacter->getSockets()[i - 1].getType() != Socket::Type::None)
             {
                 socketValue->setEnabled(editMode);
             }
@@ -312,9 +312,9 @@ void MyCharacterForm::refresh()
         rcvLb = improvements.rcv;
     }
 
-    ui->statsHpEdit->setText(QString::number(currentStats.at(0) + 5 * currentCC.at(0) + hpLb));
-    ui->statsAtkEdit->setText(QString::number(currentStats.at(1) + 2 * currentCC.at(1) + atkLb));
-    ui->statsRcvEdit->setText(QString::number(currentStats.at(2) + currentCC.at(2) + rcvLb));
+    ui->statsHpEdit->setText(QString::number(currentStats[0] + 5 * currentCC[0] + hpLb));
+    ui->statsAtkEdit->setText(QString::number(currentStats[1] + 2 * currentCC[1] + atkLb));
+    ui->statsRcvEdit->setText(QString::number(currentStats[2] + currentCC[2] + rcvLb));
 
     // Set potentials
     if (templateCharacter->hasLimitBreak())
@@ -327,7 +327,7 @@ void MyCharacterForm::refresh()
         {
             if (i <= numPotential)
             {
-                QPixmap* potentialFrame = getFrameFromPotential(unlockablePotentials.at(static_cast<unsigned int>(i - 1))->getType());
+                QPixmap* potentialFrame = getFrameFromPotential(unlockablePotentials[static_cast<unsigned int>(i - 1)]->getType());
                 QIcon potentialFrameIcon(potentialFrame->scaled(ui->firstPotential->width(), ui->firstPotential->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
                 QPushButton* potentialButton = static_cast<QPushButton*>(ui->potentialLayout->itemAtPosition(0, i)->widget());
                 potentialButton->setIcon(potentialFrameIcon);
@@ -344,7 +344,7 @@ void MyCharacterForm::refresh()
                     }
                     else
                     {
-                        potentialValue->setText(QString::number(currentPotentials.at(static_cast<unsigned int>(i - 1)).getValue()));
+                        potentialValue->setText(QString::number(currentPotentials[static_cast<unsigned int>(i - 1)].getValue()));
                         potentialValue->setEnabled(editMode);
                     }
                 }
@@ -821,7 +821,10 @@ void MyCharacterForm::on_firstPotentialValueEdit_textChanged(const QString &_pot
         }
         std::vector<Potential*> unlockablePotentials = templateCharacter->getLimitBreak()->getAllImprovements().potentials;
 
-        myCharacter->setPotential(unlockablePotentials.at(0)->getType(), potentialValue.toShort());
+        myCharacter->setPotential(unlockablePotentials[0]->getType(), potentialValue.toShort());
+
+        Potential* thisPotential = templateCharacter->getLimitBreak()->getAllImprovements().potentials[0];
+        ui->firstPotential->setToolTip(QString::fromStdString(thisPotential->getDescriptions()[potentialValue.toInt() - 1]));
     }
 }
 
@@ -847,7 +850,9 @@ void MyCharacterForm::on_secondPotentialValueEdit_textChanged(const QString &_po
         }
         std::vector<Potential*> unlockablePotentials = templateCharacter->getLimitBreak()->getAllImprovements().potentials;
 
-        myCharacter->setPotential(unlockablePotentials.at(1)->getType(), potentialValue.toShort());
+        myCharacter->setPotential(unlockablePotentials[1]->getType(), potentialValue.toShort());
+        Potential* thisPotential = templateCharacter->getLimitBreak()->getAllImprovements().potentials[1];
+        ui->secondPotential->setToolTip(QString::fromStdString(thisPotential->getDescriptions()[potentialValue.toInt() - 1]));
     }
 }
 
@@ -872,7 +877,9 @@ void MyCharacterForm::on_thirdPotentialValueEdit_textChanged(const QString &_pot
         }
         std::vector<Potential*> unlockablePotentials = templateCharacter->getLimitBreak()->getAllImprovements().potentials;
 
-        myCharacter->setPotential(unlockablePotentials.at(2)->getType(), potentialValue.toShort());
+        myCharacter->setPotential(unlockablePotentials[2]->getType(), potentialValue.toShort());
+        Potential* thisPotential = templateCharacter->getLimitBreak()->getAllImprovements().potentials[2];
+        ui->thirdPotential->setToolTip(QString::fromStdString(thisPotential->getDescriptions()[potentialValue.toInt() - 1]));
     }
     refresh();
 }
@@ -898,7 +905,7 @@ void MyCharacterForm::on_firstSocketEdit_textChanged(const QString &_socketLevel
         }
 
         std::vector<Socket>& currentSockets = myCharacter->getSockets();
-        currentSockets.at(0).setValue(socketValue.toShort());
+        currentSockets[0].setValue(socketValue.toShort());
     }
     refresh();
 }
@@ -923,7 +930,7 @@ void MyCharacterForm::on_secondSocketEdit_textChanged(const QString &_socketLeve
             ui->secondSocketEdit->setText(socketValue);
         }
         std::vector<Socket>& currentSockets = myCharacter->getSockets();
-        currentSockets.at(1).setValue(socketValue.toShort());
+        currentSockets[1].setValue(socketValue.toShort());
     }
     refresh();
 }
@@ -948,7 +955,7 @@ void MyCharacterForm::on_thirdSocketEdit_textChanged(const QString &_socketLevel
             ui->thirdSocketEdit->setText(socketValue);
         }
         std::vector<Socket>& currentSockets = myCharacter->getSockets();
-        currentSockets.at(2).setValue(socketValue.toShort());
+        currentSockets[2].setValue(socketValue.toShort());
     }
     refresh();
 }
@@ -973,7 +980,7 @@ void MyCharacterForm::on_fourthSocketEdit_textChanged(const QString &_socketLeve
             ui->fourthSocketEdit->setText(socketValue);
         }
         std::vector<Socket>& currentSockets = myCharacter->getSockets();
-        currentSockets.at(3).setValue(socketValue.toShort());
+        currentSockets[3].setValue(socketValue.toShort());
     }
     refresh();
 }
@@ -998,7 +1005,7 @@ void MyCharacterForm::on_fifthSocketEdit_textChanged(const QString &_socketLevel
             ui->fifthSocketEdit->setText(socketValue);
         }
         std::vector<Socket>& currentSockets = myCharacter->getSockets();
-        currentSockets.at(4).setValue(socketValue.toShort());
+        currentSockets[4].setValue(socketValue.toShort());
     }
     refresh();
 }
@@ -1020,7 +1027,7 @@ void MyCharacterForm::acceptedSelection(int _row, int _column, Socket::Type _typ
             desiredSockets.push_back(Socket::Type::None);
         }
 
-        desiredSockets.at(static_cast<unsigned int>(_column - 1)) = _type;
+        desiredSockets[static_cast<unsigned int>(_column - 1)] = _type;
     }
     else if (_row == 1)
     {
@@ -1030,7 +1037,7 @@ void MyCharacterForm::acceptedSelection(int _row, int _column, Socket::Type _typ
         {
             currentSockets.push_back(Socket(Socket::Type::None, 1));
         }
-        currentSockets.at(static_cast<unsigned int>(_column - 1)) = Socket(_type, currentSockets.at(static_cast<unsigned int>(_column - 1)).getValue());
+        currentSockets[static_cast<unsigned int>(_column - 1)] = Socket(_type, currentSockets[static_cast<unsigned int>(_column - 1)].getValue());
 
         QLineEdit* socketValue = static_cast<QLineEdit*>(ui->socketLayout->itemAtPosition(2, _column)->widget());
         if (_type == Socket::Type::None)
@@ -1112,7 +1119,7 @@ void MyCharacterForm::openSocketSelection(int _row, int _column)
         {
             if (i != static_cast<unsigned int>(_column - 1))
             {
-                possibleTypes.erase(std::remove(possibleTypes.begin(), possibleTypes.end(), desiredSockets.at(i)), possibleTypes.end());
+                possibleTypes.erase(std::remove(possibleTypes.begin(), possibleTypes.end(), desiredSockets[i]), possibleTypes.end());
             }
         }
     }
@@ -1123,7 +1130,7 @@ void MyCharacterForm::openSocketSelection(int _row, int _column)
         {
             if (i != static_cast<unsigned int>(_column - 1))
             {
-                possibleTypes.erase(std::remove(possibleTypes.begin(), possibleTypes.end(), currentSockets.at(i).getType()), possibleTypes.end());
+                possibleTypes.erase(std::remove(possibleTypes.begin(), possibleTypes.end(), currentSockets[i].getType()), possibleTypes.end());
             }
         }
     }

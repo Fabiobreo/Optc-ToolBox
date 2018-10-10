@@ -356,8 +356,8 @@ bool Condition::isMet(Character* _character)
         std::vector<Character*> characterToCheck = {_character};
         if (_character->hasDual())
         {
-            characterToCheck.push_back(_character->getDualUnits().at(0));
-            characterToCheck.push_back(_character->getDualUnits().at(1));
+            characterToCheck.push_back(_character->getDualUnits()[0]);
+            characterToCheck.push_back(_character->getDualUnits()[1]);
         }
 
         if (op == Operator::Equal)
@@ -391,8 +391,8 @@ bool Condition::isMet(Character* _character)
         std::vector<Character*> characterToCheck = {_character};
         if (_character->hasDual())
         {
-            characterToCheck.push_back(_character->getDualUnits().at(0));
-            characterToCheck.push_back(_character->getDualUnits().at(1));
+            characterToCheck.push_back(_character->getDualUnits()[0]);
+            characterToCheck.push_back(_character->getDualUnits()[1]);
         }
 
         if (op == Operator::Equal)
@@ -426,8 +426,8 @@ bool Condition::isMet(Character* _character)
         std::vector<Character*> characterToCheck = {_character};
         if (_character->hasDual())
         {
-            characterToCheck.push_back(_character->getDualUnits().at(0));
-            characterToCheck.push_back(_character->getDualUnits().at(1));
+            characterToCheck.push_back(_character->getDualUnits()[0]);
+            characterToCheck.push_back(_character->getDualUnits()[1]);
         }
 
         if (op == Operator::Equal)
@@ -706,13 +706,13 @@ bool Condition::isMet(Character* _character)
             if (_character->hasDual())
             {
                 std::vector<Character*> duals = _character->getDualUnits();
-                if (duals.at(0)->hasCaptain())
+                if (duals[0]->hasCaptain())
                 {
-                    captains.push_back(duals.at(0)->getCaptain()->getDescription());
+                    captains.push_back(duals[0]->getCaptain()->getDescription());
                 }
-                if (duals.at(1)->hasCaptain())
+                if (duals[1]->hasCaptain())
                 {
-                    captains.push_back(duals.at(1)->getCaptain()->getDescription());
+                    captains.push_back(duals[1]->getCaptain()->getDescription());
                 }
             }
 
@@ -854,16 +854,16 @@ bool Condition::isMet(Character* _character)
         if (_character->hasDual())
         {
             std::vector<Character*> duals = _character->getDualUnits();
-            if (duals.at(0)->hasSailor())
+            if (duals[0]->hasSailor())
             {
-                for (Sailor sail : duals.at(0)->getSailors())
+                for (Sailor sail : duals[0]->getSailors())
                 {
                     sailors.push_back(sail.getDescription());
                 }
             }
-            if (duals.at(1)->hasSailor())
+            if (duals[1]->hasSailor())
             {
-                for (Sailor sail : duals.at(1)->getSailors())
+                for (Sailor sail : duals[1]->getSailors())
                 {
                     sailors.push_back(sail.getDescription());
                 }

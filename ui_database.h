@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'database.ui'
 **
-** Created by: Qt User Interface Compiler version 5.11.0
+** Created by: Qt User Interface Compiler version 5.11.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -38,7 +38,7 @@ public:
     QLabel *fixedNameLabel;
     QLineEdit *filterByName;
     QPushButton *advancedFilters;
-    QPushButton *saveButton;
+    QPushButton *sortButton;
     QRadioButton *ownedMode;
     QCheckBox *showOwned;
     QCheckBox *editMode;
@@ -120,15 +120,17 @@ public:
 
         horizontalLayout->addWidget(advancedFilters);
 
-        saveButton = new QPushButton(centralWidget);
-        saveButton->setObjectName(QStringLiteral("saveButton"));
+        sortButton = new QPushButton(centralWidget);
+        sortButton->setObjectName(QStringLiteral("sortButton"));
         QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Minimum);
         sizePolicy2.setHorizontalStretch(0);
         sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(saveButton->sizePolicy().hasHeightForWidth());
-        saveButton->setSizePolicy(sizePolicy2);
+        sizePolicy2.setHeightForWidth(sortButton->sizePolicy().hasHeightForWidth());
+        sortButton->setSizePolicy(sizePolicy2);
+        sortButton->setMinimumSize(QSize(0, 0));
+        sortButton->setMaximumSize(QSize(16777215, 16777215));
 
-        horizontalLayout->addWidget(saveButton);
+        horizontalLayout->addWidget(sortButton);
 
         ownedMode = new QRadioButton(centralWidget);
         ownedMode->setObjectName(QStringLiteral("ownedMode"));
@@ -173,7 +175,7 @@ public:
 
         fixedNameLabel->setText(QApplication::translate("Database", "Name:", nullptr));
         advancedFilters->setText(QString());
-        saveButton->setText(QApplication::translate("Database", "Save", nullptr));
+        sortButton->setText(QApplication::translate("Database", "Sort", nullptr));
         ownedMode->setText(QApplication::translate("Database", "Owned Mode", nullptr));
         showOwned->setText(QApplication::translate("Database", "Show only owned", nullptr));
         editMode->setText(QApplication::translate("Database", "Edit Mode", nullptr));

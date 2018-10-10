@@ -64,7 +64,7 @@ void LoginForm::on_loginButton_clicked()
     }
     else
     {
-        std::string registeredPassword = userPwd.at(possibleUsername);
+        std::string registeredPassword = userPwd[possibleUsername];
         if (registeredPassword == ui->passwordEdit->text().toUtf8().constData())
         {
             // Save new settings
@@ -146,23 +146,23 @@ void LoginForm::loadSettings()
 
         if (inputFile.find("RegisteredUsers") != inputFile.end())
         {
-            json registeredUsers = inputFile.at("RegisteredUsers");
+            json registeredUsers = inputFile["RegisteredUsers"];
             for (json::iterator fileIterator = registeredUsers.begin(); fileIterator != registeredUsers.end(); ++fileIterator)
             {
                 std::string username = fileIterator.key();
-                std::string pwd = encryptDecrypt(registeredUsers.at(fileIterator.key()));
+                std::string pwd = encryptDecrypt(registeredUsers[fileIterator.key()]);
                 userPwd[username] = pwd;
             }
         }
 
         if (inputFile.find("LastLogin") != inputFile.end())
         {
-            lastLogin = inputFile.at("LastLogin");
+            lastLogin = inputFile["LastLogin"];
         }
 
         if (inputFile.find("AutoLogin") != inputFile.end())
         {
-            autoLogin = inputFile.at("AutoLogin");
+            autoLogin = inputFile["AutoLogin"];
         }
     }
     else
@@ -186,7 +186,7 @@ void LoginForm::saveSettings()
         json registeredJson;
         for (std::map<std::string, std::string>::iterator it = userPwd.begin(); it != userPwd.end(); ++it)
         {
-            registeredJson[it->first] = encryptDecrypt(userPwd.at(it->first));
+            registeredJson[it->first] = encryptDecrypt(userPwd[it->first]);
         }
         settingsJson["RegisteredUsers"] = registeredJson;
         outputFile << std::setw(4) << settingsJson << std::endl;

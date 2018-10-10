@@ -13,7 +13,7 @@ void Special::setDescription(const std::string &_description, unsigned long _num
         {
             description.push_back("");
         }
-        description.at(_num - 1) = _description;
+        description[_num - 1] = _description;
     }
 }
 
@@ -71,7 +71,7 @@ std::string Special::getStage(unsigned long _num)
 {
     if (_num > 0 && _num <= description.size())
     {
-        return description.at(_num - 1);
+        return description[_num - 1];
     }
     else
     {
@@ -97,7 +97,7 @@ void Special::setStageOffset(unsigned long _num, short _value)
         {
             offsets.push_back(0);
         }
-        offsets.at(_num - 1) = _value;
+        offsets[_num - 1] = _value;
     }
 }
 
@@ -111,7 +111,7 @@ short Special::getStageOffset(unsigned long _num)
 {
     if (_num > 0 && _num <= offsets.size())
     {
-        return offsets.at(_num - 1);
+        return offsets[_num - 1];
     }
     return 0;
 }

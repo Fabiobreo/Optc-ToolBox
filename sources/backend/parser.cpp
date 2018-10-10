@@ -27,6 +27,8 @@ bool Parser::loadCharacters()
     std::ifstream inputFile(dataPath + charactersFile);
     std::vector<char> charToRemove = {' ', '[', ']', '\\', '\"'};
 
+    characters.reserve(3200);
+
     if (inputFile.is_open())
     {
         std::string line;
@@ -57,8 +59,8 @@ bool Parser::loadCharacters()
                 /* Parsing classes */
                 std::vector<std::string> classes;
                 Tools::split(Tools::parseBetween(leftToParse, "[\"", "\"],"), ',', classes, &charToRemove);
-                Class first_class = stringToClass(classes.at(0));
-                Class second_class = classes.size() > 1 ? stringToClass(classes.at(1)) : Class::None;
+                Class first_class = stringToClass(classes[0]);
+                Class second_class = classes.size() > 1 ? stringToClass(classes[1]) : Class::None;
 
                 /* Parsing stats */
                 Stats character_stats{};
@@ -105,15 +107,15 @@ bool Parser::loadCharacters()
                 }
                 if (growth_rate.size() == 1)
                 {
-                    character_stats.hp_growth = static_cast<double>(std::stof(growth_rate.at(0) != "null" ? growth_rate.at(0) : "1"));
+                    character_stats.hp_growth = static_cast<double>(std::stof(growth_rate[0] != "null" ? growth_rate[0] : "1"));
                     character_stats.atk_growth = character_stats.hp_growth;
                     character_stats.rcv_growth = character_stats.hp_growth;
                 }
                 else
                 {
-                    character_stats.hp_growth = static_cast<double>(std::stof(growth_rate.at(0)));
-                    character_stats.atk_growth = static_cast<double>(std::stof(growth_rate.at(1)));
-                    character_stats.rcv_growth = static_cast<double>(std::stof(growth_rate.at(2)));
+                    character_stats.hp_growth = static_cast<double>(std::stof(growth_rate[0]));
+                    character_stats.atk_growth = static_cast<double>(std::stof(growth_rate[1]));
+                    character_stats.rcv_growth = static_cast<double>(std::stof(growth_rate[2]));
                 }
                 short dualId = -1;
                 if (!leftToParse.empty())
@@ -131,7 +133,7 @@ bool Parser::loadCharacters()
                 characters.push_back(character);
                 if (dualId != -1)
                 {
-                    characters.at(static_cast<unsigned int>(dualId - 1))->addDualUnit(character);
+                    characters[static_cast<unsigned int>(dualId - 1)]->addDualUnit(character);
                 }
             }
             else
@@ -160,20 +162,20 @@ bool Parser::loadCooldowns()
         {
             std::vector<std::string> elements;
             Tools::split(line, ',', elements, &charToRemove);
-            if (elements.at(0) != "null")
+            if (elements[0] != "null")
             {
                 Special special;
-                auto base_cd = static_cast<short>(std::stoi(elements.at(0)));
+                auto base_cd = static_cast<short>(std::stoi(elements[0]));
                 special.setBase(base_cd);
                 if (elements.size() > 1)
                 {
-                    if (elements.at(1) != "null")
+                    if (elements[1] != "null")
                     {
-                        auto max_cd = static_cast<short>(std::stoi(elements.at(1)));
+                        auto max_cd = static_cast<short>(std::stoi(elements[1]));
                         special.setMaxedCd(max_cd);
                     }
                 }
-                characters.at(id)->setSpecial(&special);
+                characters[id]->setSpecial(&special);
             }
             id++;
         }
@@ -217,7 +219,7 @@ bool Parser::loadEvolutions()
             std::vector<std::vector<Material*>> evolution_materials;
             for (unsigned long i = 0; i < line.length(); ++i)
             {
-                char c = line.at(i);
+                char c = line[i];
                 if (c == '[')
                 {
                     startIndex = i;
@@ -250,15 +252,15 @@ bool Parser::loadEvolutions()
             }
             for (unsigned long k = 0; k < evos.size(); k++)
             {
-                auto evo = evos.at(k);
-                Character* character_evolution = characters.at(evo - 1);
+                auto evo = evos[k];
+                Character* character_evolution = characters[evo - 1];
                 std::vector<Character*> character_evolvers;
-                for (auto evolver : evolvers.at(k))
+                for (auto evolver : evolvers[k])
                 {
-                    Character* evolver_pointer = characters.at(evolver - 1);
+                    Character* evolver_pointer = characters[evolver - 1];
                     character_evolvers.push_back(evolver_pointer);
                 }
-                characters.at(id - 1)->setEvolution(character_evolution, character_evolvers, evolution_materials.at(k));
+                characters[id - 1]->setEvolution(character_evolution, character_evolvers, evolution_materials[k]);
             }
 
             //Closing line
@@ -282,13 +284,13 @@ bool Parser::loadTandems()
         {
             std::string tandemName = fileIterator.key();
             Tandem* tandem = new Tandem(tandemName);
-            std::string tandemDescription = file.at(fileIterator.key()).at("description");
-            std::vector<int> tandemUnits = file.at(fileIterator.key()).at("units");
+            std::string tandemDescription = file[fileIterator.key()]["description"];
+            std::vector<int> tandemUnits = file[fileIterator.key()]["units"];
 
             tandem->setDescription(tandemDescription);
             for (int charId : tandemUnits)
             {
-                Character* character = characters.at(static_cast<unsigned int>(charId) - 1);
+                Character* character = characters[static_cast<unsigned int>(charId) - 1];
                 tandem->addUnit(character);
                 character->addTandem(tandem);
             }
@@ -385,18 +387,18 @@ bool Parser::loadDetails()
                 }
                 std::vector<std::string> elements;
                 Tools::split(line, ':', elements);
-                elements.at(0).erase(std::remove(elements.at(0).begin(), elements.at(0).end(), ' '), elements.at(0).end());
-                if (Tools::is_number(elements.at(0)))
+                elements[0].erase(std::remove(elements[0].begin(), elements[0].end(), ' '), elements[0].end());
+                if (Tools::is_number(elements[0]))
                 {
-                    id = std::stoul(elements.at(0));
+                    id = std::stoul(elements[0]);
                 }
-                else if (elements.at(0) == "captain")
+                else if (elements[0] == "captain")
                 {
                     std::vector<std::string> captain_string;
                     std::string cap = "";
                     for (unsigned long ind = 1; ind < elements.size(); ++ind)
                     {
-                        cap += elements.at(ind);
+                        cap += elements[ind];
                     }
                     captain_string.push_back(cap);
                     if (cap.find('{') != std::string::npos)
@@ -413,18 +415,18 @@ bool Parser::loadDetails()
                     }
                     success = success && loadCaptain(id, captain_string);
                 }
-                else if (elements.at(0) == "action")
+                else if (elements[0] == "action")
                 {
-                    std::string action_description = elements.at(1).substr(elements.at(1).find("\"") + 1);
+                    std::string action_description = elements[1].substr(elements[1].find("\"") + 1);
                     action_description = Tools::removeString(action_description.substr(0, action_description.find_last_of("\"")), "\\");
                     Captain cap_action(action_description);
-                    characters.at(id - 1)->setCaptainAction(&cap_action);
+                    characters[id - 1]->setCaptainAction(&cap_action);
                 }
-                else if (elements.at(0) == "special")
+                else if (elements[0] == "special")
                 {
                     std::vector<std::string> special_string;
-                    special_string.push_back(elements.at(1));
-                    if (elements.at(1).find('[') != std::string::npos && elements.at(1).find(']') == std::string::npos)
+                    special_string.push_back(elements[1]);
+                    if (elements[1].find('[') != std::string::npos && elements[1].find(']') == std::string::npos)
                     {
                         int numBrackets = 1;
                         while (true)
@@ -447,23 +449,23 @@ bool Parser::loadDetails()
                     }
                     success = success && loadSpecial(id, special_string);
                 }
-                else if (elements.at(0) == "specialName")
+                else if (elements[0] == "specialName")
                 {
-                    std::string specialName = elements.at(1).substr(elements.at(1).find('\"') + 1);
+                    std::string specialName = elements[1].substr(elements[1].find('\"') + 1);
                     specialName = specialName.substr(0, specialName.find_last_of('\"'));
-                    characters.at(id - 1)->getSpecial()->setName(specialName);
+                    characters[id - 1]->getSpecial()->setName(specialName);
                 }
-                else if (elements.at(0) == "swap")
+                else if (elements[0] == "swap")
                 {
-                    std::string swap = elements.at(1).substr(elements.at(1).find('\"') + 1);
+                    std::string swap = elements[1].substr(elements[1].find('\"') + 1);
                     swap = swap.substr(0, swap.find_last_of('\"'));
-                    characters.at(id - 1)->setSwapDescription(swap);
+                    characters[id - 1]->setSwapDescription(swap);
                 }
-                else if (elements.at(0) == "sailor")
+                else if (elements[0] == "sailor")
                 {
                     std::vector<std::string> sailor_string;
-                    sailor_string.push_back(elements.at(1));
-                    if (elements.at(1).find('{') != std::string::npos)
+                    sailor_string.push_back(elements[1]);
+                    if (elements[1].find('{') != std::string::npos)
                     {
                         while (true)
                         {
@@ -477,7 +479,7 @@ bool Parser::loadDetails()
                     }
                     success = success && loadSailor(id, sailor_string);
                 }
-                else if (elements.at(0) == "limit")
+                else if (elements[0] == "limit")
                 {
                     limitDetail = line + "\r";
                     unsigned long numBrackets = 0;
@@ -551,8 +553,8 @@ bool Parser::loadFamilies()
             }
             std::vector<std::string> elements;
             Tools::split(line, ',', elements, &charToRemove);
-            characters.at(id)->setFamily(elements);
-            if (elements.at(0) != "null")
+            characters[id]->setFamily(elements);
+            if (elements[0] != "null")
             {
                 for (std::string family : elements)
                 {
@@ -583,65 +585,65 @@ bool Parser::loadAvailabilities()
             std::vector<std::string> elements;
             Tools::split(line, ':', elements, &charToRemove);
             Availability currentAvailability;
-            if (elements.at(0) == "Raid")
+            if (elements[0] == "Raid")
             {
                 currentAvailability = Availability::Raid;
             }
-            else if (elements.at(0) == "RaidNeo")
+            else if (elements[0] == "RaidNeo")
             {
                 currentAvailability = Availability::RaidNeo;
             }
-            else if (elements.at(0) == "Colosseum")
+            else if (elements[0] == "Colosseum")
             {
                 currentAvailability = Availability::Coliseums;
             }
-            else if (elements.at(0) == "ColosseumNeo")
+            else if (elements[0] == "ColosseumNeo")
             {
                 currentAvailability = Availability::ColiseumsNeo;
             }
-            else if (elements.at(0) == "Ambush")
+            else if (elements[0] == "Ambush")
             {
                 currentAvailability = Availability::Ambush;
             }
-            else if (elements.at(0) == "Special")
+            else if (elements[0] == "Special")
             {
                 currentAvailability = Availability::Special;
             }
-            else if (elements.at(0) == "FNOnly")
+            else if (elements[0] == "FNOnly")
             {
                 currentAvailability = Availability::FNOnly;
             }
-            else if (elements.at(0) == "GenericF2P")
+            else if (elements[0] == "GenericF2P")
             {
                 currentAvailability = Availability::GenericF2P;
             }
-            else if (elements.at(0) == "StoryOnly")
+            else if (elements[0] == "StoryOnly")
             {
                 currentAvailability = Availability::StoryOnly;
             }
-            else if (elements.at(0) == "lrr")
+            else if (elements[0] == "lrr")
             {
                 currentAvailability = Availability::LRR;
             }
-            else if (elements.at(0) == "limitedTM")
+            else if (elements[0] == "limitedTM")
             {
                 currentAvailability = Availability::LimitedTM;
             }
-            else if (elements.at(0) == "limited")
+            else if (elements[0] == "limited")
             {
                 currentAvailability = Availability::Limited;
             }
-            else if (elements.at(0) == "TM")
+            else if (elements[0] == "TM")
             {
                 currentAvailability = Availability::TM;
             }
 
             std::vector<std::string> ids;
-            Tools::split(elements.at(1), ',', ids, &charToRemove);
+            Tools::split(elements[1], ',', ids, &charToRemove);
             for (std::string idString : ids)
             {
                 unsigned long id = std::stoul(idString);
-                characters.at(id - 1)->addAvailability(currentAvailability);
+                characters[id - 1]->addAvailability(currentAvailability);
             }
         }
         success = true;
@@ -825,13 +827,13 @@ bool Parser::loadLimitBreak(unsigned long _characterId, std::string _limitBreak)
                 }
             }
         }
-        Character* limitBrokeCharacter = characters.at(_characterId - 1);
+        Character* limitBrokeCharacter = characters[_characterId - 1];
         limitBrokeCharacter->setLimitBreak(&limitBreak);
         if (limitBrokeCharacter->hasDual())
         {
             std::vector<Character*> dual_units = limitBrokeCharacter->getDualUnits();
-            dual_units.at(0)->setLimitBreak(&limitBreak);
-            dual_units.at(1)->setLimitBreak(&limitBreak);
+            dual_units[0]->setLimitBreak(&limitBreak);
+            dual_units[1]->setLimitBreak(&limitBreak);
         }
     }
     return true;
@@ -849,10 +851,10 @@ bool Parser::loadCaptain(unsigned long _characterId, std::vector<std::string> _c
         {
             std::vector<char> otherChars = {' ', ','};
             std::vector<std::string> emptyCheck;
-            Tools::split(element.at(0), ':', emptyCheck, &otherChars);
+            Tools::split(element[0], ':', emptyCheck, &otherChars);
             if (!emptyCheck.empty())
             {
-                std::string cap_description = element.at(element.size() - 1);
+                std::string cap_description = element[element.size() - 1];
                 cap_description = cap_description.substr(cap_description.find('\"') + 1);
                 cap_description = Tools::removeString(cap_description.substr(0, cap_description.find_last_of('\"')), "\\");
                 Captain cap(cap_description);
@@ -866,16 +868,16 @@ bool Parser::loadCaptain(unsigned long _characterId, std::vector<std::string> _c
     }
     else
     {
-        if (characters.at(_characterId - 1)->hasDual())
+        if (characters[_characterId - 1]->hasDual())
         {
-            std::vector<Character*> dual_units = characters.at(_characterId - 1)->getDualUnits();
-            dual_units.at(0)->setCaptain(&captains.at(0));
-            dual_units.at(1)->setCaptain(&captains.at(1));
-            characters.at(_characterId - 1)->setCaptain(&captains.at(2));
+            std::vector<Character*> dual_units = characters[_characterId - 1]->getDualUnits();
+            dual_units[0]->setCaptain(&captains[0]);
+            dual_units[1]->setCaptain(&captains[1]);
+            characters[_characterId - 1]->setCaptain(&captains[2]);
         }
         else
         {
-            characters.at(_characterId - 1)->setCaptain(&captains.at(0));
+            characters[_characterId - 1]->setCaptain(&captains[0]);
         }
         return true;
     }
@@ -893,10 +895,10 @@ bool Parser::loadSailor(unsigned long _characterId, std::vector<std::string> _sa
         {
             std::vector<char> otherChars = {' ', ','};
             std::vector<std::string> emptyCheck;
-            Tools::split(element.at(0), ':', emptyCheck, &otherChars);
+            Tools::split(element[0], ':', emptyCheck, &otherChars);
             if (!emptyCheck.empty())
             {
-                std::string sailor_description = element.at(element.size() - 1);
+                std::string sailor_description = element[element.size() - 1];
                 sailor_description = sailor_description.substr(sailor_description.find('\"') + 1);
                 sailor_description = Tools::removeString(sailor_description.substr(0, sailor_description.find_last_of('\"')), "\\");
                 Sailor sail(sailor_description);
@@ -910,18 +912,18 @@ bool Parser::loadSailor(unsigned long _characterId, std::vector<std::string> _sa
     }
     else
     {
-        if (characters.at(_characterId - 1)->hasDual())
+        if (characters[_characterId - 1]->hasDual())
         {
-            std::vector<Character*> dual_units = characters.at(_characterId - 1)->getDualUnits();
-            dual_units.at(0)->addSailor(&sailors.at(0));
-            dual_units.at(1)->addSailor(&sailors.at(1));
-            characters.at(_characterId - 1)->addSailor(&sailors.at(2));
+            std::vector<Character*> dual_units = characters[_characterId - 1]->getDualUnits();
+            dual_units[0]->addSailor(&sailors[0]);
+            dual_units[1]->addSailor(&sailors[1]);
+            characters[_characterId - 1]->addSailor(&sailors[2]);
         }
         else
         {
-            if (sailors.at(0).getDescription().find("None") == std::string::npos)
+            if (sailors[0].getDescription().find("None") == std::string::npos)
             {
-                characters.at(_characterId - 1)->addSailor(&sailors.at(0));
+                characters[_characterId - 1]->addSailor(&sailors[0]);
             }
         }
         return true;
@@ -934,7 +936,7 @@ bool Parser::loadSpecial(unsigned long _characterId, std::vector<std::string> _s
     std::vector<short> special_cd;
     if (_special.size() == 1)
     {
-        std::string special_description = _special.at(0).substr(_special.at(0).find('\"') + 1);
+        std::string special_description = _special[0].substr(_special[0].find('\"') + 1);
         special_description = Tools::removeString(special_description.substr(0, special_description.find_last_of('\"')), "\\");
         special_descriptions.push_back(special_description);
     }
@@ -944,32 +946,32 @@ bool Parser::loadSpecial(unsigned long _characterId, std::vector<std::string> _s
         {
             std::vector<std::string> element;
             Tools::split(special_desc, ':', element);
-            if (element.at(0).find("\"description\"") != std::string::npos)
+            if (element[0].find("\"description\"") != std::string::npos)
             {
-                std::string special_description = element.at(1).substr(element.at(1).find('\"') + 1);
+                std::string special_description = element[1].substr(element[1].find('\"') + 1);
                 special_description = Tools::removeString(special_description.substr(0, special_description.find_last_of('\"')), "\\");
                 special_descriptions.push_back(special_description);
             }
-            else if (element.at(0).find("\"cooldown\"") != std::string::npos)
+            else if (element[0].find("\"cooldown\"") != std::string::npos)
             {
                 std::vector<std::string> cds;
                 std::vector<char> charToRemove = {'[', ']', ' '};
-                Tools::split(element.at(1), ',', cds, &charToRemove);
-                if (cds.at(0) != "null")
+                Tools::split(element[1], ',', cds, &charToRemove);
+                if (cds[0] != "null")
                 {
-                    special_cd.push_back(static_cast<short>(std::stoi(cds.at(0))));
+                    special_cd.push_back(static_cast<short>(std::stoi(cds[0])));
                 }
             }
         }
     }
-    Special* spec = characters.at(_characterId - 1)->getSpecial();
+    Special* spec = characters[_characterId - 1]->getSpecial();
     const short base_cd = spec->getBase();
     for (unsigned long i = 0; i < special_descriptions.size(); ++i)
     {
-        spec->addDescription(special_descriptions.at(i));
+        spec->addDescription(special_descriptions[i]);
         if (_special.size() > 1)
         {
-            short offset = base_cd - special_cd.at(i);
+            short offset = base_cd - special_cd[i];
             spec->addOffset(offset);
         }
     }

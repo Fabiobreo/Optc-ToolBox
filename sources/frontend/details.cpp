@@ -22,7 +22,7 @@ Details::Details(Utility* _utility, short _characterId, QWidget *_parent) :
 
     loadCharacter(characterId);
 
-    if (!utility->characters->at(static_cast<unsigned int>(characterId - 1))->hasDual())
+    if (!(*utility->characters)[static_cast<unsigned int>(characterId - 1)]->hasDual())
     {
         ui->LeftButton->hide();
         ui->RightButton->hide();
@@ -38,10 +38,10 @@ Details::Details(Utility* _utility, short _characterId, QWidget *_parent) :
     else
     {
         int characterTabNum = 0;
-        for (MyCharacter* myChar : myCharacters->at(characterId))
+        for (MyCharacter* myChar : (*myCharacters)[characterId])
         {
             bool editMode = utility->editMode;
-            MyCharacterForm* form = new MyCharacterForm(characters->at(static_cast<unsigned int>(characterId - 1)), myChar, editMode, this);
+            MyCharacterForm* form = new MyCharacterForm((*characters)[static_cast<unsigned int>(characterId - 1)], myChar, editMode, this);
             ui->myCharactersTab->addTab(form, QString::number(characterTabNum));
             connect(this, SIGNAL(changeEditMode()), form, SLOT(editModeChanged()));
             characterTabNum++;
@@ -94,7 +94,7 @@ void Details::removeTab(QString name)
 
 void Details::loadCharacter(short _characterId)
 {
-    Character* character = utility->characters->at(static_cast<unsigned int>(_characterId - 1));
+    Character* character = (*utility->characters)[static_cast<unsigned int>(_characterId - 1)];
 
     setName(character);
     setArt(character);
@@ -127,7 +127,7 @@ void Details::setArt(Character* _character)
     }
     else
     {
-        Type ch_type = _character->getType().empty()? Type::None : _character->getType().at(0);
+        Type ch_type = _character->getType().empty()? Type::None : _character->getType()[0];
         QString type(QString::fromStdString(to_string(ch_type)));
         pixmap = new QPixmap(workingPath + "/resources/icons/blank_" + type.toLower() + ".png");
     }
@@ -147,7 +147,7 @@ void Details::setTypes(Character* _character)
     std::vector<Type> types = _character->getType();
     for (unsigned long i = 0; i < types.size(); ++i)
     {
-        Type type = types.at(i);
+        Type type = types[i];
         QString typing = QString::fromStdString(to_string(type));
         QPixmap typeImage(workingPath + "/resources/ui/" + typing.toLower() + ".png");
         typeImage = typeImage.scaled(30, 30, Qt::KeepAspectRatio, Qt::SmoothTransformation);
@@ -308,7 +308,7 @@ void Details::setCaptainTab(Character* _character)
                     capString += QString::number(i + 1);
                 }
                 capString += "</b></p>";
-                capString += "<p>" + QString::fromStdString(new_captain_abilities.at(i).getDescription()) + "</p>";
+                capString += "<p>" + QString::fromStdString(new_captain_abilities[i].getDescription()) + "</p>";
             }
         }
     }
@@ -413,7 +413,7 @@ void Details::setSpecialTab(Character* _character)
         {
             if (!special->hasMultipleStages())
             {
-                specialText += "<p>" + QString::fromStdString(special->getDescription().at(i)) + "<br /><br />";
+                specialText += "<p>" + QString::fromStdString(special->getDescription()[i]) + "<br /><br />";
                 QString baseCd = special->getBase() > -1 ? QString::number(special->getBase()) : "Unknown";
                 QString maxedCd = special->getMaxedCd() > -1 ? QString::number(special->getMaxedCd()) : "Unknown";
                 specialText += "(" + baseCd + "->" + maxedCd;
@@ -432,7 +432,7 @@ void Details::setSpecialTab(Character* _character)
                 {
                     specialText += "->" + QString::number(stageBaseCd - cdReduction - limitCdReduction);
                 }
-                specialText += "):<br /> " + QString::fromStdString(special->getDescription().at(i)) + "</p>";
+                specialText += "):<br /> " + QString::fromStdString(special->getDescription()[i]) + "</p>";
             }
         }
 
@@ -539,31 +539,31 @@ void Details::setEvolutionTab(Character* _character)
             evoCharacter->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
             evoCharacter->setMinimumSize(QSize(60, 60));
             evoCharacter->setMaximumSize(QSize(60, 60));
-            evoCharacter->setIcon(QIcon(*evolutions_character.at(j)->getColoredIcon()));
+            evoCharacter->setIcon(QIcon(*evolutions_character[j]->getColoredIcon()));
             evoCharacter->setIconSize(QSize(60, 60));
 
             /* Connect signals and slots and add to grid */
-            int evoId = evolutions_character.at(j)->getId();
+            int evoId = evolutions_character[j]->getId();
             connect(evoCharacter, &QPushButton::clicked, this->parent(), [this, evoId]{ changeCharacterDetail(evoId); });
             ui->evolutionGrid->addWidget(evoCharacter, j, 0);
 
             /* Add equals symbol */
-            std::vector<Character*> evolvers = _character->getEvolvers(evolutions_character.at(j));
+            std::vector<Character*> evolvers = _character->getEvolvers(evolutions_character[j]);
             QLabel* lab = new QLabel(this);
             lab->setText("=");
             ui->evolutionGrid->addWidget(lab, j, 1, Qt::AlignCenter);
-            std::vector<Material*> materials = _character->getEvolutionMaterials(evolutions_character.at(j));
+            std::vector<Material*> materials = _character->getEvolutionMaterials(evolutions_character[j]);
 
             /* Add evolvers */
             for (unsigned long i = 0; i < 2 * evolvers.size(); ++i)
             {
-                int id = evolvers.at(i / 2)->getId();
+                int id = evolvers[i / 2]->getId();
 
                 QPushButton* mat = new QPushButton(this);
                 mat->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
                 mat->setMinimumSize(QSize(60, 60));
                 mat->setMaximumSize(QSize(60, 60));
-                mat->setIcon(QIcon(*evolvers.at(i / 2)->getColoredIcon()));
+                mat->setIcon(QIcon(*evolvers[i / 2]->getColoredIcon()));
                 mat->setIconSize(QSize(60, 60));
                 ui->evolutionGrid->addWidget(mat, j, (i + 2));
 
@@ -586,7 +586,7 @@ void Details::setEvolutionTab(Character* _character)
                 mat->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
                 mat->setMinimumSize(QSize(60, 60));
                 mat->setMaximumSize(QSize(60, 60));
-                mat->setIcon(QIcon(*materials.at(i / 2)->getColoredIcon()));
+                mat->setIcon(QIcon(*materials[i / 2]->getColoredIcon()));
                 mat->setIconSize(QSize(60, 60));
                 ui->evolutionGrid->addWidget(mat, j, 2 * evolvers.size() + 1 + (i + 2));
 
@@ -631,7 +631,7 @@ void Details::setTandemTab(Character* _character)
         // Populate tab
         for (unsigned long i = 0; i < tandems.size(); ++i)
         {
-            Tandem* tandem = tandems.at(i);
+            Tandem* tandem = tandems[i];
             std::vector<Character*> tandemUnits = tandem->getUnits();
 
             /* Add tandem name */
@@ -650,11 +650,11 @@ void Details::setTandemTab(Character* _character)
                 tandemCharacter->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
                 tandemCharacter->setMinimumSize(QSize(60, 60));
                 tandemCharacter->setMaximumSize(QSize(60, 60));
-                tandemCharacter->setIcon(QIcon(*tandemUnits.at(j)->getColoredIcon()));
+                tandemCharacter->setIcon(QIcon(*tandemUnits[j]->getColoredIcon()));
                 tandemCharacter->setIconSize(QSize(60, 60));
 
                 /* Connect signals and slots and add to grid */
-                int evoId = tandemUnits.at(j)->getId();
+                int evoId = tandemUnits[j]->getId();
                 connect(tandemCharacter, &QPushButton::clicked, this->parent(), [this, evoId]{ changeCharacterDetail(evoId); });
                 ui->tandemGrid->addWidget(tandemCharacter, 4 * static_cast<int>(i) + 2, 2 * static_cast<int>(j));
 
@@ -730,12 +730,12 @@ void Details::on_LeftButton_clicked()
     if (!ui->RightButton->isHidden())
     {
         ui->LeftButton->hide();
-        characterToLoad = characters->at(characterId - 1)->getDualUnits().at(0);
+        characterToLoad = (*characters)[characterId - 1]->getDualUnits()[0];
     }
     else
     {
         ui->RightButton->show();
-        characterToLoad = characters->at(characterId - 1);
+        characterToLoad = (*characters)[characterId - 1];
     }
     setName(characterToLoad);
     setTypes(characterToLoad);
@@ -751,12 +751,12 @@ void Details::on_RightButton_clicked()
     if (!ui->LeftButton->isHidden())
     {
         ui->RightButton->hide();
-        characterToLoad = characters->at(characterId - 1)->getDualUnits().at(1);
+        characterToLoad = (*characters)[characterId - 1]->getDualUnits()[1];
     }
     else
     {
         ui->LeftButton->show();
-        characterToLoad = characters->at(characterId - 1);
+        characterToLoad = (*characters)[characterId - 1];
     }
     setName(characterToLoad);
     setTypes(characterToLoad);
@@ -805,13 +805,13 @@ void Details::on_addCharacterButton_clicked()
         {
             nickname = std::to_string(((*myCharacters)[characterId].size()));
         }
-        MyCharacter* myChar = new MyCharacter(characters->at(static_cast<unsigned int>(characterId - 1)), nickname);
+        MyCharacter* myChar = new MyCharacter((*characters)[static_cast<unsigned int>(characterId - 1)], nickname);
         (*myCharacters)[characterId].push_back(myChar);
         ui->removeCharacterButton->show();
         ui->myCharactersTab->show();
 
         bool editMode = utility->editMode;
-        MyCharacterForm* form = new MyCharacterForm(characters->at(static_cast<unsigned int>(characterId - 1)), myChar, editMode, this);
+        MyCharacterForm* form = new MyCharacterForm((*characters)[static_cast<unsigned int>(characterId - 1)], myChar, editMode, this);
         ui->myCharactersTab->addTab(form, QString::fromStdString(myChar->getNickname()));
         ui->myCharactersTab->setCurrentWidget(form);
 

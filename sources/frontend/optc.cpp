@@ -33,11 +33,11 @@ void Optc::loadCharacters(long _id)
     utility.myCharacters = &myCharacters;
 
 
-//    std::cout << *characters.at(2049) << std::endl;
-//    std::cout << *characters.at(2131) << std::endl;
-//    std::cout << *characters.at(2133) << std::endl;
-//    std::cout << *characters.at(2134) << std::endl;
-//    std::cout << *characters.at(2136) << std::endl;
+//    std::cout << *characters[2049] << std::endl;
+//    std::cout << *characters[2131] << std::endl;
+//    std::cout << *characters[2133] << std::endl;
+//    std::cout << *characters[2134] << std::endl;
+//    std::cout << *characters[2136] << std::endl;
 
     for(std::map<std::string, Material*>::iterator it = materials.begin(); it != materials.end(); ++it)
     {
@@ -59,8 +59,8 @@ void Optc::loadCharacters(long _id)
         QIcon coloredIcon(*iconPixmap);
 
         /* Make gray icon*/
-        int w = coloredIcon.availableSizes().at(0).width();
-        int h = coloredIcon.availableSizes().at(0).height();
+        int w = coloredIcon.availableSizes()[0].width();
+        int h = coloredIcon.availableSizes()[0].height();
         QImage image = coloredIcon.pixmap(w, h).toImage();
         image = image.convertToFormat(QImage::Format_Grayscale8);
         QPixmap grayPix = QPixmap::fromImage(image);
@@ -91,7 +91,7 @@ void Optc::loadCharacters(long _id)
         }
         else
         {
-            Type ch_type = ch->getType().empty()? Type::None : ch->getType().at(0);
+            Type ch_type = ch->getType().empty()? Type::None : ch->getType()[0];
             QString type(QString::fromStdString(to_string(ch_type)));
             iconPixmap = new QPixmap(workingPath + "/resources/icons/blank_" + type.toLower() + ".png");
         }
@@ -101,8 +101,8 @@ void Optc::loadCharacters(long _id)
         QIcon coloredIcon(*iconPixmap);
 
         /* Make gray icon*/
-        int w = coloredIcon.availableSizes().at(0).width();
-        int h = coloredIcon.availableSizes().at(0).height();
+        int w = coloredIcon.availableSizes()[0].width();
+        int h = coloredIcon.availableSizes()[0].height();
         QImage image = coloredIcon.pixmap(w, h).toImage();
         image = image.convertToFormat(QImage::Format_Grayscale8);
         QPixmap grayPix = QPixmap::fromImage(image);
@@ -114,6 +114,7 @@ void Optc::loadCharacters(long _id)
 
     Database* data = new Database(&utility, this);
     ui->tabWidget->addTab(data, "Database");
+    connect(this, SIGNAL(save()), data, SLOT(saveCharacters()));
 }
 
 void Optc::logout()
@@ -136,23 +137,23 @@ void Optc::on_actionLogout_triggered()
 
         if (inputFile.find("RegisteredUsers") != inputFile.end())
         {
-            json registeredUsers = inputFile.at("RegisteredUsers");
+            json registeredUsers = inputFile["RegisteredUsers"];
             for (json::iterator fileIterator = registeredUsers.begin(); fileIterator != registeredUsers.end(); ++fileIterator)
             {
                 std::string username = fileIterator.key();
-                std::string pwd = registeredUsers.at(fileIterator.key());
+                std::string pwd = registeredUsers[fileIterator.key()];
                 userPwd[username] = pwd;
             }
         }
 
         if (inputFile.find("LastLogin") != inputFile.end())
         {
-            lastLogin = inputFile.at("LastLogin");
+            lastLogin = inputFile["LastLogin"];
         }
 
         if (inputFile.find("AutoLogin") != inputFile.end())
         {
-            autoLogin = inputFile.at("AutoLogin");
+            autoLogin = inputFile["AutoLogin"];
         }
     }
     inputStream.close();
@@ -171,11 +172,21 @@ void Optc::on_actionLogout_triggered()
         json registeredJson;
         for (std::map<std::string, std::string>::iterator it = userPwd.begin(); it != userPwd.end(); ++it)
         {
-            registeredJson[it->first] = userPwd.at(it->first);
+            registeredJson[it->first] = userPwd[it->first];
         }
         settingsJson["RegisteredUsers"] = registeredJson;
         outputFile << std::setw(4) << settingsJson << std::endl;
     }
     outputFile.close();
     logout();
+}
+
+void Optc::on_actionAbout_Optc_Toolbox_triggered()
+{
+
+}
+
+void Optc::on_actionSave_triggered()
+{
+    emit save();
 }
