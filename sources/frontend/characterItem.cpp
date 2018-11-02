@@ -4,14 +4,13 @@ CharacterItem::CharacterItem(Character* _character, Utility* _utility) :
     character(_character),
     utility(_utility)
 {
-    QVariant v = qVariantFromValue((void*)character);
+    QVariant v = qVariantFromValue(static_cast<void*>(character));
     setData(Qt::UserRole, v);
 }
 
-
-CharacterItem::~CharacterItem()
+CharacterItem::CharacterItem()
 {
-
+    CharacterItem(nullptr, nullptr);
 }
 
 bool CharacterItem::operator<(const QListWidgetItem &_other) const

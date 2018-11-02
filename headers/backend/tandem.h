@@ -1,7 +1,8 @@
 #ifndef TANDEM_H
 #define TANDEM_H
 
-#include <character.h>
+#include <iostream>
+#include <vector>
 
 class Character;
 

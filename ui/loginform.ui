@@ -20,7 +20,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Optc Login</string>
+   <string>Optc-ToolBox</string>
   </property>
   <widget class="QWidget" name="widget">
    <layout class="QGridLayout" name="LoginLayout">

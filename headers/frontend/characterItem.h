@@ -10,11 +10,26 @@
 class CharacterItem : public QListWidgetItem
 {
 public:
+    CharacterItem();
     explicit CharacterItem(Character* _character, Utility* _utility);
 
-    ~CharacterItem();
-
     virtual bool operator<(const QListWidgetItem &_other) const override;
+
+    //TODO
+    friend QDataStream & operator << (QDataStream &arch, const CharacterItem& _object)
+    {
+        arch << *_object.character;
+        arch << *_object.utility;
+        return arch;
+    }
+
+    //TODO
+    friend QDataStream & operator >> (QDataStream &arch, CharacterItem& _object)
+    {
+        arch >> *_object.character;
+        arch >> *_object.utility;
+        return arch;
+    }
 
     Character* character;
     Utility* utility;
@@ -55,5 +70,7 @@ private:
     const int GREATER = 1;
     const int EQUAL = 2;
 };
+
+Q_DECLARE_METATYPE(CharacterItem)
 
 #endif // CHARACTERITEM_H

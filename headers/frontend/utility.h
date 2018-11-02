@@ -24,6 +24,20 @@ public:
     std::string secondarySortCondition = "";
     bool secondarySortAscendingOrder = true;
     bool secondarySortIncludeLimit = false;
+
+    //TODO
+    friend QDataStream& operator << (QDataStream &arch, const Utility& _object)
+    {
+        assert(_object.id <= 10000);
+        return arch;
+    }
+
+    //TODO
+    friend QDataStream& operator >> (QDataStream &arch, Utility& _object)
+    {
+        assert(_object.id <= 10000);
+        return arch;
+    }
 };
 
 #endif // UTILITY_H

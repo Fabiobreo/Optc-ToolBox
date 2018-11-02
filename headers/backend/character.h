@@ -1,6 +1,5 @@
-#ifndef CHARACTER_HPP
-#define CHARACTER_HPP
-
+#ifndef CHARACTER_H
+#define CHARACTER_H
 #include <vector>
 #include <set>
 #include <stats.h>
@@ -94,6 +93,20 @@ public:
     void addTandem(Tandem* _tandem);
     std::vector<Tandem*> getTandems();
     bool hasTandem();
+
+    //TODO
+    friend QDataStream & operator >> (QDataStream &arch, Character& _object)
+    {
+        arch >> _object.id;
+        return arch;
+    }
+
+    //TODO
+    friend QDataStream & operator << (QDataStream &arch, const Character& _object)
+    {
+        arch << _object.id;
+        return arch;
+    }
 
 private:
 

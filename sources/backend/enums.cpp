@@ -166,6 +166,48 @@ std::string to_string(Slots _slots)
     return to_string;
 }
 
+std::string to_string(Socket::Type _socket)
+{
+    std::string to_string;
+    switch (_socket)
+    {
+    case Socket::Type::Dmr:
+        to_string = "Dmg reduction";
+        break;
+    case Socket::Type::Cd:
+        to_string = "Cooldown";
+        break;
+    case Socket::Type::Bind:
+        to_string = "Bind";
+        break;
+    case Socket::Type::Despair:
+        to_string = "Despair";
+        break;
+    case Socket::Type::AH:
+        to_string = "Auto heal";
+        break;
+    case Socket::Type::Rcv:
+        to_string = "Recovery";
+        break;
+    case Socket::Type::Slot:
+        to_string = "Slot rate";
+        break;
+    case Socket::Type::Poison:
+        to_string = "Poison";
+        break;
+    case Socket::Type::Map:
+        to_string = "Map";
+        break;
+    case Socket::Type::Resilience:
+        to_string = "Resilience";
+        break;
+    default:
+        to_string = "";
+        break;
+    }
+    return to_string;
+}
+
 Type stringToType(std::string _value)
 {
     std::transform(_value.begin(), _value.end(), _value.begin(), ::toupper);
@@ -192,7 +234,7 @@ Type stringToType(std::string _value)
     }
     else
     {
-        to_type = Type::None;
+        to_type = Type::StartType;
     }
     return to_type;
 }
@@ -370,4 +412,55 @@ Slots stringToSlots(std::string _value)
     }
 
     return to_slots;
+}
+
+
+Socket::Type stringToSocket(std::string _value)
+{
+    Socket::Type to_socket = Socket::Type::None;
+    if (_value == "Dmg reduction")
+    {
+        to_socket = Socket::Type::Dmr;
+    }
+    else if (_value == "Cooldown")
+    {
+        to_socket = Socket::Type::Cd;
+    }
+    else if (_value == "Bind")
+    {
+        to_socket = Socket::Type::Bind;
+    }
+    else if (_value == "Despair")
+    {
+        to_socket = Socket::Type::Despair;
+    }
+    else if (_value == "Auto heal")
+    {
+        to_socket = Socket::Type::AH;
+    }
+    else if (_value == "Recovery")
+    {
+        to_socket = Socket::Type::Rcv;
+    }
+    else if (_value == "Slot rate")
+    {
+        to_socket = Socket::Type::Slot;
+    }
+    else if (_value == "Poison")
+    {
+        to_socket = Socket::Type::Poison;
+    }
+    else if (_value == "Map")
+    {
+        to_socket = Socket::Type::Map;
+    }
+    else if (_value == "Resilience")
+    {
+        to_socket = Socket::Type::Resilience;
+    }
+    else
+    {
+        to_socket = Socket::Type::None;
+    }
+    return to_socket;
 }

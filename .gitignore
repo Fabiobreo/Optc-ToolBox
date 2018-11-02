@@ -10,3 +10,5 @@ Makefile\.Release
 object_script\.Optc\.Debug
 
 object_script\.Optc\.Release
+
+release/

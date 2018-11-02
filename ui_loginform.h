@@ -124,7 +124,7 @@ public:
 
     void retranslateUi(QMainWindow *LoginForm)
     {
-        LoginForm->setWindowTitle(QApplication::translate("LoginForm", "Optc Login", nullptr));
+        LoginForm->setWindowTitle(QApplication::translate("LoginForm", "Optc-ToolBox", nullptr));
         remembeMeCheckbox->setText(QApplication::translate("LoginForm", "Remember me", nullptr));
         passwordEdit->setPlaceholderText(QApplication::translate("LoginForm", "password", nullptr));
         loginButton->setText(QApplication::translate("LoginForm", "Login", nullptr));

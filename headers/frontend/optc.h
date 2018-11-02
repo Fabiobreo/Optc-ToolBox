@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include <utility.h>
 #include <parser.h>
+#include <about.h>
+#include <donate.h>
+#include <details.h>
 
 namespace Ui {
 class Optc;
@@ -30,8 +33,14 @@ private slots:
 
     void on_actionSave_triggered();
 
+    void on_actionBuy_me_a_coffee_triggered();
+
+    void detail_request(bool _toOpen, short _id);
+
 private:
     Ui::Optc *ui;
+    About* aboutWindow;
+    Donate* donateWindow;
     Parser* character_parser;
     std::vector<Character*> characters;
     std::map<std::string, Material*> materials;

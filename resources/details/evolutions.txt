@@ -3016,7 +3016,7 @@
     },
     1909: {
         evolution: 1910,
-        evolvers: [ 118, 102, 97, 102, 267 ]
+        evolvers: [ 118, 102, 97, 302, 267 ]
     },
     1911: {
         evolution: 1912,
@@ -3548,7 +3548,7 @@
     },
     1001: {
         evolution: 2195,
-        evolvers: [  ]
+        evolvers: [ 'skullDEX', 118, 86, 302, 267 ]
     },
     2196: {
         evolution: 2197,
@@ -3600,7 +3600,7 @@
     },
     1610: {
         evolution: 2232,
-        evolvers: [  ]
+        evolvers: [ 'skullEnel', 'skullEnel', 'skullEnel', 'skullEnel', 'skullEnel' ]
     },
     2233: {
         evolution: 2234,
@@ -3626,9 +3626,13 @@
         evolution: 2244,
         evolvers: [ 85, 96, 301, 101, 267 ]
     },
+    1588: {
+        evolution: 2245,
+        evolvers: [ 'skullSanji2', 'skullSanji2', 'skullSanji2', 'skullSanji2', 'skullSanji2' ]
+    },
     2246: {
         evolution: 2247,
-        evolvers: [  ]
+        evolvers: [ 118, 85, 96, 301, 101 ]
     },
     2248: {
         evolution: 2249,
@@ -3636,17 +3640,125 @@
     },
     2250: {
         evolution: 2251,
-        evolvers: [  ]
+        evolvers: [ 118, 98, 1180, 303, 267 ]
     },
     2252: {
         evolution: 2253,
-        evolvers: [  ]
+        evolvers: [ 117, 81, 87, 98, 103 ]
     },
-    3000: {
-        evolution: 3001,
+    2258: {
+        evolution: 2259,
+        evolvers: [ 'skullHiguma', 'skullHiguma', 'skullHiguma', 'skullHiguma', 'skullHiguma' ]
+    },
+    2260: {
+        evolution: 2261,
+        evolvers: [ 115, 116, 117, 118, 102 ]
+    },
+    2262: {
+        evolution: 2263,
         evolvers: [ 118, 267, 88, 304, 83 ]
     },
-    3002: {
-        evolution: 3003,
+    2264: {
+        evolution: 2265,
+        evolvers: [ 118, 266, 97, 302, 267 ]
+    },
+    2266: {
+        evolution: 2267,
+        evolvers: [ 117, 84, 1180, 300, 100 ]
+    },
+    2268: {
+        evolution: 2269,
+        evolvers: [ 117, 86, 1180, 302, 102 ]
+    },
+    2270: {
+        evolution: 2271,
+        evolvers: [ 117, 83, 84, 300, 100 ]
+    },
+    2272: {
+        evolution: 2273,
+        evolvers: [ 117, 83, 92, 98, 103 ]
+    },
+    2274: {
+        evolution: 2275,
+        evolvers: [ 117, 81, 94, 98, 103 ]
+    },
+    2276: {
+        evolution: 2277,
+        evolvers: [ 117, 82, 88, 99, 104 ]
+    },
+    2280: {
+        evolution: 2281,
+        evolvers: [ 118, 97, 1180, 302, 102 ]
+    },
+    2282: {
+        evolution: 2283,
+        evolvers: [ 118, 87, 92, 98, 267 ]
+    },
+    2284: {
+        evolution: 2285,
+        evolvers: [ 118, 84, 95, 300, 100 ]
+    },
+    2286: {
+        evolution: 2287,
+        evolvers: [ 118, 84, 95, 300, 100 ]
+    },
+    2288: {
+        evolution: 2289,
+        evolvers: [ 117, 81, 87, 98, 103 ]
+    },
+    2289: {
+        evolution: 2290,
+        evolvers: [ 118, 98, 1180, 303, 103 ]
+    },
+    2291: {
+        evolution: 2292,
+        evolvers: [ 116, 117, 81, 87, 103 ]
+    },
+    2293: {
+        evolution: 2294,
+        evolvers: [ 116, 117, 80, 86, 102 ]
+    },
+    2298: {
+        evolution: 2299,
+        evolvers: [ 115, 116, 117, 118, 104 ]
+    },
+    1935: {
+        evolution: 2300,
+        evolvers: [ 'skullFrankie', 'skullFrankie', 'skullFrankie', 'skullFrankie', 'skullFrankie' ]
+    },
+    2301: {
+        evolution: 2302,
+        evolvers: [ 118, 266, 99, 304, 267 ]
+    },
+    2303: {
+        evolution: 2304,
+        evolvers: [ 117, 87, 1180, 303, 103 ]
+    },
+    2305: {
+        evolution: 2306,
+        evolvers: [ 117, 86, 1180, 302, 102 ]
+    },
+    2307: {
+        evolution: 2308,
+        evolvers: [ 117, 86, 1180, 302, 102 ]
+    },
+    2309: {
+        evolution: 2310,
+        evolvers: [ 117, 83, 90, 96, 101 ]
+    },
+    2322: {
+        evolution: 2323,
+        evolvers: [ 118, 95, 1180, 300, 100 ]
+    },
+    2324: {
+        evolution: 2325,
+        evolvers: [  ]
+    },
+    2326: {
+        evolution: 2327,
+        evolvers: [  ]
+    },
+    2502: {
+        evolution: 2503,
         evolvers: [ 118, 86, 266, 302, 267 ]
     },

@@ -220,6 +220,7 @@ public:
         sizePolicy2.setHeightForWidth(fixedLevelLabel->sizePolicy().hasHeightForWidth());
         fixedLevelLabel->setSizePolicy(sizePolicy2);
         fixedLevelLabel->setMinimumSize(QSize(1, 0));
+        fixedLevelLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         levelSubLayout->addWidget(fixedLevelLabel, 0, Qt::AlignLeft);
 
@@ -241,6 +242,7 @@ public:
         maxLevel->setSizePolicy(sizePolicy2);
         maxLevel->setStyleSheet(QLatin1String("color: rgb(255, 0, 0);\n"
 "font: bold 8pt;"));
+        maxLevel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         levelLayout->addWidget(maxLevel);
 
@@ -268,6 +270,7 @@ public:
         sizePolicy2.setHeightForWidth(fixedSkillLevelLabel->sizePolicy().hasHeightForWidth());
         fixedSkillLevelLabel->setSizePolicy(sizePolicy2);
         fixedSkillLevelLabel->setMinimumSize(QSize(1, 0));
+        fixedSkillLevelLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         skillLevelSubLayout->addWidget(fixedSkillLevelLabel, 0, Qt::AlignLeft);
 
@@ -289,6 +292,7 @@ public:
         maxSkillLevel->setSizePolicy(sizePolicy2);
         maxSkillLevel->setStyleSheet(QLatin1String("color: rgb(255, 0, 0);\n"
 "font: bold 8pt;"));
+        maxSkillLevel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         skillLevelLayout->addWidget(maxSkillLevel, 0, Qt::AlignLeft);
 
@@ -390,6 +394,7 @@ public:
         currentSocketsLabel->setObjectName(QStringLiteral("currentSocketsLabel"));
         sizePolicy.setHeightForWidth(currentSocketsLabel->sizePolicy().hasHeightForWidth());
         currentSocketsLabel->setSizePolicy(sizePolicy);
+        currentSocketsLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         socketLayout->addWidget(currentSocketsLabel, 1, 0, 1, 1);
 
@@ -457,6 +462,7 @@ public:
         desiredSocketsLabel->setObjectName(QStringLiteral("desiredSocketsLabel"));
         sizePolicy.setHeightForWidth(desiredSocketsLabel->sizePolicy().hasHeightForWidth());
         desiredSocketsLabel->setSizePolicy(sizePolicy);
+        desiredSocketsLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         socketLayout->addWidget(desiredSocketsLabel, 0, 0, 1, 1, Qt::AlignLeft);
 
@@ -464,6 +470,7 @@ public:
         missingSocketsLabel->setObjectName(QStringLiteral("missingSocketsLabel"));
         sizePolicy.setHeightForWidth(missingSocketsLabel->sizePolicy().hasHeightForWidth());
         missingSocketsLabel->setSizePolicy(sizePolicy);
+        missingSocketsLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         socketLayout->addWidget(missingSocketsLabel, 3, 0, 1, 1);
 
@@ -607,7 +614,7 @@ public:
         statsHpEdit->setMinimumSize(QSize(30, 0));
         statsHpEdit->setMaximumSize(QSize(30, 16777215));
 
-        cottonLayout->addWidget(statsHpEdit, 1, 1, 1, 1, Qt::AlignLeft);
+        cottonLayout->addWidget(statsHpEdit, 1, 1, 1, 1, Qt::AlignHCenter);
 
         cottonRcvEdit = new QLineEdit(scrollAreaLayout);
         cottonRcvEdit->setObjectName(QStringLiteral("cottonRcvEdit"));
@@ -616,15 +623,16 @@ public:
         cottonRcvEdit->setMinimumSize(QSize(30, 0));
         cottonRcvEdit->setMaximumSize(QSize(30, 16777215));
 
-        cottonLayout->addWidget(cottonRcvEdit, 2, 3, 1, 1, Qt::AlignLeft);
+        cottonLayout->addWidget(cottonRcvEdit, 2, 3, 1, 1, Qt::AlignHCenter);
 
         fixedCottonHpLabel = new QLabel(scrollAreaLayout);
         fixedCottonHpLabel->setObjectName(QStringLiteral("fixedCottonHpLabel"));
         sizePolicy2.setHeightForWidth(fixedCottonHpLabel->sizePolicy().hasHeightForWidth());
         fixedCottonHpLabel->setSizePolicy(sizePolicy2);
         fixedCottonHpLabel->setMinimumSize(QSize(20, 0));
+        fixedCottonHpLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
-        cottonLayout->addWidget(fixedCottonHpLabel, 0, 1, 1, 1, Qt::AlignLeft);
+        cottonLayout->addWidget(fixedCottonHpLabel, 0, 1, 1, 1, Qt::AlignHCenter);
 
         statsRcvEdit = new QLineEdit(scrollAreaLayout);
         statsRcvEdit->setObjectName(QStringLiteral("statsRcvEdit"));
@@ -634,7 +642,7 @@ public:
         statsRcvEdit->setMinimumSize(QSize(30, 0));
         statsRcvEdit->setMaximumSize(QSize(30, 16777215));
 
-        cottonLayout->addWidget(statsRcvEdit, 1, 3, 1, 1, Qt::AlignLeft);
+        cottonLayout->addWidget(statsRcvEdit, 1, 3, 1, 1, Qt::AlignHCenter);
 
         cottonHpEdit = new QLineEdit(scrollAreaLayout);
         cottonHpEdit->setObjectName(QStringLiteral("cottonHpEdit"));
@@ -643,7 +651,7 @@ public:
         cottonHpEdit->setMinimumSize(QSize(30, 0));
         cottonHpEdit->setMaximumSize(QSize(30, 16777215));
 
-        cottonLayout->addWidget(cottonHpEdit, 2, 1, 1, 1, Qt::AlignLeft);
+        cottonLayout->addWidget(cottonHpEdit, 2, 1, 1, 1, Qt::AlignHCenter);
 
         maxCC = new QLabel(scrollAreaLayout);
         maxCC->setObjectName(QStringLiteral("maxCC"));
@@ -651,6 +659,7 @@ public:
         maxCC->setSizePolicy(sizePolicy);
         maxCC->setStyleSheet(QLatin1String("color: rgb(255, 0, 0);\n"
 "font: bold 8pt;"));
+        maxCC->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         cottonLayout->addWidget(maxCC, 2, 5, 1, 1, Qt::AlignLeft);
 
@@ -662,15 +671,16 @@ public:
         statsAtkEdit->setMinimumSize(QSize(30, 0));
         statsAtkEdit->setMaximumSize(QSize(30, 16777215));
 
-        cottonLayout->addWidget(statsAtkEdit, 1, 2, 1, 1, Qt::AlignLeft);
+        cottonLayout->addWidget(statsAtkEdit, 1, 2, 1, 1, Qt::AlignHCenter);
 
         fixedCottonAtkLabel = new QLabel(scrollAreaLayout);
         fixedCottonAtkLabel->setObjectName(QStringLiteral("fixedCottonAtkLabel"));
         sizePolicy2.setHeightForWidth(fixedCottonAtkLabel->sizePolicy().hasHeightForWidth());
         fixedCottonAtkLabel->setSizePolicy(sizePolicy2);
         fixedCottonAtkLabel->setMinimumSize(QSize(20, 0));
+        fixedCottonAtkLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
-        cottonLayout->addWidget(fixedCottonAtkLabel, 0, 2, 1, 1, Qt::AlignLeft);
+        cottonLayout->addWidget(fixedCottonAtkLabel, 0, 2, 1, 1, Qt::AlignHCenter);
 
         cottonAtkEdit = new QLineEdit(scrollAreaLayout);
         cottonAtkEdit->setObjectName(QStringLiteral("cottonAtkEdit"));
@@ -679,13 +689,14 @@ public:
         cottonAtkEdit->setMinimumSize(QSize(30, 0));
         cottonAtkEdit->setMaximumSize(QSize(30, 16777215));
 
-        cottonLayout->addWidget(cottonAtkEdit, 2, 2, 1, 1, Qt::AlignLeft);
+        cottonLayout->addWidget(cottonAtkEdit, 2, 2, 1, 1, Qt::AlignHCenter);
 
         fixedCottonLabel = new QLabel(scrollAreaLayout);
         fixedCottonLabel->setObjectName(QStringLiteral("fixedCottonLabel"));
         sizePolicy2.setHeightForWidth(fixedCottonLabel->sizePolicy().hasHeightForWidth());
         fixedCottonLabel->setSizePolicy(sizePolicy2);
         fixedCottonLabel->setMinimumSize(QSize(20, 0));
+        fixedCottonLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         cottonLayout->addWidget(fixedCottonLabel, 2, 0, 1, 1, Qt::AlignLeft);
 
@@ -697,7 +708,7 @@ public:
         cottonTotalEdit->setMinimumSize(QSize(30, 0));
         cottonTotalEdit->setMaximumSize(QSize(20, 16777215));
 
-        cottonLayout->addWidget(cottonTotalEdit, 2, 4, 1, 1, Qt::AlignLeft);
+        cottonLayout->addWidget(cottonTotalEdit, 2, 4, 1, 1, Qt::AlignHCenter);
 
         ccSpacer = new QSpacerItem(70, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
 
@@ -707,6 +718,7 @@ public:
         fixedStatsLabel->setObjectName(QStringLiteral("fixedStatsLabel"));
         sizePolicy2.setHeightForWidth(fixedStatsLabel->sizePolicy().hasHeightForWidth());
         fixedStatsLabel->setSizePolicy(sizePolicy2);
+        fixedStatsLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         cottonLayout->addWidget(fixedStatsLabel, 1, 0, 1, 1, Qt::AlignLeft);
 
@@ -715,8 +727,9 @@ public:
         sizePolicy2.setHeightForWidth(fixedCottonRcvLabel->sizePolicy().hasHeightForWidth());
         fixedCottonRcvLabel->setSizePolicy(sizePolicy2);
         fixedCottonRcvLabel->setMinimumSize(QSize(20, 0));
+        fixedCottonRcvLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
-        cottonLayout->addWidget(fixedCottonRcvLabel, 0, 3, 1, 1, Qt::AlignLeft);
+        cottonLayout->addWidget(fixedCottonRcvLabel, 0, 3, 1, 1, Qt::AlignHCenter);
 
 
         verticalLayout_2->addLayout(cottonLayout);
@@ -737,6 +750,7 @@ public:
         sizePolicy3.setHeightForWidth(fixedTrainingPointsLabel->sizePolicy().hasHeightForWidth());
         fixedTrainingPointsLabel->setSizePolicy(sizePolicy3);
         fixedTrainingPointsLabel->setMinimumSize(QSize(1, 0));
+        fixedTrainingPointsLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         trainingPointsLayout->addWidget(fixedTrainingPointsLabel, 0, Qt::AlignLeft);
 
@@ -759,6 +773,7 @@ public:
         maxTrainingPoints->setSizePolicy(sizePolicy3);
         maxTrainingPoints->setStyleSheet(QLatin1String("color: rgb(255, 0, 0);\n"
 "font: bold 8pt;"));
+        maxTrainingPoints->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         trainingPointsMaxLayout->addWidget(maxTrainingPoints);
 
@@ -782,6 +797,7 @@ public:
         sizePolicy3.setHeightForWidth(fixedLbUnlockedLabel->sizePolicy().hasHeightForWidth());
         fixedLbUnlockedLabel->setSizePolicy(sizePolicy3);
         fixedLbUnlockedLabel->setMinimumSize(QSize(1, 0));
+        fixedLbUnlockedLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         lbUnlockedLayout->addWidget(fixedLbUnlockedLabel, 0, Qt::AlignLeft);
 
@@ -804,6 +820,7 @@ public:
         maxLbUnlocked->setSizePolicy(sizePolicy3);
         maxLbUnlocked->setStyleSheet(QLatin1String("color: rgb(255, 0, 0);\n"
 "font: bold 8pt;"));
+        maxLbUnlocked->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         lbUnlockedMaxLayout->addWidget(maxLbUnlocked);
 
@@ -881,6 +898,7 @@ public:
         fixedPotentialLabel->setObjectName(QStringLiteral("fixedPotentialLabel"));
         sizePolicy.setHeightForWidth(fixedPotentialLabel->sizePolicy().hasHeightForWidth());
         fixedPotentialLabel->setSizePolicy(sizePolicy);
+        fixedPotentialLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         potentialLayout->addWidget(fixedPotentialLabel, 0, 0, 1, 1, Qt::AlignLeft);
 
@@ -990,14 +1008,14 @@ public:
         fourthMissingSocket->setText(QString());
         fifthMissingSocket->setText(QString());
         statsHpEdit->setText(QString());
-        fixedCottonHpLabel->setText(QApplication::translate("MyCharacterForm", "HP", nullptr));
+        fixedCottonHpLabel->setText(QApplication::translate("MyCharacterForm", "<b>HP</b>", nullptr));
         statsRcvEdit->setText(QString());
         maxCC->setText(QApplication::translate("MyCharacterForm", "MAX", nullptr));
         statsAtkEdit->setText(QString());
-        fixedCottonAtkLabel->setText(QApplication::translate("MyCharacterForm", "ATK", nullptr));
+        fixedCottonAtkLabel->setText(QApplication::translate("MyCharacterForm", "<b>ATK</b>", nullptr));
         fixedCottonLabel->setText(QApplication::translate("MyCharacterForm", "Cotton:", nullptr));
         fixedStatsLabel->setText(QApplication::translate("MyCharacterForm", "Stats:", nullptr));
-        fixedCottonRcvLabel->setText(QApplication::translate("MyCharacterForm", "RCV", nullptr));
+        fixedCottonRcvLabel->setText(QApplication::translate("MyCharacterForm", "<b>RCV</b>", nullptr));
         fixedTrainingPointsLabel->setText(QApplication::translate("MyCharacterForm", "Training Points:", nullptr));
         maxTrainingPoints->setText(QApplication::translate("MyCharacterForm", "MAX", nullptr));
         fixedLbUnlockedLabel->setText(QApplication::translate("MyCharacterForm", "Unlocked Limit Break nodes:", nullptr));

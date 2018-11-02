@@ -20,7 +20,26 @@
    <string>Optc Toolbox</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <property name="spacing">
+     <number>4</number>
+    </property>
+    <property name="topMargin">
+     <number>5</number>
+    </property>
+    <property name="rightMargin">
+     <number>9</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item alignment="Qt::AlignHCenter">
+     <widget class="QLabel" name="idLabel">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="tabPosition">
@@ -59,18 +78,11 @@
     <property name="title">
      <string>?</string>
     </property>
+    <addaction name="actionBuy_me_a_coffee"/>
     <addaction name="actionAbout_Optc_Toolbox"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menu"/>
-  </widget>
-  <widget class="QStatusBar" name="statusbar">
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
   </widget>
   <widget class="QToolBar" name="toolBar">
    <property name="minimumSize">
@@ -99,12 +111,61 @@
    </attribute>
    <addaction name="actionSave"/>
   </widget>
+  <widget class="QDockWidget" name="dockWidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>340</width>
+     <height>550</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>340</width>
+     <height>524287</height>
+    </size>
+   </property>
+   <property name="features">
+    <set>QDockWidget::AllDockWidgetFeatures</set>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
+   </property>
+   <property name="windowTitle">
+    <string>Details</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+  </widget>
   <action name="actionLogout">
+   <property name="icon">
+    <iconset resource="../resources/ui/resources.qrc">
+     <normaloff>:/ui/logout.png</normaloff>:/ui/logout.png</iconset>
+   </property>
    <property name="text">
     <string>Logout</string>
    </property>
   </action>
   <action name="actionAbout_Optc_Toolbox">
+   <property name="icon">
+    <iconset resource="../resources/ui/resources.qrc">
+     <normaloff>:/ui/info.png</normaloff>:/ui/info.png</iconset>
+   </property>
    <property name="text">
     <string>About Optc Toolbox</string>
    </property>
@@ -116,6 +177,15 @@
    </property>
    <property name="text">
     <string>Save</string>
+   </property>
+  </action>
+  <action name="actionBuy_me_a_coffee">
+   <property name="icon">
+    <iconset resource="../resources/ui/resources.qrc">
+     <normaloff>:/ui/buyMeACoffeeIcon.png</normaloff>:/ui/buyMeACoffeeIcon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Buy me a coffee</string>
    </property>
   </action>
  </widget>

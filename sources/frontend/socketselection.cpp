@@ -83,5 +83,6 @@ void SocketSelection::on_buttonBox_rejected()
 
 void SocketSelection::on_socketSelectionList_itemDoubleClicked(QListWidgetItem *item)
 {
+    assert(item);
     on_buttonBox_accepted();
 }

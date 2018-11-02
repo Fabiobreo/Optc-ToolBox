@@ -4,12 +4,15 @@
 #include <parser.h>
 #include <json.h>
 #include <filter.h>
+#include <about.h>
 
 Optc::Optc(QWidget *_parent) :
     QMainWindow(_parent),
     ui(new Ui::Optc)
 {
     ui->setupUi(this);
+    aboutWindow = new About(this);
+    donateWindow = new Donate(this);
 }
 
 Optc::~Optc()
@@ -20,6 +23,7 @@ Optc::~Optc()
 void Optc::loadCharacters(long _id)
 {
     utility.id = static_cast<unsigned long>(_id);
+    ui->idLabel->setText("Currently displaying id: <b>" + QString::number(_id) + "</b>");
     std::string working_path = QDir::currentPath().toUtf8().constData();
     character_parser = new Parser(working_path  + "/resources/details/");
     character_parser->load();
@@ -32,12 +36,11 @@ void Optc::loadCharacters(long _id)
     myCharacters = Tools::loadOwnedCharacters(characters, utility.id);
     utility.myCharacters = &myCharacters;
 
-
-//    std::cout << *characters[2049] << std::endl;
-//    std::cout << *characters[2131] << std::endl;
-//    std::cout << *characters[2133] << std::endl;
-//    std::cout << *characters[2134] << std::endl;
-//    std::cout << *characters[2136] << std::endl;
+//    std::cout << *characters[2168] << std::endl;
+//    std::cout << *characters[2170] << std::endl;
+//    std::cout << *characters[2172] << std::endl;
+//    std::cout << *characters[2174] << std::endl;
+//    std::cout << *characters[2160] << std::endl;
 
     for(std::map<std::string, Material*>::iterator it = materials.begin(); it != materials.end(); ++it)
     {
@@ -91,7 +94,7 @@ void Optc::loadCharacters(long _id)
         }
         else
         {
-            Type ch_type = ch->getType().empty()? Type::None : ch->getType()[0];
+            Type ch_type = ch->getType().empty()? Type::StartType : ch->getType()[0];
             QString type(QString::fromStdString(to_string(ch_type)));
             iconPixmap = new QPixmap(workingPath + "/resources/icons/blank_" + type.toLower() + ".png");
         }
@@ -115,12 +118,38 @@ void Optc::loadCharacters(long _id)
     Database* data = new Database(&utility, this);
     ui->tabWidget->addTab(data, "Database");
     connect(this, SIGNAL(save()), data, SLOT(saveCharacters()));
+    connect(data, SIGNAL(request_detail(bool, short)), this, SLOT(detail_request(bool, short)));
 }
 
 void Optc::logout()
 {
     qApp->quit();
     QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
+}
+
+void Optc::detail_request(bool _toOpen, short _id)
+{
+    if (_toOpen)
+    {
+        ui->dockWidget->show();
+        ui->dockWidget->setTitleBarWidget(nullptr);
+        Details* charMenu = new Details(&utility, _id, this);
+        Database* database = static_cast<Database*>(ui->tabWidget->widget(0));
+
+        // Add signals
+        connect(database, SIGNAL(changeEditModeDb()), charMenu, SLOT(editModeChangedDb()));
+        connect(charMenu, SIGNAL(changeCharacterDetail(int)), database, SLOT(changeDetails(int)));
+        connect(charMenu, SIGNAL(changedOwnedState()), database, SLOT(redraw()));
+
+        // Put details inside scrollarea and then into dockwidget
+        QScrollArea* scrollDetails = new QScrollArea(this);
+        scrollDetails->setWidget(charMenu);
+        ui->dockWidget->setWidget(scrollDetails);
+    }
+    else
+    {
+        ui->dockWidget->setWidget(nullptr);
+    }
 }
 
 void Optc::on_actionLogout_triggered()
@@ -183,10 +212,15 @@ void Optc::on_actionLogout_triggered()
 
 void Optc::on_actionAbout_Optc_Toolbox_triggered()
 {
-
+    aboutWindow->show();
 }
 
 void Optc::on_actionSave_triggered()
 {
     emit save();
+}
+
+void Optc::on_actionBuy_me_a_coffee_triggered()
+{
+    donateWindow->show();
 }

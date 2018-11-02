@@ -17,8 +17,10 @@ FilterWidget::FilterWidget(Utility* _utility, QWidget *_parent) :
     ui->addConditionButton->setMaximumSize(buttonSize);
     connect(ui->addConditionButton, SIGNAL(pressed()), this, SLOT(addCondition()));
 
-    ConditionWidget* conditionWidget = new ConditionWidget(this);
+    ConditionWidget* conditionWidget = new ConditionWidget(_utility, this);
     ui->filterLayout->addWidget(conditionWidget, 0, 0, 1, 1);
+
+    ui->addConditionButton->pressed();
 }
 
 FilterWidget::~FilterWidget()
@@ -140,7 +142,7 @@ void FilterWidget::addCondition()
     }
 
     // Add new condition, not enabled
-    ConditionWidget* conditionWidget = new ConditionWidget(this);
+    ConditionWidget* conditionWidget = new ConditionWidget(utility, this);
     ui->filterLayout->addWidget(conditionWidget, row + 1, 0, 1, 1);
 
     // Add add button

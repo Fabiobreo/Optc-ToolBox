@@ -10,10 +10,7 @@
 #include <filter.h>
 #include <advancedFilters.h>
 #include <sortwidget.h>
-#include <details.h>
 #include <tools.h>
-
-class Details;
 
 namespace Ui {
 class Database;
@@ -29,6 +26,7 @@ public:
 
 signals:
     void changeEditModeDb();
+    void request_detail(bool, short);
 
 private slots:
     void on_filterByName_textChanged(const QString& _text);
@@ -78,7 +76,6 @@ private:
     std::set<int> allIds;
 
     Filter* filter;
-    Details* detailMenu = nullptr;
     AdvancedFilters* advancedFilters = nullptr;
     SortWidget* sortWidget = nullptr;
     bool open = false;

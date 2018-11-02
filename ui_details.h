@@ -191,6 +191,7 @@ public:
         sizePolicy3.setHeightForWidth(idLabel->sizePolicy().hasHeightForWidth());
         idLabel->setSizePolicy(sizePolicy3);
         idLabel->setAlignment(Qt::AlignHCenter|Qt::AlignTop);
+        idLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         idLayout->setWidget(0, QFormLayout::SpanningRole, idLabel);
 
@@ -210,6 +211,7 @@ public:
         sizePolicy4.setVerticalStretch(0);
         sizePolicy4.setHeightForWidth(costLabel->sizePolicy().hasHeightForWidth());
         costLabel->setSizePolicy(sizePolicy4);
+        costLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         CCESLayout->setWidget(0, QFormLayout::LabelRole, costLabel);
 
@@ -221,6 +223,7 @@ public:
         sizePolicy5.setHeightForWidth(socketLabel->sizePolicy().hasHeightForWidth());
         socketLabel->setSizePolicy(sizePolicy5);
         socketLabel->setMinimumSize(QSize(1, 0));
+        socketLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         CCESLayout->setWidget(1, QFormLayout::LabelRole, socketLabel);
 
@@ -232,6 +235,7 @@ public:
         sizePolicy6.setHeightForWidth(expLabel->sizePolicy().hasHeightForWidth());
         expLabel->setSizePolicy(sizePolicy6);
         expLabel->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        expLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         CCESLayout->setWidget(1, QFormLayout::FieldRole, expLabel);
 
@@ -240,6 +244,7 @@ public:
         sizePolicy6.setHeightForWidth(comboLabel->sizePolicy().hasHeightForWidth());
         comboLabel->setSizePolicy(sizePolicy6);
         comboLabel->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        comboLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         CCESLayout->setWidget(0, QFormLayout::FieldRole, comboLabel);
 
@@ -259,6 +264,7 @@ public:
         fixedLvlMin->setObjectName(QStringLiteral("fixedLvlMin"));
         fixedLvlMin->setStyleSheet(QStringLiteral("font-weight: bold"));
         fixedLvlMin->setAlignment(Qt::AlignCenter);
+        fixedLvlMin->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         statsLayout->addWidget(fixedLvlMin, 0, 1, 1, 1);
 
@@ -267,6 +273,7 @@ public:
         sizePolicy4.setHeightForWidth(fixedRcvLabel->sizePolicy().hasHeightForWidth());
         fixedRcvLabel->setSizePolicy(sizePolicy4);
         fixedRcvLabel->setStyleSheet(QStringLiteral("font-weight: bold"));
+        fixedRcvLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         statsLayout->addWidget(fixedRcvLabel, 3, 0, 1, 1);
 
@@ -276,6 +283,7 @@ public:
         fixedHpLabel->setSizePolicy(sizePolicy4);
         fixedHpLabel->setStyleSheet(QStringLiteral("font-weight: bold"));
         fixedHpLabel->setTextFormat(Qt::AutoText);
+        fixedHpLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         statsLayout->addWidget(fixedHpLabel, 1, 0, 1, 1);
 
@@ -284,6 +292,7 @@ public:
         sizePolicy4.setHeightForWidth(fixedAtkLabel->sizePolicy().hasHeightForWidth());
         fixedAtkLabel->setSizePolicy(sizePolicy4);
         fixedAtkLabel->setStyleSheet(QStringLiteral("font-weight: bold"));
+        fixedAtkLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         statsLayout->addWidget(fixedAtkLabel, 2, 0, 1, 1);
 
@@ -291,6 +300,7 @@ public:
         levelMaxLabel->setObjectName(QStringLiteral("levelMaxLabel"));
         levelMaxLabel->setStyleSheet(QStringLiteral("font-weight: bold"));
         levelMaxLabel->setAlignment(Qt::AlignCenter);
+        levelMaxLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         statsLayout->addWidget(levelMaxLabel, 0, 2, 1, 1);
 
@@ -298,60 +308,70 @@ public:
         fixedLimitBreakLabel->setObjectName(QStringLiteral("fixedLimitBreakLabel"));
         fixedLimitBreakLabel->setStyleSheet(QStringLiteral("font-weight: bold"));
         fixedLimitBreakLabel->setAlignment(Qt::AlignCenter);
+        fixedLimitBreakLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         statsLayout->addWidget(fixedLimitBreakLabel, 0, 3, 1, 1);
 
         hpMinLabel = new QLabel(scrollStatsAreaLayout);
         hpMinLabel->setObjectName(QStringLiteral("hpMinLabel"));
         hpMinLabel->setAlignment(Qt::AlignCenter);
+        hpMinLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         statsLayout->addWidget(hpMinLabel, 1, 1, 1, 1);
 
         hpMaxLabel = new QLabel(scrollStatsAreaLayout);
         hpMaxLabel->setObjectName(QStringLiteral("hpMaxLabel"));
         hpMaxLabel->setAlignment(Qt::AlignCenter);
+        hpMaxLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         statsLayout->addWidget(hpMaxLabel, 1, 2, 1, 1);
 
         atkMinLabel = new QLabel(scrollStatsAreaLayout);
         atkMinLabel->setObjectName(QStringLiteral("atkMinLabel"));
         atkMinLabel->setAlignment(Qt::AlignCenter);
+        atkMinLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         statsLayout->addWidget(atkMinLabel, 2, 1, 1, 1);
 
         rcvMinLabel = new QLabel(scrollStatsAreaLayout);
         rcvMinLabel->setObjectName(QStringLiteral("rcvMinLabel"));
         rcvMinLabel->setAlignment(Qt::AlignCenter);
+        rcvMinLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         statsLayout->addWidget(rcvMinLabel, 3, 1, 1, 1);
 
         hpLimitBreak = new QLabel(scrollStatsAreaLayout);
         hpLimitBreak->setObjectName(QStringLiteral("hpLimitBreak"));
         hpLimitBreak->setAlignment(Qt::AlignCenter);
+        hpLimitBreak->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         statsLayout->addWidget(hpLimitBreak, 1, 3, 1, 1);
 
         atkMaxLabel = new QLabel(scrollStatsAreaLayout);
         atkMaxLabel->setObjectName(QStringLiteral("atkMaxLabel"));
         atkMaxLabel->setAlignment(Qt::AlignCenter);
+        atkMaxLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         statsLayout->addWidget(atkMaxLabel, 2, 2, 1, 1);
 
         atkLimitBreak = new QLabel(scrollStatsAreaLayout);
         atkLimitBreak->setObjectName(QStringLiteral("atkLimitBreak"));
         atkLimitBreak->setAlignment(Qt::AlignCenter);
+        atkLimitBreak->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         statsLayout->addWidget(atkLimitBreak, 2, 3, 1, 1);
 
         rcvMaxLabel = new QLabel(scrollStatsAreaLayout);
         rcvMaxLabel->setObjectName(QStringLiteral("rcvMaxLabel"));
         rcvMaxLabel->setAlignment(Qt::AlignCenter);
+        rcvMaxLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         statsLayout->addWidget(rcvMaxLabel, 3, 2, 1, 1);
 
         rcvLimitBreak = new QLabel(scrollStatsAreaLayout);
         rcvLimitBreak->setObjectName(QStringLiteral("rcvLimitBreak"));
         rcvLimitBreak->setAlignment(Qt::AlignCenter);
+        rcvLimitBreak->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         statsLayout->addWidget(rcvLimitBreak, 3, 3, 1, 1);
 
@@ -396,6 +416,7 @@ public:
         capAbilityLabel->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
         capAbilityLabel->setWordWrap(true);
         capAbilityLabel->setMargin(5);
+        capAbilityLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         verticalLayout->addWidget(capAbilityLabel);
 
@@ -428,6 +449,7 @@ public:
         capActionLabel->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
         capActionLabel->setWordWrap(true);
         capActionLabel->setMargin(5);
+        capActionLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         verticalLayout_6->addWidget(capActionLabel);
 
@@ -464,6 +486,7 @@ public:
         swapLabel->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
         swapLabel->setWordWrap(true);
         swapLabel->setMargin(5);
+        swapLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         verticalLayout_8->addWidget(swapLabel);
 
@@ -496,6 +519,7 @@ public:
         sailorAbilityLabel->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
         sailorAbilityLabel->setWordWrap(true);
         sailorAbilityLabel->setMargin(5);
+        sailorAbilityLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         verticalLayout_3->addWidget(sailorAbilityLabel);
 
@@ -532,6 +556,7 @@ public:
         specialAbilityLabel->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
         specialAbilityLabel->setWordWrap(true);
         specialAbilityLabel->setMargin(5);
+        specialAbilityLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         verticalLayout_4->addWidget(specialAbilityLabel);
 
@@ -561,6 +586,7 @@ public:
         limitLabel->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
         limitLabel->setWordWrap(true);
         limitLabel->setMargin(5);
+        limitLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         verticalLayout_7->addWidget(limitLabel);
 
@@ -725,11 +751,13 @@ public:
         TypeLayout->setContentsMargins(0, 0, 0, 0);
         typeLabel = new QLabel(typeWidget);
         typeLabel->setObjectName(QStringLiteral("typeLabel"));
+        typeLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         TypeLayout->addWidget(typeLabel);
 
         type2Label = new QLabel(typeWidget);
         type2Label->setObjectName(QStringLiteral("type2Label"));
+        type2Label->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         TypeLayout->addWidget(type2Label);
 
@@ -753,11 +781,13 @@ public:
         sizePolicy14.setVerticalStretch(0);
         sizePolicy14.setHeightForWidth(classeP->sizePolicy().hasHeightForWidth());
         classeP->setSizePolicy(sizePolicy14);
+        classeP->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         horizontalLayout->addWidget(classeP);
 
         classePDesc = new QLabel(classWidget);
         classePDesc->setObjectName(QStringLiteral("classePDesc"));
+        classePDesc->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         horizontalLayout->addWidget(classePDesc);
 
@@ -765,11 +795,13 @@ public:
         classeS->setObjectName(QStringLiteral("classeS"));
         sizePolicy14.setHeightForWidth(classeS->sizePolicy().hasHeightForWidth());
         classeS->setSizePolicy(sizePolicy14);
+        classeS->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         horizontalLayout->addWidget(classeS);
 
         classeSDesc = new QLabel(classWidget);
         classeSDesc->setObjectName(QStringLiteral("classeSDesc"));
+        classeSDesc->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         horizontalLayout->addWidget(classeSDesc);
 

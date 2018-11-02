@@ -37,7 +37,7 @@ public:
         if (AdvancedFilters->objectName().isEmpty())
             AdvancedFilters->setObjectName(QStringLiteral("AdvancedFilters"));
         AdvancedFilters->setWindowModality(Qt::WindowModal);
-        AdvancedFilters->resize(500, 400);
+        AdvancedFilters->resize(900, 400);
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);

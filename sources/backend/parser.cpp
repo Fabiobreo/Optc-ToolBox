@@ -138,7 +138,7 @@ bool Parser::loadCharacters()
             }
             else
             {
-                std::vector<Type> types = {Type::None};
+                std::vector<Type> types = {Type::StartType};
                 Character* character = new Character(id, name, types, Class::None);
                 characters.push_back(character);
             }
@@ -340,6 +340,10 @@ bool Parser::loadMaterials()
     materials["skullIchiji"] = new Material("skullIchiji", Material::Type::Skull, Material::Skull::Ichiji);
     materials["skullNiji"] = new Material("skullNiji", Material::Type::Skull, Material::Skull::Niji);
     materials["skullYonji"] = new Material("skullYonji", Material::Type::Skull, Material::Skull::Yonji);
+    materials["skullEnel"] = new Material("skullEnel", Material::Type::Skull, Material::Skull::Enel);
+    materials["skullSanji2"] = new Material("skullSanji2", Material::Type::Skull, Material::Skull::SanjiLegend);
+    materials["skullHiguma"] = new Material("skullHiguma", Material::Type::Skull, Material::Skull::Higuma);
+    materials["skullFrankie"] = new Material("skullFrankie", Material::Type::Skull, Material::Skull::FrankyLegend);
 
     success = true;
     return success;

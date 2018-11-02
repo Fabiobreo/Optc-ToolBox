@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>767</width>
-    <height>42</height>
+    <width>1284</width>
+    <height>44</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -35,7 +35,7 @@
    <item>
     <layout class="QHBoxLayout" name="layout">
      <item alignment="Qt::AlignLeft|Qt::AlignTop">
-      <widget class="QComboBox" name="targetBox">
+      <widget class="QComboBox" name="primaryTargetBox">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -45,58 +45,99 @@
        <property name="minimumSize">
         <size>
          <width>110</width>
-         <height>0</height>
+         <height>22</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
          <width>110</width>
-         <height>16777215</height>
+         <height>22</height>
         </size>
+       </property>
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToContents</enum>
        </property>
       </widget>
      </item>
      <item alignment="Qt::AlignLeft|Qt::AlignTop">
       <widget class="QComboBox" name="secondaryTargetBox">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
        <property name="minimumSize">
         <size>
-         <width>150</width>
-         <height>0</height>
+         <width>110</width>
+         <height>22</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
          <width>150</width>
-         <height>16777215</height>
+         <height>22</height>
         </size>
+       </property>
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToContents</enum>
        </property>
       </widget>
      </item>
      <item alignment="Qt::AlignLeft|Qt::AlignTop">
-      <widget class="QComboBox" name="typeClassTargetBox">
+      <widget class="QComboBox" name="terziaryTargetBox">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
        <property name="minimumSize">
         <size>
-         <width>90</width>
-         <height>0</height>
+         <width>110</width>
+         <height>22</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>90</width>
-         <height>16777215</height>
+         <width>140</width>
+         <height>22</height>
         </size>
+       </property>
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToContents</enum>
+       </property>
+      </widget>
+     </item>
+     <item alignment="Qt::AlignLeft|Qt::AlignTop">
+      <widget class="QComboBox" name="quaternaryTargetBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>110</width>
+         <height>22</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>140</width>
+         <height>22</height>
+        </size>
+       </property>
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToContents</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="boolTarget">
+       <property name="text">
+        <string/>
        </property>
       </widget>
      </item>
@@ -111,36 +152,49 @@
        <property name="minimumSize">
         <size>
          <width>35</width>
-         <height>0</height>
+         <height>22</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
          <width>35</width>
-         <height>16777215</height>
+         <height>22</height>
         </size>
+       </property>
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToContents</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="intoLabel">
+       <property name="text">
+        <string>Into:</string>
        </property>
       </widget>
      </item>
      <item alignment="Qt::AlignLeft|Qt::AlignTop">
-      <widget class="QComboBox" name="typeClassValueBox">
+      <widget class="QComboBox" name="genericValueBox">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
        <property name="minimumSize">
         <size>
-         <width>120</width>
-         <height>0</height>
+         <width>90</width>
+         <height>22</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
          <width>120</width>
-         <height>16777215</height>
+         <height>22</height>
         </size>
+       </property>
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToContents</enum>
        </property>
       </widget>
      </item>
@@ -163,6 +217,9 @@
          <width>50</width>
          <height>16777215</height>
         </size>
+       </property>
+       <property name="text">
+        <string>0</string>
        </property>
       </widget>
      </item>
@@ -189,9 +246,109 @@
       </widget>
      </item>
      <item>
+      <widget class="QLabel" name="turnsLabel">
+       <property name="text">
+        <string>Turns:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="secondaryOperatorBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>35</width>
+         <height>22</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>35</width>
+         <height>22</height>
+        </size>
+       </property>
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToContents</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="secondaryNumericValueEdit">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>50</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>50</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="includePlus">
+       <property name="text">
+        <string>Plus</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="includeWantToFinish">
+       <property name="text">
+        <string>Only Want to Finish</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QCheckBox" name="includeLimitBreak">
        <property name="text">
         <string>Include Limit Break</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="finalTargetBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>80</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>80</width>
+         <height>16777215</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="endOfTurn">
+       <property name="text">
+        <string>End of turn</string>
        </property>
       </widget>
      </item>

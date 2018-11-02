@@ -187,6 +187,9 @@
                <property name="text">
                 <string>Level:</string>
                </property>
+               <property name="textInteractionFlags">
+                <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+               </property>
               </widget>
              </item>
              <item alignment="Qt::AlignRight">
@@ -224,6 +227,9 @@ font: bold 8pt;</string>
              </property>
              <property name="text">
               <string>MAX</string>
+             </property>
+             <property name="textInteractionFlags">
+              <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
              </property>
             </widget>
            </item>
@@ -294,6 +300,9 @@ font: bold 8pt;</string>
                <property name="text">
                 <string>Skill Level:</string>
                </property>
+               <property name="textInteractionFlags">
+                <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+               </property>
               </widget>
              </item>
              <item>
@@ -331,6 +340,9 @@ font: bold 8pt;</string>
              </property>
              <property name="text">
               <string>MAX</string>
+             </property>
+             <property name="textInteractionFlags">
+              <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
              </property>
             </widget>
            </item>
@@ -597,6 +609,9 @@ font: bold 8pt;</string>
            <property name="text">
             <string>Current Sockets:</string>
            </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+           </property>
           </widget>
          </item>
          <item row="2" column="4">
@@ -778,6 +793,9 @@ font: bold 8pt;</string>
            <property name="text">
             <string>Desired Sockets:</string>
            </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+           </property>
           </widget>
          </item>
          <item row="3" column="0">
@@ -790,6 +808,9 @@ font: bold 8pt;</string>
            </property>
            <property name="text">
             <string>Missing Sockets:</string>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
            </property>
           </widget>
          </item>
@@ -1142,7 +1163,7 @@ font: bold 8pt;</string>
          <property name="verticalSpacing">
           <number>3</number>
          </property>
-         <item row="1" column="1" alignment="Qt::AlignLeft">
+         <item row="1" column="1" alignment="Qt::AlignHCenter">
           <widget class="QLineEdit" name="statsHpEdit">
            <property name="enabled">
             <bool>false</bool>
@@ -1170,7 +1191,7 @@ font: bold 8pt;</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="3" alignment="Qt::AlignLeft">
+         <item row="2" column="3" alignment="Qt::AlignHCenter">
           <widget class="QLineEdit" name="cottonRcvEdit">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -1192,7 +1213,7 @@ font: bold 8pt;</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="1" alignment="Qt::AlignLeft">
+         <item row="0" column="1" alignment="Qt::AlignHCenter">
           <widget class="QLabel" name="fixedCottonHpLabel">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -1207,11 +1228,14 @@ font: bold 8pt;</string>
             </size>
            </property>
            <property name="text">
-            <string>HP</string>
+            <string>&lt;b&gt;HP&lt;/b&gt;</string>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
            </property>
           </widget>
          </item>
-         <item row="1" column="3" alignment="Qt::AlignLeft">
+         <item row="1" column="3" alignment="Qt::AlignHCenter">
           <widget class="QLineEdit" name="statsRcvEdit">
            <property name="enabled">
             <bool>false</bool>
@@ -1239,7 +1263,7 @@ font: bold 8pt;</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="1" alignment="Qt::AlignLeft">
+         <item row="2" column="1" alignment="Qt::AlignHCenter">
           <widget class="QLineEdit" name="cottonHpEdit">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -1276,9 +1300,12 @@ font: bold 8pt;</string>
            <property name="text">
             <string>MAX</string>
            </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+           </property>
           </widget>
          </item>
-         <item row="1" column="2" alignment="Qt::AlignLeft">
+         <item row="1" column="2" alignment="Qt::AlignHCenter">
           <widget class="QLineEdit" name="statsAtkEdit">
            <property name="enabled">
             <bool>false</bool>
@@ -1306,7 +1333,7 @@ font: bold 8pt;</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="2" alignment="Qt::AlignLeft">
+         <item row="0" column="2" alignment="Qt::AlignHCenter">
           <widget class="QLabel" name="fixedCottonAtkLabel">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -1321,11 +1348,14 @@ font: bold 8pt;</string>
             </size>
            </property>
            <property name="text">
-            <string>ATK</string>
+            <string>&lt;b&gt;ATK&lt;/b&gt;</string>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
            </property>
           </widget>
          </item>
-         <item row="2" column="2" alignment="Qt::AlignLeft">
+         <item row="2" column="2" alignment="Qt::AlignHCenter">
           <widget class="QLineEdit" name="cottonAtkEdit">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -1364,9 +1394,12 @@ font: bold 8pt;</string>
            <property name="text">
             <string>Cotton:</string>
            </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+           </property>
           </widget>
          </item>
-         <item row="2" column="4" alignment="Qt::AlignLeft">
+         <item row="2" column="4" alignment="Qt::AlignHCenter">
           <widget class="QLineEdit" name="cottonTotalEdit">
            <property name="enabled">
             <bool>false</bool>
@@ -1418,9 +1451,12 @@ font: bold 8pt;</string>
            <property name="text">
             <string>Stats:</string>
            </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+           </property>
           </widget>
          </item>
-         <item row="0" column="3" alignment="Qt::AlignLeft">
+         <item row="0" column="3" alignment="Qt::AlignHCenter">
           <widget class="QLabel" name="fixedCottonRcvLabel">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -1435,7 +1471,10 @@ font: bold 8pt;</string>
             </size>
            </property>
            <property name="text">
-            <string>RCV</string>
+            <string>&lt;b&gt;RCV&lt;/b&gt;</string>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
            </property>
           </widget>
          </item>
@@ -1473,6 +1512,9 @@ font: bold 8pt;</string>
              </property>
              <property name="text">
               <string>Training Points:</string>
+             </property>
+             <property name="textInteractionFlags">
+              <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
              </property>
             </widget>
            </item>
@@ -1517,6 +1559,9 @@ font: bold 8pt;</string>
            </property>
            <property name="text">
             <string>MAX</string>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
            </property>
           </widget>
          </item>
@@ -1571,6 +1616,9 @@ font: bold 8pt;</string>
              <property name="text">
               <string>Unlocked Limit Break nodes:</string>
              </property>
+             <property name="textInteractionFlags">
+              <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+             </property>
             </widget>
            </item>
            <item alignment="Qt::AlignRight">
@@ -1614,6 +1662,9 @@ font: bold 8pt;</string>
            </property>
            <property name="text">
             <string>MAX</string>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
            </property>
           </widget>
          </item>
@@ -1815,6 +1866,9 @@ font: bold 8pt;</string>
            </property>
            <property name="text">
             <string>Potential abilities:</string>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
            </property>
           </widget>
          </item>

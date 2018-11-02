@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <socket.h>
 
 /**
  * @brief The possible classes of a character
@@ -18,7 +19,7 @@ enum class Class
  */
 enum class Type
 {
-    StartType, STR, DEX, QCK, PSY, INT, None, EndTypes
+    StartType, STR, DEX, QCK, PSY, INT, EndTypes
 };
 
 /**
@@ -92,5 +93,9 @@ std::string to_string(Slots _slots);
  * @return the corresponding Slots of _value
  */
 Slots stringToSlots(std::string _value);
+
+std::string to_string(Socket::Type _socket);
+
+Socket::Type stringToSocket(std::string _value);
 
 #endif //ENUMS_HPP

@@ -44,7 +44,9 @@ SOURCES += \
     sources/backend/tandem.cpp \
     sources/backend/filter.cpp \
     sources/frontend/advancedFilters.cpp \
-    sources/frontend/sortwidget.cpp
+    sources/frontend/sortwidget.cpp \
+    sources/frontend/about.cpp \
+    sources/frontend/donate.cpp
 
 HEADERS += \
     headers/frontend/details.h \
@@ -73,7 +75,9 @@ HEADERS += \
     headers/backend/tandem.h \
     headers/backend/filter.h \
     headers/frontend/advancedFilters.h \
-    headers/frontend/sortwidget.h
+    headers/frontend/sortwidget.h \
+    headers/frontend/about.h \
+    headers/frontend/donate.h
 
 FORMS += \
     ui/details.ui \
@@ -85,7 +89,9 @@ FORMS += \
     ui/conditionWidget.ui \
     ui/filterWidget.ui \
     ui/advancedFilters.ui \
-    ui/sortwidget.ui
+    ui/sortwidget.ui \
+    ui/about.ui \
+    ui/donate.ui
 
 RESOURCES += \
     resources/ui/resources.qrc

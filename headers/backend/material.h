@@ -23,7 +23,7 @@ public:
     {
         STR, DEX, QCK, PSY, INT,
         Luffy, Zoro, Nami, Usopp, Sanji, Chopper, Robin, Franky, Brook,
-        Doffy, Judge, Reiju, Ichiji, Niji, Yonji, Higuma
+        Doffy, Judge, Reiju, Ichiji, Niji, Yonji, Higuma, Enel, SanjiLegend, FrankyLegend
     };
 
     /**

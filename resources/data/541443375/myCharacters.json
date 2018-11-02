@@ -8,7 +8,11 @@
             ],
             "Level": 99,
             "SkillLevel": 1,
-            "WantToFinish": false
+            "WantToFinishCotton": true,
+            "WantToFinishLevel": true,
+            "WantToFinishLimitBreak": true,
+            "WantToFinishSkill": true,
+            "WantToFinishSockets": true
         }
     },
     "12": {
@@ -18,11 +22,18 @@
                 0,
                 0
             ],
+            "CurrentSockets": {
+                "Bind": 3
+            },
             "LbUnlockedNodes": 0,
-            "Level": 99,
+            "Level": 70,
             "SkillLevel": 1,
             "TrainingPoints": 0,
-            "WantToFinish": false
+            "WantToFinishCotton": true,
+            "WantToFinishLevel": true,
+            "WantToFinishLimitBreak": true,
+            "WantToFinishSkill": true,
+            "WantToFinishSockets": true
         }
     },
     "1353": {
@@ -34,7 +45,11 @@
             ],
             "Level": 99,
             "SkillLevel": 1,
-            "WantToFinish": false
+            "WantToFinishCotton": true,
+            "WantToFinishLevel": true,
+            "WantToFinishLimitBreak": true,
+            "WantToFinishSkill": true,
+            "WantToFinishSockets": true
         }
     },
     "1853": {
@@ -48,7 +63,11 @@
             "Level": 99,
             "SkillLevel": 1,
             "TrainingPoints": 3000000,
-            "WantToFinish": false
+            "WantToFinishCotton": true,
+            "WantToFinishLevel": true,
+            "WantToFinishLimitBreak": true,
+            "WantToFinishSkill": true,
+            "WantToFinishSockets": true
         }
     },
     "1985": {
@@ -76,7 +95,11 @@
             "Level": 99,
             "SkillLevel": 1,
             "TrainingPoints": 0,
-            "WantToFinish": false
+            "WantToFinishCotton": true,
+            "WantToFinishLevel": true,
+            "WantToFinishLimitBreak": true,
+            "WantToFinishSkill": true,
+            "WantToFinishSockets": true
         }
     },
     "20": {
@@ -84,13 +107,17 @@
             "Cotton": [
                 0,
                 0,
-                0
+                100
             ],
             "LbUnlockedNodes": 0,
             "Level": 99,
             "SkillLevel": 6,
-            "TrainingPoints": 0,
-            "WantToFinish": false
+            "TrainingPoints": 50,
+            "WantToFinishCotton": true,
+            "WantToFinishLevel": true,
+            "WantToFinishLimitBreak": true,
+            "WantToFinishSkill": true,
+            "WantToFinishSockets": true
         }
     },
     "2000": {
@@ -101,7 +128,7 @@
                 0
             ],
             "CurrentPotentials": {
-                "CriticalHit": 1,
+                "CriticalHit": 3,
                 "PinchHealing": 1
             },
             "CurrentSockets": {
@@ -120,7 +147,11 @@
             "Level": 99,
             "SkillLevel": 1,
             "TrainingPoints": 3000000,
-            "WantToFinish": false
+            "WantToFinishCotton": true,
+            "WantToFinishLevel": true,
+            "WantToFinishLimitBreak": true,
+            "WantToFinishSkill": true,
+            "WantToFinishSockets": true
         }
     },
     "2148": {
@@ -134,7 +165,11 @@
             "Level": 99,
             "SkillLevel": 1,
             "TrainingPoints": 0,
-            "WantToFinish": false
+            "WantToFinishCotton": true,
+            "WantToFinishLevel": true,
+            "WantToFinishLimitBreak": true,
+            "WantToFinishSkill": true,
+            "WantToFinishSockets": true
         }
     },
     "2201": {
@@ -146,9 +181,13 @@
             ],
             "LbUnlockedNodes": 0,
             "Level": 99,
-            "SkillLevel": 1,
+            "SkillLevel": 6,
             "TrainingPoints": 0,
-            "WantToFinish": false
+            "WantToFinishCotton": true,
+            "WantToFinishLevel": true,
+            "WantToFinishLimitBreak": true,
+            "WantToFinishSkill": false,
+            "WantToFinishSockets": true
         }
     },
     "227": {
@@ -162,7 +201,11 @@
             "Level": 99,
             "SkillLevel": 16,
             "TrainingPoints": 2000000,
-            "WantToFinish": false
+            "WantToFinishCotton": true,
+            "WantToFinishLevel": true,
+            "WantToFinishLimitBreak": true,
+            "WantToFinishSkill": true,
+            "WantToFinishSockets": true
         }
     },
     "261": {
@@ -195,7 +238,11 @@
             "Level": 99,
             "SkillLevel": 1,
             "TrainingPoints": 5000000,
-            "WantToFinish": false
+            "WantToFinishCotton": true,
+            "WantToFinishLevel": true,
+            "WantToFinishLimitBreak": true,
+            "WantToFinishSkill": true,
+            "WantToFinishSockets": true
         }
     },
     "30": {
@@ -207,7 +254,11 @@
             ],
             "Level": 66,
             "SkillLevel": 7,
-            "WantToFinish": false
+            "WantToFinishCotton": true,
+            "WantToFinishLevel": true,
+            "WantToFinishLimitBreak": true,
+            "WantToFinishSkill": true,
+            "WantToFinishSockets": true
         }
     },
     "4": {
@@ -218,8 +269,8 @@
                 0
             ],
             "CurrentPotentials": {
-                "Enrage": 1,
-                "NoHealing": 1
+                "Enrage": 5,
+                "NoHealing": 5
             },
             "CurrentSockets": {
                 "AH": 5,
@@ -235,7 +286,11 @@
             "Level": 99,
             "SkillLevel": 8,
             "TrainingPoints": 2000000,
-            "WantToFinish": true
+            "WantToFinishCotton": true,
+            "WantToFinishLevel": true,
+            "WantToFinishLimitBreak": true,
+            "WantToFinishSkill": true,
+            "WantToFinishSockets": true
         },
         "1": {
             "Cotton": [
@@ -247,7 +302,11 @@
             "Level": 40,
             "SkillLevel": 1,
             "TrainingPoints": 0,
-            "WantToFinish": false
+            "WantToFinishCotton": true,
+            "WantToFinishLevel": true,
+            "WantToFinishLimitBreak": true,
+            "WantToFinishSkill": true,
+            "WantToFinishSockets": true
         }
     },
     "724": {
@@ -259,7 +318,11 @@
             ],
             "Level": 11,
             "SkillLevel": 10,
-            "WantToFinish": false
+            "WantToFinishCotton": true,
+            "WantToFinishLevel": true,
+            "WantToFinishLimitBreak": true,
+            "WantToFinishSkill": true,
+            "WantToFinishSockets": true
         }
     },
     "787": {
@@ -271,14 +334,18 @@
             ],
             "Level": 33,
             "SkillLevel": 7,
-            "WantToFinish": false
+            "WantToFinishCotton": true,
+            "WantToFinishLevel": true,
+            "WantToFinishLimitBreak": true,
+            "WantToFinishSkill": true,
+            "WantToFinishSockets": true
         }
     },
     "8": {
         "0": {
             "Cotton": [
-                0,
-                0,
+                50,
+                50,
                 0
             ],
             "CurrentSockets": {
@@ -296,7 +363,11 @@
             "Level": 50,
             "SkillLevel": 1,
             "TrainingPoints": 0,
-            "WantToFinish": false
+            "WantToFinishCotton": true,
+            "WantToFinishLevel": false,
+            "WantToFinishLimitBreak": true,
+            "WantToFinishSkill": true,
+            "WantToFinishSockets": true
         }
     },
     "951": {
@@ -310,7 +381,11 @@
             "Level": 99,
             "SkillLevel": 1,
             "TrainingPoints": 0,
-            "WantToFinish": false
+            "WantToFinishCotton": true,
+            "WantToFinishLevel": true,
+            "WantToFinishLimitBreak": true,
+            "WantToFinishSkill": true,
+            "WantToFinishSockets": true
         }
     },
     "995": {
@@ -324,7 +399,11 @@
             "Level": 99,
             "SkillLevel": 1,
             "TrainingPoints": 0,
-            "WantToFinish": false
+            "WantToFinishCotton": true,
+            "WantToFinishLevel": true,
+            "WantToFinishLimitBreak": true,
+            "WantToFinishSkill": true,
+            "WantToFinishSockets": true
         }
     }
 }

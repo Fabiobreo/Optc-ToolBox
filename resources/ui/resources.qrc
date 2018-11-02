@@ -76,5 +76,12 @@
         <file>skullQCK.png</file>
         <file>skullSTR.png</file>
         <file>save.png</file>
+        <file>buyMeACoffee.png</file>
+        <file>buyMeACoffeeIcon.png</file>
+        <file>info.png</file>
+        <file>logout.png</file>
+        <file>skullEnel.png</file>
+        <file>skullFrankie.png</file>
+        <file>skullSanji2.png</file>
     </qresource>
 </RCC>

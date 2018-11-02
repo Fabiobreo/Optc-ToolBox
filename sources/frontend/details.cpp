@@ -14,9 +14,6 @@ Details::Details(Utility* _utility, short _characterId, QWidget *_parent) :
     characterId(_characterId)
 {
     ui->setupUi(this);
-    connect(this, SIGNAL(changeCharacterDetail(int)), this->parent(), SLOT(changeDetails(int)));
-    connect(this, SIGNAL(changedOwnedState()), this->parent(), SLOT(redraw()));
-
     characters = utility->characters;
     myCharacters = utility->myCharacters;
 
@@ -127,7 +124,7 @@ void Details::setArt(Character* _character)
     }
     else
     {
-        Type ch_type = _character->getType().empty()? Type::None : _character->getType()[0];
+        Type ch_type = _character->getType().empty()? Type::StartType : _character->getType()[0];
         QString type(QString::fromStdString(to_string(ch_type)));
         pixmap = new QPixmap(workingPath + "/resources/icons/blank_" + type.toLower() + ".png");
     }
@@ -545,13 +542,13 @@ void Details::setEvolutionTab(Character* _character)
             /* Connect signals and slots and add to grid */
             int evoId = evolutions_character[j]->getId();
             connect(evoCharacter, &QPushButton::clicked, this->parent(), [this, evoId]{ changeCharacterDetail(evoId); });
-            ui->evolutionGrid->addWidget(evoCharacter, j, 0);
+            ui->evolutionGrid->addWidget(evoCharacter, static_cast<int>(j), 0);
 
             /* Add equals symbol */
             std::vector<Character*> evolvers = _character->getEvolvers(evolutions_character[j]);
             QLabel* lab = new QLabel(this);
             lab->setText("=");
-            ui->evolutionGrid->addWidget(lab, j, 1, Qt::AlignCenter);
+            ui->evolutionGrid->addWidget(lab, static_cast<int>(j), 1, Qt::AlignCenter);
             std::vector<Material*> materials = _character->getEvolutionMaterials(evolutions_character[j]);
 
             /* Add evolvers */
@@ -565,7 +562,7 @@ void Details::setEvolutionTab(Character* _character)
                 mat->setMaximumSize(QSize(60, 60));
                 mat->setIcon(QIcon(*evolvers[i / 2]->getColoredIcon()));
                 mat->setIconSize(QSize(60, 60));
-                ui->evolutionGrid->addWidget(mat, j, (i + 2));
+                ui->evolutionGrid->addWidget(mat, static_cast<int>(j), static_cast<int>(i + 2));
 
                 connect(mat, &QPushButton::clicked, this->parent(), [this, id]{ changeCharacterDetail(id); });
 
@@ -577,7 +574,7 @@ void Details::setEvolutionTab(Character* _character)
                 }
                 QLabel* lab = new QLabel(this);
                 lab->setText("+");
-                ui->evolutionGrid->addWidget(lab, j, (i + 2), Qt::AlignCenter);
+                ui->evolutionGrid->addWidget(lab, static_cast<int>(j), static_cast<int>(i + 2), Qt::AlignCenter);
             }
 
             for (unsigned long i = 0; i < 2 * materials.size(); ++i)
@@ -588,7 +585,7 @@ void Details::setEvolutionTab(Character* _character)
                 mat->setMaximumSize(QSize(60, 60));
                 mat->setIcon(QIcon(*materials[i / 2]->getColoredIcon()));
                 mat->setIconSize(QSize(60, 60));
-                ui->evolutionGrid->addWidget(mat, j, 2 * evolvers.size() + 1 + (i + 2));
+                ui->evolutionGrid->addWidget(mat, static_cast<int>(j), static_cast<int>(2 * evolvers.size() + 1 + (i + 2)));
 
                 // TODO Creare nuovo detail?
                 //connect(mat, &QPushButton::clicked, this->parent(), [this, id]{ changeCharacterDetail(id); });
@@ -601,7 +598,7 @@ void Details::setEvolutionTab(Character* _character)
                 }
                 QLabel* lab = new QLabel(this);
                 lab->setText("+");
-                ui->evolutionGrid->addWidget(lab, j, 2 * evolvers.size() + 1 + (i + 2), Qt::AlignCenter);
+                ui->evolutionGrid->addWidget(lab, static_cast<int>(j), static_cast<int>(2 * evolvers.size() + 1 + (i + 2)), Qt::AlignCenter);
             }
         }
     }
@@ -730,12 +727,12 @@ void Details::on_LeftButton_clicked()
     if (!ui->RightButton->isHidden())
     {
         ui->LeftButton->hide();
-        characterToLoad = (*characters)[characterId - 1]->getDualUnits()[0];
+        characterToLoad = (*characters)[static_cast<unsigned int>(characterId - 1)]->getDualUnits()[0];
     }
     else
     {
         ui->RightButton->show();
-        characterToLoad = (*characters)[characterId - 1];
+        characterToLoad = (*characters)[static_cast<unsigned int>(characterId - 1)];
     }
     setName(characterToLoad);
     setTypes(characterToLoad);
@@ -751,12 +748,12 @@ void Details::on_RightButton_clicked()
     if (!ui->LeftButton->isHidden())
     {
         ui->RightButton->hide();
-        characterToLoad = (*characters)[characterId - 1]->getDualUnits()[1];
+        characterToLoad = (*characters)[static_cast<unsigned int>(characterId - 1)]->getDualUnits()[1];
     }
     else
     {
         ui->LeftButton->show();
-        characterToLoad = (*characters)[characterId - 1];
+        characterToLoad = (*characters)[static_cast<unsigned int>(characterId - 1)];
     }
     setName(characterToLoad);
     setTypes(characterToLoad);

@@ -13,6 +13,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -25,12 +26,13 @@ public:
     QGridLayout *filterLayout;
     QPushButton *addConditionButton;
     QPushButton *addFilterButton;
+    QSpacerItem *verticalSpacer;
 
     void setupUi(QWidget *FilterWidget)
     {
         if (FilterWidget->objectName().isEmpty())
             FilterWidget->setObjectName(QStringLiteral("FilterWidget"));
-        FilterWidget->resize(400, 67);
+        FilterWidget->resize(550, 73);
         verticalLayout = new QVBoxLayout(FilterWidget);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         filterLayout = new QGridLayout();
@@ -60,6 +62,10 @@ public:
         addFilterButton->setSizePolicy(sizePolicy1);
 
         verticalLayout->addWidget(addFilterButton, 0, Qt::AlignRight);
+
+        verticalSpacer = new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout->addItem(verticalSpacer);
 
         QWidget::setTabOrder(addConditionButton, addFilterButton);
 

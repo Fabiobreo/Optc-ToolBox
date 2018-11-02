@@ -106,7 +106,6 @@ void Special::addOffset(short _value)
     offsets.push_back(_value);
 }
 
-
 short Special::getStageOffset(unsigned long _num)
 {
     if (_num > 0 && _num <= offsets.size())

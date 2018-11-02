@@ -3,6 +3,8 @@
 #include <filterWidget.h>
 #include <QPushButton>
 #include <QSpacerItem>
+#include <QStyle>
+#include <QDesktopWidget>
 
 AdvancedFilters::AdvancedFilters(Utility* _utility, QWidget* _parent) :
     QMainWindow(_parent),
@@ -19,7 +21,6 @@ AdvancedFilters::AdvancedFilters(Utility* _utility, QWidget* _parent) :
 
     ui->gridLayout->addWidget(filter, 0, 0);
     ui->gridLayout->addItem(spacer, 1, 0, 1, 1);
-
 }
 
 AdvancedFilters::~AdvancedFilters()

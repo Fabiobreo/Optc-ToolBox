@@ -16,6 +16,7 @@ Database::Database(Utility* _utility, QWidget* _parent) :
     utility(_utility)
 {
     ui->setupUi(this);
+    qRegisterMetaTypeStreamOperators<CharacterItem>();
     filter = new Filter(_utility);
     advancedFilters = new AdvancedFilters(utility, this);
     sortWidget = new SortWidget(utility, this);
@@ -24,6 +25,7 @@ Database::Database(Utility* _utility, QWidget* _parent) :
     myCharacters = _utility->myCharacters;
 
     ui->characterList->setViewMode(QListWidget::IconMode);
+    ui->characterList->setMovement(QListView::Static);
     ui->characterList->setIconSize(QSize(60, 60));
     ui->characterList->setResizeMode(QListWidget::Adjust);
 
@@ -61,7 +63,7 @@ void Database::setIdCondition(QString _text)
     Condition::Operator currentOperator;
     if (_text != "")
     {
-        Condition condition("filterById", Condition::Target::Id, Condition::Operator::NumOperators, _text.toUtf8().constData());
+        Condition condition(utility, "filterById", Condition::Target::Id, Condition::Operator::NumOperators, _text.toUtf8().constData());
         currentOperator = condition.getOperatorFromDescription(ui->idOperator->currentText().toUtf8().constData());
 
         bool alreadyIn = false;
@@ -127,7 +129,7 @@ void Database::on_filterByName_textChanged(const QString& _text)
 
     if (!alreadyIn)
     {
-        Condition condition("filterByName", Condition::Target::Name, Condition::Operator::Equal, toSearch);
+        Condition condition(utility, "filterByName", Condition::Target::Name, Condition::Operator::Equal, toSearch);
         filter->addAndCondition(condition);
     }
     redraw();
@@ -137,28 +139,7 @@ void Database::openCloseDetails(short _id)
 {
     if (!open)
     {
-        /* Create vertical line */
-        QWidget *verticalLineWidget = new QWidget;
-        verticalLineWidget->setFixedWidth(2);
-        verticalLineWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
-        verticalLineWidget->setStyleSheet(QString("background-color: #c0c0c0;"));
-        ui->gridLayout->addWidget(verticalLineWidget, 0, 1, 2, 1);
-
-        /**/
-        Details* charMenu = new Details(utility, _id, this);
-        connect(this, SIGNAL(changeEditModeDb()), charMenu, SLOT(editModeChangedDb()));
-        QScrollArea *scrollArea = new QScrollArea();
-        scrollArea->setWidget(charMenu);
-        scrollArea->setFixedWidth(charMenu->width() + 20);
-        detailMenu = charMenu;
-        ui->gridLayout->addWidget(scrollArea, 0, 2, 2, 1);
-
-        /* Full screen handling */
-        QScreen *screen = QGuiApplication::primaryScreen();
-        int newWidth = size().width() + charMenu->width();
-        newWidth = this->parentWidget()->windowState() == Qt::WindowMaximized ? screen->geometry().width() : newWidth;
-        resize(newWidth, size().height());
-
+        emit request_detail(true, _id);
         open = true;
         openId = _id;
     }
@@ -166,26 +147,13 @@ void Database::openCloseDetails(short _id)
     {
         if (openId != _id)
         {
-            Tools::removeColumn(ui->gridLayout, 2, true);
-            Details* charMenu = new Details(utility, _id, this);
-            connect(this, SIGNAL(changeEditModeDb()), charMenu, SLOT(editModeChangedDb()));
-            QScrollArea *scrollArea = new QScrollArea();
-            scrollArea->setWidget(charMenu);
-            scrollArea->setFixedWidth(charMenu->width() + 20);
-            ui->gridLayout->addWidget(scrollArea, 0, 2, 2, 1);
-            detailMenu = charMenu;
+            emit request_detail(true, _id);
             openId = _id;
         }
         else
         {
+            emit request_detail(false, _id);
             open = false;
-
-            QScreen *screen = QGuiApplication::primaryScreen();
-            int newWidth = size().width() - detailMenu->width();
-            newWidth = this->parentWidget()->windowState() == Qt::WindowMaximized ? screen->geometry().width() : newWidth;
-            resize(newWidth, size().height());
-            Tools::removeColumn(ui->gridLayout, 1, true);
-            Tools::removeColumn(ui->gridLayout, 2, true);
         }
     }
 }
